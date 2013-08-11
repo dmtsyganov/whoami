@@ -3,10 +3,7 @@ package org.dnt.whoami.dao;
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
 import com.mongodb.MongoClient;
-import org.dnt.whoami.model.Interview;
-import org.dnt.whoami.model.InterviewTemplate;
-import org.dnt.whoami.model.Question;
-import org.dnt.whoami.model.UserRecord;
+import org.dnt.whoami.model.*;
 
 import java.net.UnknownHostException;
 
@@ -18,36 +15,41 @@ import java.net.UnknownHostException;
 public enum DaoClient {
     Instance;
 
-    public final static String defaultHost = "localhost";
-    public final static int defaultPort = 27017;
-    public final static String defaultDs = "mydb";
-
     private MongoClient client;
     private Datastore ds;
+
     private UserDao userDao;
+//    private InterviewTemplateDao userProfileDao;
 
-    synchronized public void connect() throws UnknownHostException {
-        if(client == null)
-            client = new MongoClient(defaultHost, defaultPort);
-    }
-
-    synchronized public void connect(String host, int port) throws UnknownHostException {
+    synchronized public void connect(String host, int port, String datastoreName) throws UnknownHostException {
         client = new MongoClient(host, port);
         Morphia morphia = new Morphia();
         // initialize morphia with model classes
         morphia.map(UserRecord.class);
+        morphia.map(UserProfile.class);
         morphia.map(Question.class);
         morphia.map(Interview.class);
         morphia.map(InterviewTemplate.class);
 
-        ds = morphia.createDatastore(client, defaultDs);
+        ds = morphia.createDatastore(client, datastoreName);
+        ds.ensureIndexes(); //creates all defined with @Indexed
     }
 
     // return model dao objects
-    public UserDao getUserDao() {
+    synchronized public UserDao getUserDao() {
         if(userDao == null) {
             userDao = new UserDao(ds);
         }
         return userDao;
     }
+
+/*
+    synchronized public InterviewTemplateDao getUserProfileDao() {
+        if(userProfileDao == null) {
+            userProfileDao = new InterviewTemplateDao(ds);
+        }
+        return userProfileDao;
+    }
+*/
 }
+

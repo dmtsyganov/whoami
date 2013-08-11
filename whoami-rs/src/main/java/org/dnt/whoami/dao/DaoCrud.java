@@ -1,5 +1,7 @@
 package org.dnt.whoami.dao;
 
+import org.bson.types.ObjectId;
+
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  */
 public interface DaoCrud<T> {
 
-    void create(T object);
+    public ObjectId create(T object);
 
     public List<T> read(final T objectTemplate);
 

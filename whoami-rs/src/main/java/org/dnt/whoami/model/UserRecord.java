@@ -1,10 +1,12 @@
 package org.dnt.whoami.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
+import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
+import com.google.code.morphia.annotations.Indexed;
 import org.bson.types.ObjectId;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * TODO: add class description
@@ -12,40 +14,30 @@ import org.bson.types.ObjectId;
  * @since  5/25/13 2:04 AM
  */
 @XmlRootElement
-@Entity
+@Entity(noClassnameStored=true)
 public class UserRecord {
 
     @Id
     private ObjectId id;
 
+    @Indexed(unique=true)//, dropDups=true)
     private String login;
+
     private String password;
-    private String fullName;
-    private String email;
-    private int age;
     private UserRole role;
-    private Date dateCreated;
-    private Date dateUpdated;
+
+    @Embedded
+    UserProfile profile;
 
     public UserRecord() {
     }
 
     public UserRecord(String login,
                       String password,
-                      String fullName,
-                      String email,
-                      int age,
-                      UserRole role,
-                      Date dateCreated,
-                      Date dateUpdated) {
+                      UserRole role) {
         this.login = login;
         this.password = password;
-        this.fullName = fullName;
-        this.email = email;
-        this.age = age;
         this.role = role;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
     }
 
     public ObjectId getObjectId() {
@@ -78,30 +70,6 @@ public class UserRecord {
         this.password = password;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public UserRole getRole() {
         return role;
     }
@@ -110,19 +78,21 @@ public class UserRecord {
         this.role = role;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public UserProfile getProfile() {
+        return profile;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setProfile(UserProfile profile) {
+        this.profile = profile;
     }
 
-    public Date getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(Date dateUpdated) {
-        this.dateUpdated = dateUpdated;
+    @Override
+    public String toString() {
+        return "UserRecord{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", role=" + role +
+                ", profile=" + profile +
+                '}';
     }
 }

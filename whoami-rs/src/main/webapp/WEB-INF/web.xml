@@ -5,40 +5,35 @@
          version="3.0">
 
     <display-name>WhoAmI Web Application</display-name>
+    <context-param>
+        <description>database uri</description>
+        <param-name>daoHost</param-name>
+        <param-value>localhost</param-value>
+    </context-param>
+    <context-param>
+        <description>database port</description>
+        <param-name>daoPort</param-name>
+        <param-value>27017</param-value>
+    </context-param>
+    <context-param>
+        <description>datastore name</description>
+        <param-name>datastoreName</param-name>
+        <param-value>testdb</param-value>
+    </context-param>
 
     <servlet>
-        <servlet-name>whoami-servlet</servlet-name>
-        <servlet-class>org.dnt.whoami.WhoamiServlet</servlet-class>
-        <init-param>
-            <param-name>daoHost</param-name>
-            <param-value>localhost</param-value>
-        </init-param>
-        <init-param>
-            <param-name>daoPort</param-name>
-            <param-value>27017</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    
-    <servlet>
-        <servlet-name>whoami-resources</servlet-name>
-        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>org.dnt.whoami.rest</param-value>
-        </init-param>
+        <display-name>Who Am I Application</display-name>
+        <servlet-name>org.dnt.whoami.WhoamiApplication</servlet-name>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-<!--
     <servlet-mapping>
-        <servlet-name>whoami-servlet</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
--->
-
-    <servlet-mapping>
-        <servlet-name>whoami-resources</servlet-name>
+        <servlet-name>org.dnt.whoami.WhoamiApplication</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+
+    <listener>
+        <listener-class>org.dnt.whoami.WhoamiContextListener</listener-class>
+    </listener>
+
 </web-app>

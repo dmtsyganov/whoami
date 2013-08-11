@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since  5/25/13 2:04 PM
  */
 @XmlRootElement
-@Entity
+@Entity(noClassnameStored=true)
 public class Interview {
 
     @Id

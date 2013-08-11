@@ -1,10 +1,10 @@
 package org.dnt.whoami.dao;
 
 import com.google.code.morphia.Datastore;
-import com.google.code.morphia.Key;
 import com.google.code.morphia.mapping.Mapper;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.UpdateResults;
+import org.bson.types.ObjectId;
 import org.dnt.whoami.model.UserRecord;
 
 import java.util.Collections;
@@ -24,8 +24,12 @@ public class UserDao implements DaoCrud<UserRecord>{
     }
 
     @Override
-    public void create(UserRecord object) {
-        Key<UserRecord> key = ds.save(object);
+    public ObjectId create(UserRecord userRecord) {
+        if (ds.save(userRecord) != null) {
+            return userRecord.getObjectId();
+        }
+
+        return null;
     }
 
     @Override
@@ -35,13 +39,18 @@ public class UserDao implements DaoCrud<UserRecord>{
             return ds.find(UserRecord.class).asList();
         } else if (objectTemplate.getId() != null) {
             // return record by unique user id
-            return Collections.singletonList(ds.get(objectTemplate));
+            UserRecord record = ds.get(objectTemplate);
+            if(record == null) {
+                return Collections.emptyList();
+            }
+            else
+                return Collections.singletonList(record);
         } else if (objectTemplate.getLogin() != null) {
             // return record by unique login name
             return ds.find(UserRecord.class).field("login").equal(objectTemplate.getLogin()).asList();
-        } else {
-            return Collections.EMPTY_LIST;
         }
+
+        return Collections.emptyList();
     }
 
     @Override
@@ -49,11 +58,11 @@ public class UserDao implements DaoCrud<UserRecord>{
         Query<UserRecord> query = ds.createQuery(UserRecord.class).field(Mapper.ID_KEY).equal(object.getObjectId());
         // UpdateOperations<UserRecord> update = ds.createUpdateOperations(UserRecord.class);
         UpdateResults<UserRecord> result = ds.updateFirst(query, object, false);
-        return result.getHadError();
+        return !result.getHadError();
     }
 
     @Override
     public UserRecord delete(UserRecord objectTemplate) {
-        return ds.findAndDelete(ds.createQuery(UserRecord.class).filter("login", objectTemplate.getLogin()));
+        return ds.findAndDelete(ds.createQuery(UserRecord.class).field(Mapper.ID_KEY).equal(objectTemplate.getObjectId()));
     }
 }

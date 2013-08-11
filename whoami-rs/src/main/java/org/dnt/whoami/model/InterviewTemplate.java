@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since  5/25/13 2:08 PM
  */
 @XmlRootElement
-@Entity
+@Entity(noClassnameStored=true)
 public class InterviewTemplate {
 
     @Id
@@ -20,4 +20,19 @@ public class InterviewTemplate {
 
     public InterviewTemplate() {
     }
+
+    public ObjectId getObjectId() {
+        return id;
+    }
+
+    public String getId() {
+        return id != null ? id.toString() : null;
+    }
+
+    public void setId(String id) {
+        if(ObjectId.isValid(id)) {
+            this.id = new ObjectId(id);
+        }
+    }
+
 }

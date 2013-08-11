@@ -11,14 +11,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 /**
- * TODO: add class description
+ * TODO: add class description here
+ *
  * @author dima
- * @since  5/24/13 12:28 AM
+ * @since 8/11/13 4:53 AM
  */
-@Path("/interviews")
+@Path("/templates")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
-public class InterviewResource {
+public class InterviewTemplateResource {
 
     private final Logger logger = LoggerFactory.getLogger(InterviewTemplateResource.class);
 

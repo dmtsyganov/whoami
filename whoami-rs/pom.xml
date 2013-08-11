@@ -65,7 +65,32 @@
         <dependency>
             <groupId>com.google.code.morphia</groupId>
             <artifactId>morphia</artifactId>
-            <version>0.99</version>
+            <version>0.102</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.morphia</groupId>
+            <artifactId>morphia-logging-slf4j</artifactId>
+            <version>0.102</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.2</version>
         </dependency>
 
         <!--Optional Jars (for certain features) but required by maven for bulding. -->
