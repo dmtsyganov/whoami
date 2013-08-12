@@ -28,7 +28,6 @@ public class UserDao implements DaoCrud<UserRecord>{
         if (ds.save(userRecord) != null) {
             return userRecord.getObjectId();
         }
-
         return null;
     }
 
@@ -36,18 +35,23 @@ public class UserDao implements DaoCrud<UserRecord>{
     public List<UserRecord> read(UserRecord objectTemplate) {
         if (objectTemplate == null) {
             // return all records
-            return ds.find(UserRecord.class).asList();
+            Query<UserRecord> q = ds.find(UserRecord.class);
+
+            if(q != null) {
+                return q.asList();
+            }
         } else if (objectTemplate.getId() != null) {
             // return record by unique user id
             UserRecord record = ds.get(objectTemplate);
-            if(record == null) {
-                return Collections.emptyList();
-            }
-            else
+            if(record != null) {
                 return Collections.singletonList(record);
+            }
         } else if (objectTemplate.getLogin() != null) {
             // return record by unique login name
-            return ds.find(UserRecord.class).field("login").equal(objectTemplate.getLogin()).asList();
+            Query<UserRecord> q = ds.find(UserRecord.class).field("login").equal(objectTemplate.getLogin());
+            if(q != null) {
+                return q.asList();
+            }
         }
 
         return Collections.emptyList();

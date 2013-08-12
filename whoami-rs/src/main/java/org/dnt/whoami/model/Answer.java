@@ -1,6 +1,8 @@
 package org.dnt.whoami.model;
 
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
+import org.bson.types.ObjectId;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,5 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 public class Answer {
 
+    @Id
+    private ObjectId id;
 
+    public Answer() {
+
+    }
 }

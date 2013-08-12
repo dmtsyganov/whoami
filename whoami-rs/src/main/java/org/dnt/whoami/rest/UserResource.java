@@ -60,6 +60,7 @@ public class UserResource {
     }
 
     @GET
+    @Path("/query")
     public Response getUserByLogin(@QueryParam("login") String login) {
         UserDao userDao = DaoClient.Instance.getUserDao();
         UserRecord template = new UserRecord();
@@ -121,7 +122,6 @@ public class UserResource {
     @DELETE
     public Response deleteUser(UserRecord user) {
         UserDao userDao = DaoClient.Instance.getUserDao();
-
         UserRecord deleted = userDao.delete(user);
 
         if (deleted == null) {
@@ -138,7 +138,6 @@ public class UserResource {
     @GET
     @Path("/{id}/profile")
     public Response getUserProfile(@PathParam("id") String id) {
-
         UserDao userDao = DaoClient.Instance.getUserDao();
         UserRecord template = new UserRecord();
         template.setId(id);

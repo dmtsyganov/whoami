@@ -19,7 +19,8 @@ public enum DaoClient {
     private Datastore ds;
 
     private UserDao userDao;
-//    private InterviewTemplateDao userProfileDao;
+    private InterviewTemplateDao interviewTemplateDao;
+    private QuestionDao questionDao;
 
     synchronized public void connect(String host, int port, String datastoreName) throws UnknownHostException {
         client = new MongoClient(host, port);
@@ -28,8 +29,9 @@ public enum DaoClient {
         morphia.map(UserRecord.class);
         morphia.map(UserProfile.class);
         morphia.map(Question.class);
-        morphia.map(Interview.class);
         morphia.map(InterviewTemplate.class);
+        morphia.map(Answer.class);
+        morphia.map(Interview.class);
 
         ds = morphia.createDatastore(client, datastoreName);
         ds.ensureIndexes(); //creates all defined with @Indexed
@@ -43,13 +45,19 @@ public enum DaoClient {
         return userDao;
     }
 
-/*
-    synchronized public InterviewTemplateDao getUserProfileDao() {
-        if(userProfileDao == null) {
-            userProfileDao = new InterviewTemplateDao(ds);
+    synchronized public InterviewTemplateDao getInterviewTemplateDao() {
+        if( interviewTemplateDao == null) {
+            interviewTemplateDao = new InterviewTemplateDao(ds);
         }
-        return userProfileDao;
+        return interviewTemplateDao;
     }
-*/
+
+    synchronized public QuestionDao getQuestionDao() {
+        if( questionDao == null) {
+            questionDao = new QuestionDao(ds);
+        }
+        return questionDao;
+    }
+
 }
 
