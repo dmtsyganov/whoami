@@ -16,36 +16,19 @@ import java.util.List;
  * @author dima
  * @since 8/11/13 4:40 AM
  */
-public class InterviewTemplateDao implements DaoCrud<InterviewTemplate> {
-
-    private final Datastore ds;
+public class InterviewTemplateDao extends AbstractDaoCrud<InterviewTemplate> {
 
     public InterviewTemplateDao(Datastore ds) {
-        this.ds = ds;
+        super(ds);
     }
 
     @Override
-    public ObjectId create(InterviewTemplate interviewTemplate) {
-        if (ds.save(interviewTemplate) != null) {
-            return interviewTemplate.getObjectId();
-        }
-
-        return null;
-    }
-
-    @Override
-    public List<InterviewTemplate> read(InterviewTemplate objectTemplate) {
+    public List<InterviewTemplate> find(InterviewTemplate objectTemplate) {
         if (objectTemplate == null) {
             // return all records
             Query<InterviewTemplate> q = ds.find(InterviewTemplate.class);
             if(q != null) {
                 return q.asList();
-            }
-        } else if (objectTemplate.getId() != null) {
-            // return record by unique user id
-            InterviewTemplate record = ds.get(objectTemplate);
-            if(record != null) {
-                return Collections.singletonList(record);
             }
         }
 

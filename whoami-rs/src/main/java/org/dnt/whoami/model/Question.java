@@ -15,18 +15,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(noClassnameStored=true)
 public class Question {
 
+    public enum QuestionType {
+        YES_NO, SCORE
+    }
+
     @Id
     private ObjectId id;
 
     private String text;
     private PersonalityTrait trait;
+    private QuestionType type;
 
     public Question() {
     }
 
-    public Question(String text, PersonalityTrait trait) {
+    public Question(String text, PersonalityTrait trait, QuestionType type) {
         this.text = text;
         this.trait = trait;
+        this.type = type;
     }
 
     public ObjectId getObjectId() {
@@ -63,12 +69,21 @@ public class Question {
         this.trait = trait;
     }
 
+    public QuestionType getType() {
+        return type;
+    }
+
+    public void setType(QuestionType type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
                 ", trait=" + trait +
+                ", type=" + type +
                 '}';
     }
 }

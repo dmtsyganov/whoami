@@ -8,5 +8,5 @@ package org.dnt.whoami.model;
 public enum UserRole {
     USER,
     ADMINISTRATOR,
-    EDITOR;
+    EDITOR
 }

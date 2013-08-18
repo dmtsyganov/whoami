@@ -3,7 +3,11 @@ package org.dnt.whoami.dao;
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
 import com.mongodb.MongoClient;
-import org.dnt.whoami.model.*;
+import com.sun.jersey.spi.resource.Singleton;
+import org.dnt.whoami.model.Interview;
+import org.dnt.whoami.model.InterviewTemplate;
+import org.dnt.whoami.model.Question;
+import org.dnt.whoami.model.UserRecord;
 
 import java.net.UnknownHostException;
 
@@ -12,6 +16,7 @@ import java.net.UnknownHostException;
  * @author dima
  * @since  5/25/13 3:56 PM
  */
+@Singleton
 public enum DaoClient {
     Instance;
 
@@ -21,16 +26,15 @@ public enum DaoClient {
     private UserDao userDao;
     private InterviewTemplateDao interviewTemplateDao;
     private QuestionDao questionDao;
+    private InterviewDao interviewDao;
 
     synchronized public void connect(String host, int port, String datastoreName) throws UnknownHostException {
         client = new MongoClient(host, port);
         Morphia morphia = new Morphia();
         // initialize morphia with model classes
         morphia.map(UserRecord.class);
-        morphia.map(UserProfile.class);
         morphia.map(Question.class);
         morphia.map(InterviewTemplate.class);
-        morphia.map(Answer.class);
         morphia.map(Interview.class);
 
         ds = morphia.createDatastore(client, datastoreName);
@@ -59,5 +63,11 @@ public enum DaoClient {
         return questionDao;
     }
 
+    synchronized public InterviewDao getInterviewDao() {
+        if( interviewDao == null) {
+            interviewDao = new InterviewDao(ds);
+        }
+        return interviewDao;
+    }
 }
 

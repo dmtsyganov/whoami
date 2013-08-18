@@ -1,5 +1,7 @@
 package org.dnt.whoami.model;
 
+import com.google.code.morphia.annotations.Entity;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -9,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since 8/11/13 4:31 PM
  */
 @XmlRootElement
-
+@Entity(noClassnameStored=true)
 public class Trait {
     private String name;
     private String description;

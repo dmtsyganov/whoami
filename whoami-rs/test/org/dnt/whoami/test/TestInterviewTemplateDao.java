@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO: add class description here
+ * Tests for InterviewTemplate dao
  *
  * @author dima
  * @since 8/11/13 6:46 PM
@@ -31,13 +31,13 @@ public class TestInterviewTemplateDao extends TestBase  {
         questionDao = DaoClient.Instance.getQuestionDao();
 
         // clear all interviews
-        List<InterviewTemplate> templates = templateDao.read(null);
+        List<InterviewTemplate> templates = templateDao.find(null);
         for(InterviewTemplate t: templates) {
             templateDao.delete(t);
         }
 
         // clear all interview questions
-        List<Question> questions = questionDao.read(null);
+        List<Question> questions = questionDao.find(null);
         for(Question q: questions) {
             questionDao.delete(q);
         }
@@ -47,14 +47,15 @@ public class TestInterviewTemplateDao extends TestBase  {
     public void testInterviewTemplateWithQuestions() {
 
         InterviewTemplate template = new InterviewTemplate("Interview One", "First Interview", null);
-        ObjectId id = templateDao.create(template);
+        templateDao.create(template);
+        ObjectId id = template.getObjectId();
         Assert.assertNotNull("Interview template created", template);
         Assert.assertNotNull("Must have id", template.getObjectId());
 
         List<Question> questions = new ArrayList<Question>();
-        questions.add(new Question("Question One", PersonalityTrait.ONE));
-        questions.add(new Question("Question Two", PersonalityTrait.TWO));
-        questions.add(new Question("Question Three", PersonalityTrait.THREE));
+        questions.add(new Question("Question One", PersonalityTrait.ONE, Question.QuestionType.SCORE));
+        questions.add(new Question("Question Two", PersonalityTrait.TWO, Question.QuestionType.YES_NO));
+        questions.add(new Question("Question Three", PersonalityTrait.THREE, Question.QuestionType.SCORE));
 
         List<ObjectId> questionIds = new ArrayList<ObjectId>(questions.size());
         for(Question q: questions) {

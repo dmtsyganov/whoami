@@ -1,8 +1,7 @@
 package org.dnt.whoami.rest;
 
+import com.google.code.morphia.Key;
 import com.mongodb.MongoException;
-import org.bson.types.ObjectId;
-import org.dnt.whoami.dao.DaoClient;
 import org.dnt.whoami.dao.UserDao;
 import org.dnt.whoami.model.UserProfile;
 import org.dnt.whoami.model.UserRecord;
@@ -15,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 /**
- * TODO: add class description
+ * User Resource class
  *
  * @author dima
  * @since 5/24/13 12:28 AM
@@ -30,10 +29,12 @@ public class UserResource {
     @Context
     UriInfo uriInfo;
 
+    @Context
+    UserDao userDao;
+
     @GET
     public Response getUsers() {
-        UserDao userDao = DaoClient.Instance.getUserDao();
-        List<UserRecord> records = userDao.read(null);
+        List<UserRecord> records = userDao.find(null);
         GenericEntity<List<UserRecord>> entity = new GenericEntity<List<UserRecord>>(records) {
         };
 
@@ -43,16 +44,12 @@ public class UserResource {
     @GET
     @Path("/{id}")
     public Response getUser(@PathParam("id") String id) {
-        UserDao userDao = DaoClient.Instance.getUserDao();
         UserRecord template = new UserRecord();
         template.setId(id);
-        List<UserRecord> records = userDao.read(template);
+        UserRecord record = userDao.read(template);
 
-        if (records.size() > 0) {
-            if (records.size() > 1)
-                logger.error("Multiple records match user id {}", id);
-
-            return Response.ok(records.get(0)).build();
+        if (record != null) {
+            return Response.ok(record).build();
         }
 
         logger.debug("User record not found for id {}", id);
@@ -62,11 +59,10 @@ public class UserResource {
     @GET
     @Path("/query")
     public Response getUserByLogin(@QueryParam("login") String login) {
-        UserDao userDao = DaoClient.Instance.getUserDao();
         UserRecord template = new UserRecord();
         template.setLogin(login);
 
-        List<UserRecord> records = userDao.read(template);
+        List<UserRecord> records = userDao.find(template);
 
         if (records.size() > 0) {
             if (records.size() > 1)
@@ -80,22 +76,20 @@ public class UserResource {
 
     @POST
     public Response setUser(UserRecord user) {
-        UserDao userDao = DaoClient.Instance.getUserDao();
-        ObjectId objectId;
-
+        Key<UserRecord> key;
         try {
-            objectId = userDao.create(user);
+            key = userDao.create(user);
         } catch (MongoException.DuplicateKey e) {
             logger.error("Duplicate login name {}", user.getLogin());
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        if (objectId == null) {
+        if (key == null) {
             logger.error("Unable to create user {}", user);
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        String id = objectId.toString();
+        String id = user.getId();
         logger.debug("User created with id {}", id);
         // build new resource uri
         StringBuilder uriString = new StringBuilder(uriInfo.getBaseUri().toString());
@@ -108,8 +102,6 @@ public class UserResource {
 
     @PUT
     public Response updateUser(UserRecord user) {
-        UserDao userDao = DaoClient.Instance.getUserDao();
-
         if (!userDao.update(user)) {
             logger.error("Unable to update user {}", user);
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -121,12 +113,9 @@ public class UserResource {
 
     @DELETE
     public Response deleteUser(UserRecord user) {
-        UserDao userDao = DaoClient.Instance.getUserDao();
         UserRecord deleted = userDao.delete(user);
-
         if (deleted == null) {
             logger.error("Unable to delete user {}", user);
-
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
@@ -138,16 +127,12 @@ public class UserResource {
     @GET
     @Path("/{id}/profile")
     public Response getUserProfile(@PathParam("id") String id) {
-        UserDao userDao = DaoClient.Instance.getUserDao();
         UserRecord template = new UserRecord();
         template.setId(id);
-        List<UserRecord> records = userDao.read(template);
+        UserRecord record = userDao.read(template);
 
-        if (records.size() > 0) {
-            if (records.size() > 1)
-                logger.error("Multiple records match user id {}", id);
-
-            return Response.ok(records.get(0).getProfile()).build();
+        if (record != null) {
+            return Response.ok(record.getProfile()).build();
         }
 
         logger.debug("User profile not found for id {}", id);
@@ -157,26 +142,19 @@ public class UserResource {
     @POST
     @Path("/{id}/profile")
     public Response setUserProfile(@PathParam("id") String id, UserProfile profile) {
-
-        UserDao userDao = DaoClient.Instance.getUserDao();
-
         UserRecord template = new UserRecord();
         template.setId(id);
-        List<UserRecord> records = userDao.read(template);
+        UserRecord record = userDao.read(template);
 
-        if (records.size() == 0) {
+        if (record == null) {
             logger.debug("User profile not found for id {}", id);
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        if (records.size() > 1) {
-            logger.error("Multiple records match user id {}", id);
-        }
+        record.setProfile(profile);
 
-        records.get(0).setProfile(profile);
-
-        if (!userDao.update(records.get(0))) {
-            logger.error("Unable to update user {}", records.get(0));
+        if (!userDao.update(record)) {
+            logger.error("Unable to update user {}", record);
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
@@ -195,26 +173,19 @@ public class UserResource {
     @PUT
     @Path("/{id}/profile")
     public Response updateUserProfile(@PathParam("id") String id, UserProfile profile) {
-
-        UserDao userDao = DaoClient.Instance.getUserDao();
-
         UserRecord template = new UserRecord();
         template.setId(id);
-        List<UserRecord> records = userDao.read(template);
+        UserRecord record = userDao.read(template);
 
-        if (records.size() == 0) {
+        if (record == null) {
             logger.debug("User profile not found for id {}", id);
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        if (records.size() > 1) {
-            logger.error("Multiple records match user id {}", id);
-        }
+        record.setProfile(profile);
 
-        records.get(0).setProfile(profile);
-
-        if (!userDao.update(records.get(0))) {
-            logger.error("Unable to update user {}", records.get(0));
+        if (!userDao.update(record)) {
+            logger.error("Unable to update user {}", record);
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
@@ -225,26 +196,19 @@ public class UserResource {
     @DELETE
     @Path("/{id}/profile")
     public Response deleteUserProfile(@PathParam("id") String id) {
-
-        UserDao userDao = DaoClient.Instance.getUserDao();
-
         UserRecord template = new UserRecord();
         template.setId(id);
-        List<UserRecord> records = userDao.read(template);
+        UserRecord record = userDao.read(template);
 
-        if (records.size() == 0) {
+        if (record == null) {
             logger.debug("User profile not found for id {}", id);
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        if (records.size() > 1) {
-            logger.error("Multiple records match user id {}", id);
-        }
+        record.setProfile(null);
 
-        records.get(0).setProfile(null);
-
-        if (!userDao.update(records.get(0))) {
-            logger.error("Unable to delete user profile {}", records.get(0));
+        if (!userDao.update(record)) {
+            logger.error("Unable to delete user profile {}", record);
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

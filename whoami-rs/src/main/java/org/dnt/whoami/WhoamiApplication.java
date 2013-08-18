@@ -15,7 +15,7 @@ import java.util.Set;
 public class WhoamiApplication extends PackagesResourceConfig {
 
     public WhoamiApplication() {
-        super("org.dnt.whoami.rest");
+        super("org.dnt.whoami.rest", "org.dnt.whoami.dao");
     }
 
     public WhoamiApplication(String... packages) {
