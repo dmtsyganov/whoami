@@ -44,9 +44,8 @@ public class UserResource {
     @GET
     @Path("/{id}")
     public Response getUser(@PathParam("id") String id) {
-        UserRecord template = new UserRecord();
-        template.setId(id);
-        UserRecord record = userDao.read(template);
+
+        UserRecord record = userDao.read(new UserRecord(id));
 
         if (record != null) {
             return Response.ok(record).build();
@@ -76,39 +75,40 @@ public class UserResource {
 
     @POST
     public Response setUser(UserRecord user) {
-        Key<UserRecord> key;
-        try {
-            key = userDao.create(user);
-        } catch (MongoException.DuplicateKey e) {
-            logger.error("Duplicate login name {}", user.getLogin());
-            return Response.status(Response.Status.CONFLICT).build();
+        if(user.getObjectId() == null) {
+            // create new user record
+            Key<UserRecord> key;
+            try {
+                key = userDao.create(user);
+            } catch (MongoException.DuplicateKey e) {
+                logger.error("Duplicate login name {}", user.getLogin());
+                return Response.status(Response.Status.CONFLICT).build();
+            }
+
+            if (key == null) {
+                logger.error("Unable to create user {}", user);
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+
+            String id = user.getId();
+            logger.debug("User created with id {}", id);
+            // build new resource uri
+            StringBuilder uriString = new StringBuilder(uriInfo.getBaseUri().toString());
+            uriString.append(uriInfo.getPath());
+            uriString.append("/");
+            uriString.append(id);
+            URI uri = UriBuilder.fromUri(uriString.toString()).build();
+            return Response.created(uri).entity(id).build();
+        } else {
+            // update user record
+            if (!userDao.update(user)) {
+                logger.error("Unable to update user {}", user);
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+
+            logger.debug("User updated {}", user);
+            return Response.noContent().build();
         }
-
-        if (key == null) {
-            logger.error("Unable to create user {}", user);
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        String id = user.getId();
-        logger.debug("User created with id {}", id);
-        // build new resource uri
-        StringBuilder uriString = new StringBuilder(uriInfo.getBaseUri().toString());
-        uriString.append(uriInfo.getPath());
-        uriString.append("/");
-        uriString.append(id);
-        URI uri = UriBuilder.fromUri(uriString.toString()).build();
-        return Response.created(uri).entity(id).build();
-    }
-
-    @PUT
-    public Response updateUser(UserRecord user) {
-        if (!userDao.update(user)) {
-            logger.error("Unable to update user {}", user);
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        logger.debug("User updated {}", user);
-        return Response.noContent().build();
     }
 
     @DELETE
@@ -122,14 +122,15 @@ public class UserResource {
         return Response.ok().build();
     }
 
+    //====================================================================
     // User Profile
+    //====================================================================
 
     @GET
     @Path("/{id}/profile")
     public Response getUserProfile(@PathParam("id") String id) {
-        UserRecord template = new UserRecord();
-        template.setId(id);
-        UserRecord record = userDao.read(template);
+
+        UserRecord record = userDao.read(new UserRecord(id));
 
         if (record != null) {
             return Response.ok(record.getProfile()).build();
@@ -142,14 +143,15 @@ public class UserResource {
     @POST
     @Path("/{id}/profile")
     public Response setUserProfile(@PathParam("id") String id, UserProfile profile) {
-        UserRecord template = new UserRecord();
-        template.setId(id);
-        UserRecord record = userDao.read(template);
+
+        UserRecord record = userDao.read(new UserRecord(id));
 
         if (record == null) {
-            logger.debug("User profile not found for id {}", id);
+            logger.debug("User not found with id {}", id);
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+
+        boolean newProfile = record.getProfile() == null;
 
         record.setProfile(profile);
 
@@ -158,47 +160,26 @@ public class UserResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-
-        logger.debug("Profile created for user with id {}", id);
-        // build new resource uri
-        StringBuilder uriString = new StringBuilder(uriInfo.getBaseUri().toString());
-        uriString.append(uriInfo.getPath());
-        uriString.append("/");
-        uriString.append(id);
-        uriString.append("/profile");
-        URI uri = UriBuilder.fromUri(uriString.toString()).build();
-        return Response.created(uri).entity(id).build();
-    }
-
-    @PUT
-    @Path("/{id}/profile")
-    public Response updateUserProfile(@PathParam("id") String id, UserProfile profile) {
-        UserRecord template = new UserRecord();
-        template.setId(id);
-        UserRecord record = userDao.read(template);
-
-        if (record == null) {
-            logger.debug("User profile not found for id {}", id);
-            return Response.status(Response.Status.NOT_FOUND).build();
+        if(newProfile) {
+            logger.debug("Profile created for user with id {}", id);
+            // build new resource uri
+            StringBuilder uriString = new StringBuilder(uriInfo.getBaseUri().toString());
+            uriString.append(uriInfo.getPath());
+            uriString.append("/");
+            uriString.append(id);
+            uriString.append("/profile");
+            URI uri = UriBuilder.fromUri(uriString.toString()).build();
+            return Response.created(uri).entity(id).build();
+        } else {
+            logger.debug("Profile updated {}", profile);
+            return Response.noContent().build();
         }
-
-        record.setProfile(profile);
-
-        if (!userDao.update(record)) {
-            logger.error("Unable to update user {}", record);
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        logger.debug("User profile updated {}", profile);
-        return Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}/profile")
     public Response deleteUserProfile(@PathParam("id") String id) {
-        UserRecord template = new UserRecord();
-        template.setId(id);
-        UserRecord record = userDao.read(template);
+        UserRecord record = userDao.read(new UserRecord(id));
 
         if (record == null) {
             logger.debug("User profile not found for id {}", id);

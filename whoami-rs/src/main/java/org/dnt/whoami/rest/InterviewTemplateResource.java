@@ -50,9 +50,8 @@ public class InterviewTemplateResource {
     @GET
     @Path("/{id}")
     public Response getTemplate(@PathParam("id") String id) {
-        InterviewTemplate template = new InterviewTemplate();
-        template.setId(id);
-        InterviewTemplate interviewTemplate = interviewTemplateDao.read(template);
+
+        InterviewTemplate interviewTemplate = interviewTemplateDao.read(new InterviewTemplate(id));
 
         if (interviewTemplate != null) {
             return Response.ok(interviewTemplate).build();
@@ -64,39 +63,38 @@ public class InterviewTemplateResource {
 
     @POST
     public Response setTemplate(InterviewTemplate template) {
-        Key<InterviewTemplate> key;
-        try {
-            key = interviewTemplateDao.create(template);
-        } catch (MongoException.DuplicateKey e) {
-            logger.error("Duplicate interview id {}", template.getId());
-            return Response.status(Response.Status.CONFLICT).build();
+        if(template.getObjectId() == null) {
+            Key<InterviewTemplate> key;
+            try {
+                key = interviewTemplateDao.create(template);
+            } catch (MongoException.DuplicateKey e) {
+                logger.error("Duplicate interview id {}", template.getId());
+                return Response.status(Response.Status.CONFLICT).build();
+            }
+
+            if (key == null) {
+                logger.error("Unable to create interview template {}", template);
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+
+            String id = template.getId();
+            logger.debug("Interview template created with id {}", id);
+            // build new resource uri
+            StringBuilder uriString = new StringBuilder(uriInfo.getBaseUri().toString());
+            uriString.append(uriInfo.getPath());
+            uriString.append("/");
+            uriString.append(id);
+            URI uri = UriBuilder.fromUri(uriString.toString()).build();
+            return Response.created(uri).entity(id).build();
+        } else {
+            if (!interviewTemplateDao.update(template)) {
+                logger.error("Unable to update interview template {}", template);
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+
+            logger.debug("Interview template updated {}", template);
+            return Response.noContent().build();
         }
-
-        if (key == null) {
-            logger.error("Unable to create interview template {}", template);
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        String id = template.getId();
-        logger.debug("Interview template created with id {}", id);
-        // build new resource uri
-        StringBuilder uriString = new StringBuilder(uriInfo.getBaseUri().toString());
-        uriString.append(uriInfo.getPath());
-        uriString.append("/");
-        uriString.append(id);
-        URI uri = UriBuilder.fromUri(uriString.toString()).build();
-        return Response.created(uri).entity(id).build();
-    }
-
-    @PUT
-    public Response updateTemplate(InterviewTemplate template) {
-        if (!interviewTemplateDao.update(template)) {
-            logger.error("Unable to update interview template {}", template);
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        logger.debug("Interview template updated {}", template);
-        return Response.noContent().build();
     }
 
     @DELETE
@@ -116,9 +114,8 @@ public class InterviewTemplateResource {
     @GET
     @Path("/{id}/questions")
     public Response getInterviewQuestions(@PathParam("id") String id) {
-        InterviewTemplate template = new InterviewTemplate();
-        template.setId(id);
-        InterviewTemplate interviewTemplate = interviewTemplateDao.read(template);
+
+        InterviewTemplate interviewTemplate = interviewTemplateDao.read(new InterviewTemplate(id));
 
         if (interviewTemplate != null) {
             List<ObjectId> questionIds = interviewTemplate.getQuestions();
@@ -148,9 +145,8 @@ public class InterviewTemplateResource {
     @POST
     @Path("/{id}/questions")
     public Response setInterviewQuestions(@PathParam("id") String id, List<Question> questions) {
-        InterviewTemplate template = new InterviewTemplate();
-        template.setId(id);
-        InterviewTemplate interviewTemplate = interviewTemplateDao.read(template);
+
+        InterviewTemplate interviewTemplate = interviewTemplateDao.read(new InterviewTemplate(id));
 
         if (interviewTemplate == null) {
             logger.debug("Interview template not found for id {}", id);
@@ -177,16 +173,6 @@ public class InterviewTemplateResource {
         }
 
         logger.debug("Questions updated for interview template with id {}", id);
-        // build new resource uri
-        StringBuilder uriString = new StringBuilder(uriInfo.getBaseUri().toString());
-        uriString.append(uriInfo.getPath());
-        uriString.append("/");
-        uriString.append(id);
-        uriString.append("/questions");
-        URI uri = UriBuilder.fromUri(uriString.toString()).build();
-        return Response.created(uri).entity(id).build();
+        return Response.noContent().build();
     }
-
-
-
 }

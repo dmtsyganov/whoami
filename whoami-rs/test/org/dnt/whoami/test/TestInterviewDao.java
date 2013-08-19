@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO: add class description here
+ * Test interview resource
  *
  * @author dima
  * @since 8/18/13 1:51 PM
@@ -87,23 +87,19 @@ public class TestInterviewDao extends TestBase {
         Assert.assertTrue("Updated with questions", templateDao.update(template));
 
         // get user
-        UserRecord userTemplate = new UserRecord();
-        userTemplate.setId(uId.toString());
-        UserRecord userRecord = userDao.read(userTemplate);
+        UserRecord userRecord = userDao.read(new UserRecord(uId));
         Assert.assertNotNull("Must be user", userRecord);
         Assert.assertEquals("Must have same id", uId.toString(), userRecord.getId());
 
         // get interview template
-        InterviewTemplate interviewTemplateTemplate = new InterviewTemplate();
-        interviewTemplateTemplate.setId(tId.toString());
-        InterviewTemplate interview1 = templateDao.read(interviewTemplateTemplate);
+        InterviewTemplate interview1 = templateDao.read(new InterviewTemplate(tId));
         Assert.assertEquals("Must have same id", tId.toString(), interview1.getId());
         Assert.assertEquals("Must have three questions", 3, interview1.getQuestions().size());
 
         // get interview questions
         List<Question> interviewQuestions = new ArrayList<Question>(interview1.getQuestions().size());
+        Question questionTemplate = new Question();
         for(ObjectId qId: interview1.getQuestions()) {
-            Question questionTemplate = new Question();
             questionTemplate.setObjectId(qId);
             interviewQuestions.add(questionDao.read(questionTemplate));
         }
@@ -117,7 +113,7 @@ public class TestInterviewDao extends TestBase {
 
         List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
         for(Question q: interviewQuestions) {
-            answers.add(new Answer(q.getObjectId(), "Answer to " + q.getText()));
+            answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType(), "Answer to " + q.getText()));
         }
         interview.setAnswers(answers);
         Assert.assertNull("Does not have id yet", interview.getObjectId());
@@ -126,9 +122,7 @@ public class TestInterviewDao extends TestBase {
         interviewDao.create(interview);
         Assert.assertNotNull("Must have id now", interview.getObjectId());
 
-        Interview interview2 = new Interview();
-        interview2.setId(interview.getObjectId().toString());
-        Interview inter = interviewDao.read(interview2);
+        Interview inter = interviewDao.read(new Interview(interview.getObjectId()));
         Assert.assertEquals("Must have same id", interview.getObjectId().toString(), inter.getId());
         Assert.assertEquals("Must have three answers", 3, inter.getAnswers().size());
     }

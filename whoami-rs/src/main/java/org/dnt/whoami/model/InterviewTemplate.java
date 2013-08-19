@@ -29,6 +29,14 @@ public class InterviewTemplate {
     public InterviewTemplate() {
     }
 
+    public InterviewTemplate(String id) {
+        setId(id);
+    }
+
+    public InterviewTemplate(ObjectId id) {
+        this.id = id;
+    }
+
     public InterviewTemplate(String name, String description, List<ObjectId> questions) {
         this.name = name;
         this.description = description;

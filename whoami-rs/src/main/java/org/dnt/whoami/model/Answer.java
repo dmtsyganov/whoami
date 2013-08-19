@@ -1,14 +1,12 @@
 package org.dnt.whoami.model;
 
 import com.google.code.morphia.annotations.Embedded;
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
 import org.bson.types.ObjectId;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * TODO: add class description here
+ * The answer class, holds response to the question. Question is referenced by id.
  *
  * @author dima
  * @since 8/11/13 10:34 AM
@@ -18,13 +16,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Answer {
 
     private ObjectId question;
+    private PersonalityTrait trait;
+    private Question.QuestionType type;
     private String value;
 
     public Answer() {
     }
 
-    public Answer(ObjectId question, String value) {
+    public Answer(ObjectId question, PersonalityTrait trait, Question.QuestionType type) {
         this.question = question;
+        this.trait = trait;
+        this.type = type;
+    }
+
+    public Answer(ObjectId question, PersonalityTrait trait, Question.QuestionType type, String value) {
+        this.question = question;
+        this.trait = trait;
+        this.type = type;
         this.value = value;
     }
 
@@ -42,6 +50,22 @@ public class Answer {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public PersonalityTrait getTrait() {
+        return trait;
+    }
+
+    public void setTrait(PersonalityTrait trait) {
+        this.trait = trait;
+    }
+
+    public Question.QuestionType getType() {
+        return type;
+    }
+
+    public void setType(Question.QuestionType type) {
+        this.type = type;
     }
 
     @Override

@@ -33,6 +33,14 @@ public class Interview {
     public Interview() {
     }
 
+    public Interview(String id) {
+        setId(id);
+    }
+
+    public Interview(ObjectId id) {
+        this.id = id;
+    }
+
     public Interview(ObjectId userId,
                      ObjectId templateId,
                      List<Answer> answers,

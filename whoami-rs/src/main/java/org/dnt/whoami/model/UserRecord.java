@@ -32,6 +32,14 @@ public class UserRecord {
     public UserRecord() {
     }
 
+    public UserRecord(String id) {
+        setId(id);
+    }
+
+    public UserRecord(ObjectId id) {
+        this.id = id;
+    }
+
     public UserRecord(String login,
                       String password,
                       UserRole role) {
