@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="96b0d9bc-40d9-4bf0-bf03-3dc9f6594d43" name="Default" comment="whoami - main angular app, initial commit">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../whoami-admin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../whoami-admin/.idea/workspace.xml" />
+    <list default="true" id="96b0d9bc-40d9-4bf0-bf03-3dc9f6594d43" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="whoami.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="96b0d9bc-40d9-4bf0-bf03-3dc9f6594d43" time="1377365225886" ignored="false" />
+    <file path="/Dummy.txt" changelist="96b0d9bc-40d9-4bf0-bf03-3dc9f6594d43" time="1377365277581" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +166,11 @@
       <created>1377365227989</created>
       <updated>1377365227989</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="whoami/admin - main ide workspace files">
+      <created>1377365280248</created>
+      <updated>1377365280248</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -255,7 +258,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test - incode numeric value in the answer string" />
+    <option name="LAST_COMMIT_MESSAGE" value="whoami/admin - main ide workspace files" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -271,6 +274,7 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="whoami - main angular app, initial commit" />
     <MESSAGE value="Test - incode numeric value in the answer string" />
+    <MESSAGE value="whoami/admin - main ide workspace files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
