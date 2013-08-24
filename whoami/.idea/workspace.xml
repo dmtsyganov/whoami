@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96b0d9bc-40d9-4bf0-bf03-3dc9f6594d43" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../whoami-admin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../whoami-admin/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="whoami.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="96b0d9bc-40d9-4bf0-bf03-3dc9f6594d43" time="1377365277581" ignored="false" />
+    <file path="/Dummy.txt" changelist="96b0d9bc-40d9-4bf0-bf03-3dc9f6594d43" time="1377365290109" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +171,11 @@
       <created>1377365280248</created>
       <updated>1377365280248</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="whoami/admin - main ide workspace files">
+      <created>1377365292288</created>
+      <updated>1377365292288</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
