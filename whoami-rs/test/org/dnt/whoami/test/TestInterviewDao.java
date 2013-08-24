@@ -113,7 +113,7 @@ public class TestInterviewDao extends TestBase {
 
         List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
         for(Question q: interviewQuestions) {
-            answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType(), "Answer to " + q.getText()));
+            answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType(), "7"));
         }
         interview.setAnswers(answers);
         Assert.assertNull("Does not have id yet", interview.getObjectId());
