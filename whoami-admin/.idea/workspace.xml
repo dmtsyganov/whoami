@@ -3,11 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="269e4d50-e839-4e2a-a615-dec70404af3e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../whoami-rs/test/org/dnt/whoami/test/TestInterviewDao.java" afterPath="$PROJECT_DIR$/../whoami-rs/test/org/dnt/whoami/test/TestInterviewDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../whoami/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../whoami/.idea/workspace.xml" />
     </list>
     <ignored path="whoami-admin.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="269e4d50-e839-4e2a-a615-dec70404af3e" time="1377364734677" ignored="false" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="269e4d50-e839-4e2a-a615-dec70404af3e" time="1377364734057" ignored="false" />
+    <file path="/Dummy.txt" changelist="269e4d50-e839-4e2a-a615-dec70404af3e" time="1377365225886" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
