@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b33b258-c84a-467b-b2fb-fd0e1b438c1f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/org/dnt/whoami/test/TestInterviewDao.java" afterPath="$PROJECT_DIR$/test/org/dnt/whoami/test/TestInterviewDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../whoami/.gitignore" afterPath="$PROJECT_DIR$/../whoami/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../whoami-admin/.gitignore" afterPath="$PROJECT_DIR$/../whoami-admin/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../whoami-admin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../whoami-admin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../whoami/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../whoami/.idea/workspace.xml" />
     </list>
     <ignored path="wmoami-rs.iws" />
     <ignored path=".idea/workspace.xml" />
