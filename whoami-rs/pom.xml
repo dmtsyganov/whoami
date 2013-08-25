@@ -15,13 +15,26 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
-        <jersey.version>1.17</jersey.version>
+        <jersey.version>2.2</jersey.version>
+        <!--<jersey.version>1.17</jersey.version>-->
         <jetty.version>9.0.3.v20130506</jetty.version>
     </properties>
 
 
     <!-- Project dependencies -->
     <dependencies>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core"  -->
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+<!--
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-core</artifactId>
@@ -42,6 +55,12 @@
             <artifactId>jersey-multipart</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+-->
 
         <dependency>
             <groupId>org.mongodb</groupId>
@@ -49,11 +68,6 @@
             <version>2.11.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-servlet</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.eclipse.jetty.orbit</groupId>
@@ -111,7 +125,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.0</version>
+            <version>4.9</version>
             <scope>test</scope>
         </dependency>
 

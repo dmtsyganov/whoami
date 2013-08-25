@@ -22,6 +22,16 @@
     </context-param>
 
     <servlet>
+        <servlet-name>Who Am I Application</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>org.dnt.whoami.WhoamiApplication</param-value>
+        </init-param>
+    </servlet>
+
+<!--
+    <servlet>
         <display-name>Who Am I Application</display-name>
         <servlet-name>org.dnt.whoami.WhoamiApplication</servlet-name>
         <load-on-startup>1</load-on-startup>
@@ -31,6 +41,12 @@
         <servlet-name>org.dnt.whoami.WhoamiApplication</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+-->
+    <servlet-mapping>
+        <servlet-name>Who Am I Application</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
 
     <listener>
         <listener-class>org.dnt.whoami.WhoamiContextListener</listener-class>

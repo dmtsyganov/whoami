@@ -3,12 +3,12 @@ package org.dnt.whoami.dao;
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
 import com.mongodb.MongoClient;
-import com.sun.jersey.spi.resource.Singleton;
 import org.dnt.whoami.model.Interview;
 import org.dnt.whoami.model.InterviewTemplate;
 import org.dnt.whoami.model.Question;
 import org.dnt.whoami.model.UserRecord;
 
+import javax.inject.Singleton;
 import java.net.UnknownHostException;
 
 /**

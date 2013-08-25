@@ -10,6 +10,7 @@ import org.dnt.whoami.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
@@ -33,16 +34,16 @@ public class InterviewResource {
     @Context
     UriInfo uriInfo;
 
-    @Context
+    @Inject
     InterviewDao interviewDao;
 
-    @Context
+    @Inject
     UserDao userDao;
 
-    @Context
+    @Inject
     InterviewTemplateDao interviewTemplateDao;
 
-    @Context
+    @Inject
     QuestionDao questionDao;
 
     /**

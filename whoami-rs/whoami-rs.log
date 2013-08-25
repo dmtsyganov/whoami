@@ -66,3 +66,15 @@
 #logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
 #logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
 #logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
+#logback.classic pattern: %-4relative [%thread] %-5level %logger{35} - %msg%n
