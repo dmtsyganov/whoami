@@ -1,1 +1,15 @@
-<p>This is the interview view.</p>
+<div class="interview-panel">
+    <h4>Шаблоны Интервью</h4>
+    <!--<ul class="recipes">-->
+    <ul>
+        <li ng-repeat="template in templates">
+            <div><a href="/whoami-admin/#/viewInterview/{{template.id}}">{{template.name}}</a>
+            <span>{{ template.description }}</span></div>
+        </li>
+    </ul>
+    <form ng-submit="new()" class="form-horizontal">
+        <div class="form-actions">
+            <button class="btn btn-primary">Создать Новое</button>
+        </div>
+    </form>
+</div>

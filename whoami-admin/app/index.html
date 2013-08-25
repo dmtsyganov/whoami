@@ -3,6 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +28,24 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <div class="container">
+        <div class="navbar" ng-controller="NavigationCtrl">
+            <div class="navbar-inner">
+                <a class="brand" href="#/">Администратор</a>
+                <ul class="nav">
+                    <li ng-class="{active: routeIs('/')}"><a href="#/">Начало</a></li>
+                    <li ng-class="{active: routeIs('/user')}"><a href="#/user">Пользователь</a></li>
+                    <li ng-class="{active: routeIs('/interview')}"><a href="#/interview">Интервью</a></li>
+                </ul>
+
+                <ul class="nav pull-right">
+                    <li ng-class="{active: routeIs('/help')}"><a href="#/help">Помощь</a></li>
+                </ul>
+            </div>
+        </div>
+        <ng-view></ng-view>
+    </div>
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -73,6 +91,12 @@
         <script src="scripts/controllers/help.js"></script>
         <script src="scripts/services/users.js"></script>
         <script src="scripts/services/templates.js"></script>
+        <script src="scripts/directives/focus.js"></script>
+        <script src="scripts/controllers/navigation.js"></script>
+        <script src="scripts/controllers/editInterview.js"></script>
+        <script src="scripts/controllers/viewInterview.js"></script>
+        <script src="scripts/controllers/viewUser.js"></script>
+        <script src="scripts/controllers/editUser.js"></script>
         <!-- endbuild -->
 </body>
 </html>

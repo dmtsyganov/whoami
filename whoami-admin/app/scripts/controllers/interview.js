@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('whoamiAdminApp')
-  .controller('InterviewCtrl', ['$scope', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('InterviewCtrl', ['$scope', '$location', 'templates', function ($scope, $location, templates) {
+    $scope.templates = templates;
+
+    $scope.new = function() {
+        $location.path('/editInterview/' + 0);
+    };
   }]);

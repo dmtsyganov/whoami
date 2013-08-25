@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('whoamiAdminApp', [])
+angular.module('whoamiAdminApp', ['ngResource'])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -18,6 +18,22 @@ angular.module('whoamiAdminApp', [])
       .when('/help', {
         templateUrl: 'views/help.html',
         controller: 'HelpCtrl'
+      })
+      .when('/editInterview/:interviewId', {
+        templateUrl: 'views/editInterview.html',
+        controller: 'EditInterviewCtrl'
+      })
+      .when('/viewInterview/:interviewId', {
+        templateUrl: 'views/viewInterview.html',
+        controller: 'ViewInterviewCtrl'
+      })
+      .when('/viewUser/:userId', {
+        templateUrl: 'views/viewUser.html',
+        controller: 'ViewUserCtrl'
+      })
+      .when('/editUser/:userId', {
+        templateUrl: 'views/editUser.html',
+        controller: 'EditUserCtrl'
       })
       .otherwise({
         redirectTo: '/'

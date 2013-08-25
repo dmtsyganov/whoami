@@ -1,0 +1,14 @@
+<div class="interview-panel">
+    <h4>Просмотр Интервью</h4>
+    <div>
+     <span>{{ template.id }}</span>
+     <span>{{ template.name }}</span>
+     <span>{{ template.description }}</span>
+    </div>
+
+    <form ng-submit="edit()" class="form-horizontal">
+        <div class="form-actions">
+            <button class="btn btn-primary">Редактировать</button>
+        </div>
+    </form>
+</div>
