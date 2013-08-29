@@ -1,5 +1,4 @@
 'use strict';
 
-angular.module('whoamiAdminApp')
-  .controller('MainCtrl', ['$scope', function ($scope) {
+  myApp.controller('MainCtrl', ['$scope', function ($scope) {
   }]);

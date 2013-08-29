@@ -1,13 +1,20 @@
 <div class="interview-panel">
-    <h4>Просмотр Интервью</h4>
-    <div>
-     <span>{{ template.id }}</span>
-     <span>{{ template.name }}</span>
-     <span>{{ template.description }}</span>
-    </div>
+    <h4>Интервью</h4>
+
+    <h5>{{template.name}}</h5>
+    <div>{{template.description}}</div>
+    <h5>Вопросы</h5>
+    <ul class="unstyled">
+        <li ng-repeat="question in questions">
+            <span>{{question.text}}</span>
+            <span>{{question.trait}}</span>
+            <span>{{question.type}}</span>
+        </li>
+    </ul>
 
     <form ng-submit="edit()" class="form-horizontal">
         <div class="form-actions">
+            <button class="btn" ng-click="cancel()">Отменить</button>
             <button class="btn btn-primary">Редактировать</button>
         </div>
     </form>

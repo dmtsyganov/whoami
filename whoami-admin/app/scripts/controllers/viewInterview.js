@@ -1,10 +1,19 @@
 'use strict';
 
-angular.module('whoamiAdminApp')
-  .controller('ViewInterviewCtrl', ['$scope', '$route', '$location', 'templates', function ($scope, $route, $location, templates) {
-    var id = $route.current.params.interviewId;
-    $scope.template = templates[id];
-    $scope.edit = function() {
-        $location.path('/editInterview/' + $scope.template.id);
-    };
-  }]);
+myApp.controller('ViewInterviewCtrl',
+    ['$scope', '$route', '$location', 'template', 'questions',
+        function ($scope, $route, $location, template, questions) {
+
+            $scope.template = template;
+            $scope.questions = questions;
+
+            // back to the interview list
+            $scope.cancel = function() {
+                $location.path('/interview/');
+            };
+
+            // switch to the interview edit view
+            $scope.edit = function() {
+                $location.path('/editInterview/' + $scope.template.id);
+            };
+    }]);

@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('whoamiAdminApp', ['ngResource'])
-  .config(['$routeProvider', function ($routeProvider) {
+var myApp = angular.module('whoamiAdminApp', ['whoamiAdminApp.services']);
+
+
+  myApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -13,6 +15,11 @@ angular.module('whoamiAdminApp', ['ngResource'])
       })
       .when('/interview', {
         templateUrl: 'views/interview.html',
+        resolve: {
+            templates: function(LoadTemplates) {
+                return LoadTemplates();
+            }
+        },
         controller: 'InterviewCtrl'
       })
       .when('/help', {
@@ -21,10 +28,23 @@ angular.module('whoamiAdminApp', ['ngResource'])
       })
       .when('/editInterview/:interviewId', {
         templateUrl: 'views/editInterview.html',
+        resolve: {
+            template: function(LoadTemplate) {
+                return LoadTemplate();
+            }
+        },
         controller: 'EditInterviewCtrl'
       })
       .when('/viewInterview/:interviewId', {
         templateUrl: 'views/viewInterview.html',
+        resolve: {
+            template: function(LoadTemplate) {
+                return LoadTemplate();
+            },
+            questions: function(LoadQuestions) {
+                return LoadQuestions();
+            }
+        },
         controller: 'ViewInterviewCtrl'
       })
       .when('/viewUser/:userId', {

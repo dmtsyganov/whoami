@@ -1,9 +1,8 @@
 'use strict';
 
-angular.module('whoamiAdminApp')
-  .controller('EditInterviewCtrl', ['$scope','$route','$location', 'templates', function ($scope, $route, $location, templates) {
-    var id = $route.current.params.interviewId;
-    $scope.template = templates[id];
+  myApp.controller('EditInterviewCtrl', ['$scope','$route','$location', 'template', function ($scope, $route, $location, template) {
+
+    $scope.template = template;
 
     $scope.save = function() {
 /*

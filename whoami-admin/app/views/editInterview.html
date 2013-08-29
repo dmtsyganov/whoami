@@ -1,14 +1,13 @@
 <div class="interview-panel">
-    <h4>Редактировать Интервью</h4>
+    <h4>Интервью</h4>
     <div>
-        <span>{{ template.id }}</span>
         <span>{{ template.name }}</span>
         <span>{{ template.description }}</span>
     </div>
 
     <form ng-submit="save()" class="form-horizontal">
         <div class="form-actions">
-            <button ng-click="cancel()">Отменить</button>
+            <button class="btn" ng-click="cancel()">Отменить</button>
             <button class="btn btn-primary">Сохранить</button>
         </div>
     </form>
