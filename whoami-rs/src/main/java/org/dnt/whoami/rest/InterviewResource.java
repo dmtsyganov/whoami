@@ -25,8 +25,8 @@ import java.util.Map;
  * @since  5/24/13 12:28 AM
  */
 @Path("/interviews")
-@Consumes({MediaType.APPLICATION_JSON})
-@Produces({MediaType.APPLICATION_JSON})
+@Consumes("application/json; charset=utf-8")
+@Produces("application/json; charset=utf-8")
 public class InterviewResource {
 
     private final Logger logger = LoggerFactory.getLogger(InterviewTemplateResource.class);
@@ -170,7 +170,7 @@ public class InterviewResource {
 
             List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
             for(Question q: interviewQuestions) {
-                answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType())); // add answer object w/o answer value
+                answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType(), q.getValueType())); // add answer object w/o answer value
             }
 
             interview.setAnswers(answers);
@@ -311,7 +311,7 @@ public class InterviewResource {
         Integer score = 0;
 
         try {
-            switch(answer.getType()) {
+            switch(answer.getValueType()) {
                 case SCORE:
                     score = Integer.valueOf(answer.getValue()); // from 0 up to max score (7)
                     break;

@@ -13,15 +13,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity(noClassnameStored=true)
 public class Trait {
+    private String category;
+    private String categoryName;
     private String name;
     private String description;
 
     public Trait() {
     }
 
-    public Trait(String name, String description) {
+    public Trait(String category, String categoryName, String name, String description) {
+        this.category = category;
+        this.categoryName = categoryName;
         this.name = name;
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getName() {
@@ -43,7 +63,9 @@ public class Trait {
     @Override
     public String toString() {
         return "Trait{" +
-                "name='" + name + '\'' +
+                "category='" + category + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

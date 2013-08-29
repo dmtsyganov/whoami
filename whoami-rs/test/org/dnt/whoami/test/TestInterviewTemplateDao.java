@@ -53,9 +53,12 @@ public class TestInterviewTemplateDao extends TestBase  {
         Assert.assertNotNull("Must have id", template.getObjectId());
 
         List<Question> questions = new ArrayList<Question>();
-        questions.add(new Question("Question One", PersonalityTrait.ONE, Question.QuestionType.SCORE));
-        questions.add(new Question("Question Two", PersonalityTrait.TWO, Question.QuestionType.YES_NO));
-        questions.add(new Question("Question Three", PersonalityTrait.THREE, Question.QuestionType.SCORE));
+        questions.add(new Question("Question One", PersonalityTrait.CONNOTATIVE,
+                Question.Type.DIRECT, Question.ValueType.SCORE));
+        questions.add(new Question("Question Two", PersonalityTrait.DOMINANT,
+                Question.Type.DIRECT, Question.ValueType.YES_NO));
+        questions.add(new Question("Question Three", PersonalityTrait.INTELLECTUAL,
+                Question.Type.INDIRECT, Question.ValueType.SCORE));
 
         List<ObjectId> questionIds = new ArrayList<ObjectId>(questions.size());
         for(Question q: questions) {

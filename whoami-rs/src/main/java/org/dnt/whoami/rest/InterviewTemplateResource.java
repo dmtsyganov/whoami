@@ -24,8 +24,8 @@ import java.util.List;
  * @since 8/11/13 4:53 AM
  */
 @Path("/templates")
-@Consumes({MediaType.APPLICATION_JSON})
-@Produces({MediaType.APPLICATION_JSON})
+@Consumes("application/json; charset=utf-8")
+@Produces("application/json; charset=utf-8")
 public class InterviewTemplateResource {
 
     private final Logger logger = LoggerFactory.getLogger(InterviewTemplateResource.class);

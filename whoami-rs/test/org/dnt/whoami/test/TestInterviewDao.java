@@ -72,9 +72,12 @@ public class TestInterviewDao extends TestBase {
         Assert.assertNotNull("Must have id", template.getObjectId());
 
         List<Question> questions = new ArrayList<Question>();
-        questions.add(new Question("Question One", PersonalityTrait.ONE, Question.QuestionType.SCORE));
-        questions.add(new Question("Question Two", PersonalityTrait.TWO, Question.QuestionType.YES_NO));
-        questions.add(new Question("Question Three", PersonalityTrait.THREE, Question.QuestionType.SCORE));
+        questions.add(new Question("Question One", PersonalityTrait.CONNOTATIVE,
+                Question.Type.DIRECT, Question.ValueType.SCORE));
+        questions.add(new Question("Question Two", PersonalityTrait.ENERGETIC,
+                Question.Type.DIRECT, Question.ValueType.YES_NO));
+        questions.add(new Question("Question Three", PersonalityTrait.SELF_ACTUALIZATION,
+                Question.Type.INDIRECT, Question.ValueType.SCORE));
 
         List<ObjectId> questionIds = new ArrayList<ObjectId>(questions.size());
         for(Question q: questions) {
@@ -113,7 +116,7 @@ public class TestInterviewDao extends TestBase {
 
         List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
         for(Question q: interviewQuestions) {
-            answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType(), "7"));
+            answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType(), q.getValueType(), "7"));
         }
         interview.setAnswers(answers);
         Assert.assertNull("Does not have id yet", interview.getObjectId());

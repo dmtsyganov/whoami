@@ -17,22 +17,27 @@ public class Answer {
 
     private ObjectId question;
     private PersonalityTrait trait;
-    private Question.QuestionType type;
+    private Question.Type type;
+    private Question.ValueType valueType;
     private String value;
 
     public Answer() {
     }
 
-    public Answer(ObjectId question, PersonalityTrait trait, Question.QuestionType type) {
+    public Answer(ObjectId question, PersonalityTrait trait,
+                  Question.Type type ,Question.ValueType valueType) {
         this.question = question;
         this.trait = trait;
         this.type = type;
+        this.valueType = valueType;
     }
 
-    public Answer(ObjectId question, PersonalityTrait trait, Question.QuestionType type, String value) {
+    public Answer(ObjectId question, PersonalityTrait trait,
+                  Question.Type type, Question.ValueType valueType, String value) {
         this.question = question;
         this.trait = trait;
         this.type = type;
+        this.valueType = valueType;
         this.value = value;
     }
 
@@ -60,18 +65,29 @@ public class Answer {
         this.trait = trait;
     }
 
-    public Question.QuestionType getType() {
+    public Question.Type getType() {
         return type;
     }
 
-    public void setType(Question.QuestionType type) {
+    public void setType(Question.Type type) {
         this.type = type;
+    }
+
+    public Question.ValueType getValueType() {
+        return valueType;
+    }
+
+    public void setValueType(Question.ValueType valueType) {
+        this.valueType = valueType;
     }
 
     @Override
     public String toString() {
         return "Answer{" +
                 "question=" + question +
+                ", trait=" + trait +
+                ", type=" + type +
+                ", valueType=" + valueType +
                 ", value='" + value + '\'' +
                 '}';
     }
