@@ -1,1 +1,45 @@
-<p>This is the editUser view.</p>
+<div class="interview-panel">
+
+    <h4>Пользователь</h4>
+
+    <form name="templateForm" ng-submit="save()" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="name">Имя(логин):</label>
+            <div class="controls">
+                <input ng-model="user.login" class="input-xxlarge" id="name" focus required>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Пароль::</label>
+            <div class="controls">
+                <input ng-model="user.password" class="input-xxlarge" id="password" required>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="role">Роль::</label>
+            <div class="controls">
+
+                <select ng-model="user.role" class="input-large"
+                        ng-options="r.role as r.name for r in userRoles" id="role"></select>
+<!--
+                <input ng-model="user.role" class="input-xxlarge" id="role">
+-->
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn" ng-click="cancel()">Отменить</button>
+            <button class="btn btn-primary">Сохранить</button>
+            <!--
+                        <button type="button"
+                                ng-click="remove()"
+                                ng-show="template.id"
+                                class="btn">Удалить</button>
+            -->
+        </div>
+    </form>
+
+    Debug View:
+    <pre>user={{user}}</pre>
+
+</div>

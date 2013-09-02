@@ -1,14 +1,69 @@
 <div class="interview-panel">
-    <h4>Интервью</h4>
-    <div>
-        <span>{{ template.name }}</span>
-        <span>{{ template.description }}</span>
-    </div>
 
-    <form ng-submit="save()" class="form-horizontal">
+    <h4>Интервью</h4>
+
+    <form name="templateForm" ng-submit="save()" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="name">Название:</label>
+            <div class="controls">
+                <input ng-model="template.name" class="input-xxlarge" id="name" focus required>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="description">Описание:</label>
+            <div class="controls">
+                <textarea ng-model="template.description"
+                          class="input-xxlarge"
+                          id="description"></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="active">Активно:</label>
+            <div class="controls">
+                <input type="checkbox" ng-model="template.active"
+                          class="input-large"
+                          id="active"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="questions">Вопросы:</label>
+            <div class="controls">
+                <ul id="questions" class="unstyled" ng-controller="EditQuestionCtrl">
+                    <li ng-repeat="question in template.questions">
+                        <textarea ng-model="question.text" class="input-large"></textarea>
+
+                        <select ng-model="question.trait" class="input-medium"
+                                ng-options="t.name as t.description for t in traits"></select>
+                        <select ng-model="question.type" class="input-medium"
+                                ng-options="q.type as q.name for q in questionTypes"></select>
+                        <select ng-model="question.valueType" class="input-small"
+                                ng-options="v.type as v.name for v in valueTypes"></select>
+
+                        <button type="button"
+                                class="btn btn-mini"
+                                ng-click="removeQuestion($index)">
+                            <i class="icon-minus-sign"></i> Удалить </button>
+                    </li>
+                    <button type="button"
+                            class="btn btn-mini"
+                            ng-click="addQuestion()">
+                        <i class="icon-plus-sign"></i> Добавить </button>
+                </ul>
+            </div>
+        </div>
         <div class="form-actions">
             <button class="btn" ng-click="cancel()">Отменить</button>
             <button class="btn btn-primary">Сохранить</button>
+<!--
+            <button type="button"
+                    ng-click="remove()"
+                    ng-show="template.id"
+                    class="btn">Удалить</button>
+-->
         </div>
     </form>
+
+    Debug View:
+    <pre>template={{template}}</pre>
+
 </div>

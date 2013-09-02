@@ -1,1 +1,13 @@
-<p>This is the viewUser view.</p>
+<div class="interview-panel">
+    <h4>Пользователь</h4>
+
+    <h5>{{ user.login }}</h5>
+    <div>{{ user.role }}</div>
+
+    <form ng-submit="edit()" class="form-horizontal">
+        <div class="form-actions">
+            <button class="btn" ng-click="cancel()">К началу</button>
+            <button class="btn btn-primary">Редактировать</button>
+        </div>
+    </form>
+</div>

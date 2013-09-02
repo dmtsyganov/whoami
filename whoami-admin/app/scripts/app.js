@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('whoamiAdminApp', ['whoamiAdminApp.services']);
+var myApp = angular.module('whoamiAdminApp', ['whoamiAdminApp.services', 'whoamiAdminApp.userServices']);
 
 
   myApp.config(['$routeProvider', function ($routeProvider) {
@@ -31,6 +31,9 @@ var myApp = angular.module('whoamiAdminApp', ['whoamiAdminApp.services']);
         resolve: {
             template: function(LoadTemplate) {
                 return LoadTemplate();
+            },
+            traits: function(LoadTraits) {
+                return LoadTraits();
             }
         },
         controller: 'EditInterviewCtrl'
@@ -41,18 +44,28 @@ var myApp = angular.module('whoamiAdminApp', ['whoamiAdminApp.services']);
             template: function(LoadTemplate) {
                 return LoadTemplate();
             },
-            questions: function(LoadQuestions) {
-                return LoadQuestions();
+            traits: function(LoadTraits) {
+                return LoadTraits();
             }
         },
         controller: 'ViewInterviewCtrl'
       })
       .when('/viewUser/:userId', {
         templateUrl: 'views/viewUser.html',
+        resolve: {
+            user: function(LoadUser) {
+                return LoadUser();
+            }
+        },
         controller: 'ViewUserCtrl'
       })
       .when('/editUser/:userId', {
         templateUrl: 'views/editUser.html',
+        resolve: {
+            user: function(LoadUser) {
+                return LoadUser();
+            }
+        },
         controller: 'EditUserCtrl'
       })
       .otherwise({
