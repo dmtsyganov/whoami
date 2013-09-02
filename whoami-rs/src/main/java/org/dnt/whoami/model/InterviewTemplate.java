@@ -25,6 +25,7 @@ public class InterviewTemplate {
     private String name;
     private String description;
     private boolean active;
+    private int order;
 
     @Embedded
     private List<Question> questions;
@@ -43,10 +44,12 @@ public class InterviewTemplate {
     public InterviewTemplate(String name,
                              String description,
                              boolean active,
+                             int order,
                              List<Question> questions) {
         this.name = name;
         this.description = description;
         this.active = active;
+        this.order = order;
         this.questions = questions;
     }
 
@@ -89,6 +92,14 @@ public class InterviewTemplate {
         this.active = active;
     }
 
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
     public List<Question> getQuestions() {
         return questions;
     }
@@ -100,9 +111,11 @@ public class InterviewTemplate {
     @Override
     public String toString() {
         return "InterviewTemplate{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", active=" + active +
+                ", order=" + order +
                 ", questions=" + questions +
                 '}';
     }

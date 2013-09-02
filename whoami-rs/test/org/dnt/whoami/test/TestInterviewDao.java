@@ -4,6 +4,7 @@ import junit.framework.Assert;
 import org.bson.types.ObjectId;
 import org.dnt.whoami.dao.*;
 import org.dnt.whoami.model.*;
+import org.dnt.whoami.utils.Calculator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -57,7 +58,7 @@ public class TestInterviewDao extends TestBase {
         Assert.assertNotNull("Must have id", userUser.getObjectId());
 
         // create interview template
-        InterviewTemplate template = new InterviewTemplate("Interview One", "First Interview", true, null);
+        InterviewTemplate template = new InterviewTemplate("Interview One", "First Interview", true, 1, null);
         templateDao.create(template);
         ObjectId tId = template.getObjectId();
         Assert.assertNotNull("Interview template created", template);
@@ -67,9 +68,13 @@ public class TestInterviewDao extends TestBase {
         questions.add(new Question("Question One", PersonalityTrait.CONNOTATIVE,
                 Question.Type.DIRECT, Question.ValueType.SCORE));
         questions.add(new Question("Question Two", PersonalityTrait.ENERGETIC,
-                Question.Type.DIRECT, Question.ValueType.YES_NO));
+                Question.Type.INDIRECT, Question.ValueType.YES_NO));
         questions.add(new Question("Question Three", PersonalityTrait.SELF_ACTUALIZATION,
-                Question.Type.INDIRECT, Question.ValueType.SCORE));
+                Question.Type.INDIRECT, Question.ValueType.YES_NO));
+        questions.add(new Question("Question Three", PersonalityTrait.INTELLECTUAL,
+                Question.Type.INDIRECT, Question.ValueType.YES_NO));
+        questions.add(new Question("Question Three", PersonalityTrait.INTELLECTUAL,
+                Question.Type.INDIRECT, Question.ValueType.YES_NO));
 
         template.setQuestions(questions);
         Assert.assertTrue("Updated with questions", templateDao.update(template));
@@ -82,7 +87,7 @@ public class TestInterviewDao extends TestBase {
         // get interview template
         InterviewTemplate interview1 = templateDao.read(new InterviewTemplate(tId));
         Assert.assertEquals("Must have same id", tId.toString(), interview1.getId());
-        Assert.assertEquals("Must have three questions", 3, interview1.getQuestions().size());
+        Assert.assertEquals("Must have five questions", 5, interview1.getQuestions().size());
 
         // get interview questions
         List<Question> interviewQuestions = interview1.getQuestions();
@@ -96,7 +101,11 @@ public class TestInterviewDao extends TestBase {
 
         List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
         for(Question q: interviewQuestions) {
-            answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), "7"));
+            if (q.getType() == Question.Type.DIRECT) {
+                answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), "7"));
+            } else if(q.getType() == Question.Type.INDIRECT) {
+                answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), "1"));
+            }
         }
         interview.setAnswers(answers);
         Assert.assertNull("Does not have id yet", interview.getObjectId());
@@ -107,6 +116,25 @@ public class TestInterviewDao extends TestBase {
 
         Interview inter = interviewDao.read(new Interview(interview.getObjectId()));
         Assert.assertEquals("Must have same id", interview.getObjectId().toString(), inter.getId());
-        Assert.assertEquals("Must have three answers", 3, inter.getAnswers().size());
+        Assert.assertEquals("Must have five answers", 5, inter.getAnswers().size());
+
+        // get interview results and validate
+        InterviewResult result = Calculator.calcInterviewResult(inter);
+        Assert.assertTrue("Interview is complete", result.isComplete());
+        Assert.assertEquals("Has one direct trait", 1, result.getDirectScores().size());
+        Assert.assertEquals("Direct score is 7", 7, result.getDirectScores().get(0).getScore());
+        Assert.assertEquals("Has three indirect trait", 3, result.getIndirectScores().size());
+
+        for(TraitScore score: result.getIndirectScores()) {
+            if(score.getTrait() == PersonalityTrait.INTELLECTUAL) {
+                Assert.assertEquals("Indirect score for Intellectual is 2", 2, score.getScore());
+            } else if(score.getTrait() == PersonalityTrait.SELF_ACTUALIZATION) {
+                Assert.assertEquals("Indirect score for Self Actualization is 1", 1, score.getScore());
+            } else if(score.getTrait() == PersonalityTrait.ENERGETIC) {
+                Assert.assertEquals("Indirect score for Energetic is 1", 1, score.getScore());
+            } else {
+                Assert.fail("Unexpected trait!");
+            }
+        }
     }
 }

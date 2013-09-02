@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO: add class description
+ * The Interview class. Holds answers for interview questions
+ *
  * @author dima
  * @since  5/25/13 2:04 PM
  */
@@ -30,9 +31,6 @@ public class Interview {
 
     private Date startDate;
     private Date endDate;
-
-    private Map<PersonalityTrait, Integer> indirectScores;
-    private Map<PersonalityTrait, Integer> directScores;
 
     public Interview() {
     }
@@ -111,22 +109,6 @@ public class Interview {
         this.endDate = endDate;
     }
 
-    public Map<PersonalityTrait, Integer> getDirectScores() {
-        return directScores;
-    }
-
-    public void setDirectScores(Map<PersonalityTrait, Integer> directScores) {
-        this.directScores = directScores;
-    }
-
-    public Map<PersonalityTrait, Integer> getIndirectScores() {
-        return indirectScores;
-    }
-
-    public void setIndirectScores(Map<PersonalityTrait, Integer> indirectScores) {
-        this.indirectScores = indirectScores;
-    }
-
     @Override
     public String toString() {
         return "Interview{" +
@@ -136,8 +118,6 @@ public class Interview {
                 ", answers=" + answers +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", indirectScores=" + indirectScores +
-                ", directScores=" + directScores +
                 '}';
     }
 }

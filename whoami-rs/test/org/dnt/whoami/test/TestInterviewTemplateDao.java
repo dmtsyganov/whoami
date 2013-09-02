@@ -1,7 +1,6 @@
 package org.dnt.whoami.test;
 
 import junit.framework.Assert;
-import org.bson.types.ObjectId;
 import org.dnt.whoami.dao.DaoClient;
 import org.dnt.whoami.dao.InterviewTemplateDao;
 import org.dnt.whoami.model.InterviewTemplate;
@@ -37,9 +36,8 @@ public class TestInterviewTemplateDao extends TestBase  {
     @Test
     public void testInterviewTemplateWithQuestions() {
 
-        InterviewTemplate template = new InterviewTemplate("Interview One", "First Interview", true, null);
+        InterviewTemplate template = new InterviewTemplate("Interview One", "First Interview", true, 1, null);
         templateDao.create(template);
-        ObjectId id = template.getObjectId();
         Assert.assertNotNull("Interview template created", template);
         Assert.assertNotNull("Must have id", template.getObjectId());
 

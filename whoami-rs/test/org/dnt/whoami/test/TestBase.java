@@ -4,7 +4,7 @@ import org.dnt.whoami.dao.DaoClient;
 import org.junit.BeforeClass;
 
 /**
- * TODO: add class description here
+ * Tests base, initializes connection to db
  *
  * @author dima
  * @since 8/11/13 2:41 AM

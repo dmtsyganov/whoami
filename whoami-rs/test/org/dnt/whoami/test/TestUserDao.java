@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * TODO: add class description here
+ * Test user dao unit tests
  *
  * @author dima
  * @since 8/11/13 2:47 AM
