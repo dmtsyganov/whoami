@@ -4,6 +4,7 @@ import com.google.code.morphia.annotations.*;
 import org.bson.types.ObjectId;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +27,12 @@ public class Interview {
 
     @Embedded
     private List<Answer> answers;
+
     private Date startDate;
     private Date endDate;
-    private Map<PersonalityTrait, Integer> scores;
+
+    private Map<PersonalityTrait, Integer> indirectScores;
+    private Map<PersonalityTrait, Integer> directScores;
 
     public Interview() {
     }
@@ -52,6 +56,7 @@ public class Interview {
         this.endDate = endDate;
     }
 
+    @XmlTransient
     public ObjectId getObjectId() {
         return id;
     }
@@ -106,12 +111,20 @@ public class Interview {
         this.endDate = endDate;
     }
 
-    public Map<PersonalityTrait, Integer> getScores() {
-        return scores;
+    public Map<PersonalityTrait, Integer> getDirectScores() {
+        return directScores;
     }
 
-    public void setScores(Map<PersonalityTrait, Integer> scores) {
-        this.scores = scores;
+    public void setDirectScores(Map<PersonalityTrait, Integer> directScores) {
+        this.directScores = directScores;
+    }
+
+    public Map<PersonalityTrait, Integer> getIndirectScores() {
+        return indirectScores;
+    }
+
+    public void setIndirectScores(Map<PersonalityTrait, Integer> indirectScores) {
+        this.indirectScores = indirectScores;
     }
 
     @Override
@@ -123,7 +136,8 @@ public class Interview {
                 ", answers=" + answers +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", scores=" + scores +
+                ", indirectScores=" + indirectScores +
+                ", directScores=" + directScores +
                 '}';
     }
 }

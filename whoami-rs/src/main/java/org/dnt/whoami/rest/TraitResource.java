@@ -23,8 +23,8 @@ import java.util.List;
  * @since 8/11/13 3:57 PM
  */
 @Path("/traits")
-@Consumes("application/json; charset=utf-8")
-@Produces("application/json; charset=utf-8")
+@Consumes({"application/json; charset=utf-8"})
+@Produces({"application/json; charset=utf-8"})
 public class TraitResource {
 
     private final Logger logger = LoggerFactory.getLogger(TraitResource.class);
@@ -37,7 +37,12 @@ public class TraitResource {
         List<Trait> traits = new ArrayList<Trait>(traitsEnum.size());
 
         for(PersonalityTrait t: traitsEnum) {
-            traits.add(new Trait(t.getCategory(), t.getCategoryName(), t.name(), t.getDescription()));
+            traits.add(new Trait(t.getCategory(),
+                    t.getCategoryName(),
+                    t.name(),
+                    t.getDescription(),
+                    t.getMinScore(),
+                    t.getMaxScore()));
         }
 
         GenericEntity<List<Trait>> entity = new GenericEntity<List<Trait>>(traits) {

@@ -42,11 +42,6 @@ public class WhoamiApplication extends ResourceConfig {
                 dc);
 
         Injections.addBinding(
-                Injections.newBinder(DaoClient.Instance.getQuestionDao())
-                        .to(QuestionDao.class),
-                dc);
-
-        Injections.addBinding(
                 Injections.newBinder(DaoClient.Instance.getUserDao())
                         .to(UserDao.class),
                 dc);

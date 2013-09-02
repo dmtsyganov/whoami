@@ -5,7 +5,6 @@ import com.google.code.morphia.Morphia;
 import com.mongodb.MongoClient;
 import org.dnt.whoami.model.Interview;
 import org.dnt.whoami.model.InterviewTemplate;
-import org.dnt.whoami.model.Question;
 import org.dnt.whoami.model.UserRecord;
 
 import javax.inject.Singleton;
@@ -25,7 +24,6 @@ public enum DaoClient {
 
     private UserDao userDao;
     private InterviewTemplateDao interviewTemplateDao;
-    private QuestionDao questionDao;
     private InterviewDao interviewDao;
 
     synchronized public void connect(String host, int port, String datastoreName) throws UnknownHostException {
@@ -33,7 +31,6 @@ public enum DaoClient {
         Morphia morphia = new Morphia();
         // initialize morphia with model classes
         morphia.map(UserRecord.class);
-        morphia.map(Question.class);
         morphia.map(InterviewTemplate.class);
         morphia.map(Interview.class);
 
@@ -54,13 +51,6 @@ public enum DaoClient {
             interviewTemplateDao = new InterviewTemplateDao(ds);
         }
         return interviewTemplateDao;
-    }
-
-    synchronized public QuestionDao getQuestionDao() {
-        if( questionDao == null) {
-            questionDao = new QuestionDao(ds);
-        }
-        return questionDao;
     }
 
     synchronized public InterviewDao getInterviewDao() {

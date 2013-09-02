@@ -21,8 +21,8 @@ import java.util.List;
  * @since 5/24/13 12:28 AM
  */
 @Path("/users")
-@Consumes("application/json; charset=utf-8")
-@Produces("application/json; charset=utf-8")
+@Consumes({"application/json; charset=utf-8"})
+@Produces({"application/json; charset=utf-8"})
 public class UserResource {
 
     private final Logger logger = LoggerFactory.getLogger(UserResource.class);
@@ -99,7 +99,7 @@ public class UserResource {
             uriString.append("/");
             uriString.append(id);
             URI uri = UriBuilder.fromUri(uriString.toString()).build();
-            return Response.created(uri).entity(id).build();
+            return Response.created(uri).entity(user).build();
         } else {
             // update user record
             if (!userDao.update(user)) {
@@ -108,6 +108,23 @@ public class UserResource {
             }
 
             logger.debug("User updated {}", user);
+            return Response.noContent().build();
+        }
+    }
+
+    @POST
+    @Path("/{id}")
+    public Response updateUser(@PathParam("id") String id, UserRecord userRecord) {
+        if(userRecord.getObjectId() == null) {
+            logger.error("Unable to update user {}", userRecord);
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } else {
+            if (!userDao.update(userRecord)) {
+                logger.error("Unable to update user {}", userRecord);
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+
+            logger.debug("User updated {}", userRecord);
             return Response.noContent().build();
         }
     }

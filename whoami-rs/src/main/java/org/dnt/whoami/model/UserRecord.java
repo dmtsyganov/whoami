@@ -7,6 +7,7 @@ import com.google.code.morphia.annotations.Indexed;
 import org.bson.types.ObjectId;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * TODO: add class description
@@ -48,6 +49,7 @@ public class UserRecord {
         this.role = role;
     }
 
+    @XmlTransient
     public ObjectId getObjectId() {
         return id;
     }

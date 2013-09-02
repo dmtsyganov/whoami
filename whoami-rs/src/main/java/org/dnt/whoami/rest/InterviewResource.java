@@ -4,7 +4,6 @@ import com.google.code.morphia.Key;
 import org.bson.types.ObjectId;
 import org.dnt.whoami.dao.InterviewDao;
 import org.dnt.whoami.dao.InterviewTemplateDao;
-import org.dnt.whoami.dao.QuestionDao;
 import org.dnt.whoami.dao.UserDao;
 import org.dnt.whoami.model.*;
 import org.slf4j.Logger;
@@ -25,8 +24,8 @@ import java.util.Map;
  * @since  5/24/13 12:28 AM
  */
 @Path("/interviews")
-@Consumes("application/json; charset=utf-8")
-@Produces("application/json; charset=utf-8")
+@Consumes({"application/json; charset=utf-8"})
+@Produces({"application/json; charset=utf-8"})
 public class InterviewResource {
 
     private final Logger logger = LoggerFactory.getLogger(InterviewTemplateResource.class);
@@ -42,9 +41,6 @@ public class InterviewResource {
 
     @Inject
     InterviewTemplateDao interviewTemplateDao;
-
-    @Inject
-    QuestionDao questionDao;
 
     /**
      * Returns all interviews
@@ -119,6 +115,7 @@ public class InterviewResource {
 
     /**
      * Creates or updates interview for a user and an interview template
+     *
      * @param userId user object id
      * @param templateId template object id
      * @param interview updated interview or null if must be created
@@ -151,17 +148,7 @@ public class InterviewResource {
         }
 
         // get interview questions
-        List<Question> interviewQuestions = new ArrayList<Question>(template.getQuestions().size());
-        Question questionTemplate = new Question();
-        for(ObjectId qId: template.getQuestions()) {
-            questionTemplate.setObjectId(qId);
-            Question theQuestion = questionDao.read(questionTemplate);
-            if(theQuestion != null) {
-                interviewQuestions.add(theQuestion);
-            } else {
-                logger.error("Question is not found with id {}", qId);
-            }
-        }
+        List<Question> interviewQuestions = template.getQuestions();
 
         if(interview.getObjectId() == null) {
             // create new interview
@@ -170,7 +157,8 @@ public class InterviewResource {
 
             List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
             for(Question q: interviewQuestions) {
-                answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType(), q.getValueType())); // add answer object w/o answer value
+                answers.add(new
+                        Answer(q.getTrait(), q.getType(), q.getValueType())); // add answer object w/o answer value
             }
 
             interview.setAnswers(answers);
@@ -190,7 +178,7 @@ public class InterviewResource {
             uriString.append("/");
             uriString.append(id);
             URI uri = UriBuilder.fromUri(uriString.toString()).build();
-            return Response.created(uri).entity(id).build();
+            return Response.created(uri).entity(interview).build();
 
         } else {
             // update interview
@@ -276,34 +264,44 @@ public class InterviewResource {
     // Utility
     private InterviewResult getInterviewResult(Interview interview) {
 
-        Map<PersonalityTrait, TraitScore> scores = new HashMap<PersonalityTrait, TraitScore>();
+        Map<PersonalityTrait, TraitScore> indirectScores = new HashMap<PersonalityTrait, TraitScore>();
+        List<TraitScore> directScores = new ArrayList<TraitScore>();
         boolean isComplete = true;
         for(Answer answer: interview.getAnswers()) {
 
-            TraitScore score = scores.get(answer.getTrait());
+            if(answer.getType() == Question.Type.INFORMATION)
+                continue; // skip the information/text question
 
             if(answer.getValue() == null) {
                 isComplete = false;
             } else {
-                if(score == null) {
-                    score = new TraitScore(answer.getTrait(), getScore(answer));
-                    scores.put(answer.getTrait(), score);
-                } else {
-                    score.setScore(score.getScore() + getScore(answer));
+                if(answer.getType() == Question.Type.INDIRECT) {
+                    // this is indirect evaluation question
+                    TraitScore indirectScore = indirectScores.get(answer.getTrait());
+                    if(indirectScore == null) {
+                        indirectScore = new TraitScore(answer.getTrait(), getScore(answer));
+                        indirectScores.put(answer.getTrait(), indirectScore);
+                    } else {
+                        indirectScore.setScore(indirectScore.getScore() + getScore(answer));
+                    }
+                } else if(answer.getType() == Question.Type.DIRECT) {
+                    // this is direct evaluation question (self)
+                    directScores.add(new TraitScore(answer.getTrait(), getScore(answer)));
                 }
             }
         }
 
         //TODO: divide scores by max # trait questions / max score (eg 14 / 7 = 2 - divide by 2 etc.)
-        List<TraitScore> totalScores = new ArrayList<TraitScore>();
-        for(TraitScore ts : scores.values()) {
-            totalScores.add(ts);
+        List<TraitScore> totalIndirectScores = new ArrayList<TraitScore>();
+        for(TraitScore ts : indirectScores.values()) {
+            totalIndirectScores.add(ts);
         }
 
         return new InterviewResult(interview.getUserId().toString(),
                 interview.getTemplateId().toString(),
                 interview.getId(),
-                totalScores,
+                totalIndirectScores,
+                directScores,
                 isComplete);
     }
 
@@ -313,7 +311,7 @@ public class InterviewResource {
         try {
             switch(answer.getValueType()) {
                 case SCORE:
-                    score = Integer.valueOf(answer.getValue()); // from 0 up to max score (7)
+                    score = Integer.valueOf(answer.getValue()); // from 1 up to trait's max score (7)
                     break;
                 case YES_NO:
                     score = Integer.valueOf(answer.getValue()); // 1 - yes, 0 - no

@@ -5,7 +5,7 @@ import com.google.code.morphia.annotations.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * TODO: add class description here
+ * The trait class, represent a personal trait with description and min/max score
  *
  * @author dima
  * @since 8/11/13 4:31 PM
@@ -17,15 +17,24 @@ public class Trait {
     private String categoryName;
     private String name;
     private String description;
+    private int minScore;
+    private int maxScore;
 
     public Trait() {
     }
 
-    public Trait(String category, String categoryName, String name, String description) {
+    public Trait(String category,
+                 String categoryName,
+                 String name,
+                 String description,
+                 int minScore,
+                 int maxScore) {
         this.category = category;
         this.categoryName = categoryName;
         this.name = name;
         this.description = description;
+        this.minScore = minScore;
+        this.maxScore = maxScore;
     }
 
     public String getCategory() {
@@ -60,6 +69,22 @@ public class Trait {
         this.description = description;
     }
 
+    public int getMinScore() {
+        return minScore;
+    }
+
+    public void setMinScore(int minScore) {
+        this.minScore = minScore;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(int maxScore) {
+        this.maxScore = maxScore;
+    }
+
     @Override
     public String toString() {
         return "Trait{" +
@@ -67,6 +92,8 @@ public class Trait {
                 ", categoryName='" + categoryName + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", minScore=" + minScore +
+                ", maxScore=" + maxScore +
                 '}';
     }
 }

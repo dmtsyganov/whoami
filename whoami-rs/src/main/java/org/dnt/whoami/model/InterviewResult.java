@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
- * TODO: add class description here
+ * The Interview Result class. Holds scores for the interview per answers per traits
  *
  * @author dima
  * @since 8/20/13 12:11 AM
@@ -15,17 +15,24 @@ public class InterviewResult {
     private String userId;
     private String interviewTemplateId;
     private String interviewId;
-    private List<TraitScore> scores;
+    private List<TraitScore> indirectScores;
+    private List<TraitScore> directScores;
     private boolean complete;
 
     public InterviewResult() {
     }
 
-    public InterviewResult(String userId, String interviewTemplateId, String interviewId, List<TraitScore> scores, boolean complete) {
+    public InterviewResult(String userId,
+                           String interviewTemplateId,
+                           String interviewId,
+                           List<TraitScore> indirectScores,
+                           List<TraitScore> directScores,
+                           boolean complete) {
         this.userId = userId;
         this.interviewTemplateId = interviewTemplateId;
         this.interviewId = interviewId;
-        this.scores = scores;
+        this.indirectScores = indirectScores;
+        this.directScores = directScores;
         this.complete = complete;
     }
 
@@ -53,12 +60,20 @@ public class InterviewResult {
         this.interviewId = interviewId;
     }
 
-    public List<TraitScore> getScores() {
-        return scores;
+    public List<TraitScore> getIndirectScores() {
+        return indirectScores;
     }
 
-    public void setScores(List<TraitScore> scores) {
-        this.scores = scores;
+    public void setIndirectScores(List<TraitScore> indirectScores) {
+        this.indirectScores = indirectScores;
+    }
+
+    public List<TraitScore> getDirectScores() {
+        return directScores;
+    }
+
+    public void setDirectScores(List<TraitScore> directScores) {
+        this.directScores = directScores;
     }
 
     public boolean isComplete() {
@@ -75,7 +90,8 @@ public class InterviewResult {
                 "userId='" + userId + '\'' +
                 ", interviewTemplateId='" + interviewTemplateId + '\'' +
                 ", interviewId='" + interviewId + '\'' +
-                ", scores=" + scores +
+                ", indirectScores=" + indirectScores +
+                ", directScores=" + directScores +
                 ", complete=" + complete +
                 '}';
     }

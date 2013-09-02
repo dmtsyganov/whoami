@@ -1,11 +1,13 @@
 package org.dnt.whoami.model;
 
+import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Reference;
 import org.bson.types.ObjectId;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 /**
@@ -22,9 +24,10 @@ public class InterviewTemplate {
 
     private String name;
     private String description;
+    private boolean active;
 
-    // manual reference to the questions
-    private List<ObjectId> questions;
+    @Embedded
+    private List<Question> questions;
 
     public InterviewTemplate() {
     }
@@ -37,12 +40,17 @@ public class InterviewTemplate {
         this.id = id;
     }
 
-    public InterviewTemplate(String name, String description, List<ObjectId> questions) {
+    public InterviewTemplate(String name,
+                             String description,
+                             boolean active,
+                             List<Question> questions) {
         this.name = name;
         this.description = description;
+        this.active = active;
         this.questions = questions;
     }
 
+    @XmlTransient
     public ObjectId getObjectId() {
         return id;
     }
@@ -73,20 +81,28 @@ public class InterviewTemplate {
         this.description = description;
     }
 
-    public List<ObjectId> getQuestions() {
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<ObjectId> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
     @Override
     public String toString() {
         return "InterviewTemplate{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", active=" + active +
                 ", questions=" + questions +
                 '}';
     }

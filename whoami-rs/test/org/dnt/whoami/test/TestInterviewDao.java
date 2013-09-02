@@ -19,14 +19,12 @@ import java.util.List;
 public class TestInterviewDao extends TestBase {
 
     private static InterviewTemplateDao templateDao;
-    private static QuestionDao questionDao;
     private static InterviewDao interviewDao;
     private static UserDao userDao;
 
     @BeforeClass
     public static void setDao() {
         templateDao = DaoClient.Instance.getInterviewTemplateDao();
-        questionDao = DaoClient.Instance.getQuestionDao();
         interviewDao = DaoClient.Instance.getInterviewDao();
         userDao = DaoClient.Instance.getUserDao();
 
@@ -47,12 +45,6 @@ public class TestInterviewDao extends TestBase {
         for(InterviewTemplate t: templates) {
             templateDao.delete(t);
         }
-
-        // clear all interview questions
-        List<Question> questions = questionDao.find(null);
-        for(Question q: questions) {
-            questionDao.delete(q);
-        }
     }
 
     @Test
@@ -65,7 +57,7 @@ public class TestInterviewDao extends TestBase {
         Assert.assertNotNull("Must have id", userUser.getObjectId());
 
         // create interview template
-        InterviewTemplate template = new InterviewTemplate("Interview One", "First Interview", null);
+        InterviewTemplate template = new InterviewTemplate("Interview One", "First Interview", true, null);
         templateDao.create(template);
         ObjectId tId = template.getObjectId();
         Assert.assertNotNull("Interview template created", template);
@@ -79,14 +71,7 @@ public class TestInterviewDao extends TestBase {
         questions.add(new Question("Question Three", PersonalityTrait.SELF_ACTUALIZATION,
                 Question.Type.INDIRECT, Question.ValueType.SCORE));
 
-        List<ObjectId> questionIds = new ArrayList<ObjectId>(questions.size());
-        for(Question q: questions) {
-            questionDao.create(q);
-            Assert.assertNotNull("Must have id", q.getObjectId());
-            questionIds.add(q.getObjectId());
-        }
-
-        template.setQuestions(questionIds);
+        template.setQuestions(questions);
         Assert.assertTrue("Updated with questions", templateDao.update(template));
 
         // get user
@@ -100,12 +85,7 @@ public class TestInterviewDao extends TestBase {
         Assert.assertEquals("Must have three questions", 3, interview1.getQuestions().size());
 
         // get interview questions
-        List<Question> interviewQuestions = new ArrayList<Question>(interview1.getQuestions().size());
-        Question questionTemplate = new Question();
-        for(ObjectId qId: interview1.getQuestions()) {
-            questionTemplate.setObjectId(qId);
-            interviewQuestions.add(questionDao.read(questionTemplate));
-        }
+        List<Question> interviewQuestions = interview1.getQuestions();
 
         // create interview
         Interview interview = new Interview();
@@ -116,7 +96,7 @@ public class TestInterviewDao extends TestBase {
 
         List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
         for(Question q: interviewQuestions) {
-            answers.add(new Answer(q.getObjectId(), q.getTrait(), q.getType(), q.getValueType(), "7"));
+            answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), "7"));
         }
         interview.setAnswers(answers);
         Assert.assertNull("Does not have id yet", interview.getObjectId());

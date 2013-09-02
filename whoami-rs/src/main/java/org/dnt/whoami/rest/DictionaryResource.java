@@ -11,8 +11,8 @@ import javax.ws.rs.core.MediaType;
  * @since  5/24/13 12:28 AM
  */
 @Path("/dictionary")
-@Consumes("application/json; charset=utf-8")
-@Produces("application/json; charset=utf-8")
+@Consumes({"application/json; charset=utf-8"})
+@Produces({"application/json; charset=utf-8"})
 public class DictionaryResource {
 
 }

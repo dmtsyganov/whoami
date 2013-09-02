@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Embedded
 public class Answer {
 
-    private ObjectId question;
     private PersonalityTrait trait;
     private Question.Type type;
     private Question.ValueType valueType;
@@ -24,29 +23,19 @@ public class Answer {
     public Answer() {
     }
 
-    public Answer(ObjectId question, PersonalityTrait trait,
+    public Answer(PersonalityTrait trait,
                   Question.Type type ,Question.ValueType valueType) {
-        this.question = question;
         this.trait = trait;
         this.type = type;
         this.valueType = valueType;
     }
 
-    public Answer(ObjectId question, PersonalityTrait trait,
+    public Answer(PersonalityTrait trait,
                   Question.Type type, Question.ValueType valueType, String value) {
-        this.question = question;
         this.trait = trait;
         this.type = type;
         this.valueType = valueType;
         this.value = value;
-    }
-
-    public ObjectId getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(ObjectId question) {
-        this.question = question;
     }
 
     public String getValue() {
@@ -84,7 +73,6 @@ public class Answer {
     @Override
     public String toString() {
         return "Answer{" +
-                "question=" + question +
                 ", trait=" + trait +
                 ", type=" + type +
                 ", valueType=" + valueType +

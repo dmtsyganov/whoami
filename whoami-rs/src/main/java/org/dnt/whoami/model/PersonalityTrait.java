@@ -8,35 +8,42 @@ package org.dnt.whoami.model;
  */
 public enum PersonalityTrait {
 
-    ENERGETIC(TraitCategory.TEMPERAMENT, "эргичность"),
-    FLEXIBILITY(TraitCategory.TEMPERAMENT, "пластичность"),
-    SENSITIZATION(TraitCategory.TEMPERAMENT, "сензитивность"),
+    ENERGETIC(TraitCategory.TEMPERAMENT, "эргичность", 1, 7),
+    FLEXIBILITY(TraitCategory.TEMPERAMENT, "пластичность", 1, 7),
+    SENSITIZATION(TraitCategory.TEMPERAMENT, "сензитивность", 1, 7),
 
-    COMMUNICABILITY(TraitCategory.PERSONALITY, "коммуникабельность"),
-    DOMINANT(TraitCategory.PERSONALITY, "доминантность"),
+    COMMUNICABILITY(TraitCategory.PERSONALITY, "коммуникабельность", 1, 7),
+    DOMINANT(TraitCategory.PERSONALITY, "доминантность", 1, 7),
 
-    TOLERANCE(TraitCategory.CHARACTER, "толерантность"),
-    RESISTANCE(TraitCategory.CHARACTER, "резистентость"),
+    TOLERANCE(TraitCategory.CHARACTER, "толерантность", 1, 7),
+    RESISTANCE(TraitCategory.CHARACTER, "резистентость", 1, 7),
 
-    INTELLECTUAL(TraitCategory.CONSCIOUSNESS, "интеллектуал"),
-    CONNOTATIVE(TraitCategory.CONSCIOUSNESS, "конативный"),
-    CREATIVITY(TraitCategory.CONSCIOUSNESS, "креативный"),
-    EMOTIVE(TraitCategory.CONSCIOUSNESS, "эмотивный"),
+    INTELLECTUAL(TraitCategory.CONSCIOUSNESS, "интеллектуал", 1, 7),
+    CONNOTATIVE(TraitCategory.CONSCIOUSNESS, "конативный", 1, 7),
+    CREATIVITY(TraitCategory.CONSCIOUSNESS, "креативный", 1, 7),
+    EMOTIVE(TraitCategory.CONSCIOUSNESS, "эмотивный", 1, 7),
 
-    SELF_PRESERVATION(TraitCategory.CONSCIENCE, "самосохранение"),
-    SELF_REALIZATION(TraitCategory.CONSCIENCE, "самореализация"),
-    SELF_AFFIRMATION(TraitCategory.CONSCIENCE, "самоутверждение"),
-    SELF_CONTROL(TraitCategory.CONSCIENCE, "самообладание"),
-    SELF_ACTUALIZATION(TraitCategory.CONSCIENCE, "самоактуализация"),
-    SELF_IDENTIFICATION(TraitCategory.CONSCIENCE, "самоидентификация"),
-    SELF_RESPECT(TraitCategory.CONSCIENCE, "самоуважение");
+    SELF_PRESERVATION(TraitCategory.CONSCIENCE, "самосохранение", 1, 7),
+    SELF_REALIZATION(TraitCategory.CONSCIENCE, "самореализация", 1, 7),
+    SELF_AFFIRMATION(TraitCategory.CONSCIENCE, "самоутверждение", 1, 7),
+    SELF_CONTROL(TraitCategory.CONSCIENCE, "самообладание", 1, 7),
+    SELF_ACTUALIZATION(TraitCategory.CONSCIENCE, "самоактуализация", 1, 7),
+    SELF_IDENTIFICATION(TraitCategory.CONSCIENCE, "самоидентификация", 1, 7),
+    SELF_RESPECT(TraitCategory.CONSCIENCE, "самоуважение", 1, 7);
 
     private final TraitCategory category;
     private final String description;
+    private final int minScore;
+    private final int maxScore;
 
-    private PersonalityTrait(TraitCategory category, String description) {
+    private PersonalityTrait(TraitCategory category,
+                             String description,
+                             int minScore,
+                             int maxScore) {
         this.category = category;
         this.description = description;
+        this.minScore = minScore;
+        this.maxScore = maxScore;
     }
 
     public String getName() {
@@ -53,5 +60,13 @@ public enum PersonalityTrait {
 
     public String getCategoryName() {
         return category.getName();
+    }
+
+    public int getMinScore() {
+        return minScore;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
     }
 }
