@@ -1,6 +1,6 @@
 'use strict';
 
-    var services = angular.module('whoamiAdminApp.services', ['ngResource']);
+var services = angular.module('whoamiAdminApp.services', ['ngResource']);
 
     // base Template request object
     services.factory('Template', ['$resource', function($resource) {
@@ -34,6 +34,7 @@ services.factory('LoadTemplate', ['Template', '$route', '$q',
                     name: 'Новое Интервью',
                     description: 'Описание',
                     active: false,
+                    order: 0,
                     questions: [{}]
                 }));
             } else {
@@ -48,15 +49,25 @@ services.factory('LoadTemplate', ['Template', '$route', '$q',
     }]);
 
 // load personality traits
-services.factory('LoadTraits', ['Traits', '$q',
-    function(Traits, $q) {
+services.factory('LoadTraits', ['Traits', '$q', '$cacheFactory',
+    function(Traits, $q, $cacheFactory) {
+
+        // cache the result
+        var cache = $cacheFactory('Traits');
+
         return function() {
             var deferred = $q.defer();
-            Traits.query(function(traits) {
-                deferred.resolve(traits);
-            }, function(err) {
-               deferred.reject(err);
-            });
+            var cachedTraits = cache.get(1);
+            if(cachedTraits) {
+                deferred.resolve(cachedTraits);
+            } else {
+                Traits.query(function(traits) {
+                    cache.put(1, traits);
+                    deferred.resolve(traits);
+                }, function(err) {
+                   deferred.reject(err);
+                });
+            }
             return deferred.promise;
         }
     }]);

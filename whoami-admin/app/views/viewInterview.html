@@ -10,9 +10,9 @@
         </tr>
         <tr ng-repeat="question in template.questions">
             <td>{{question.text}}</td>
-            <td>{{question.trait}}</td>
-            <td>{{question.type}}</td>
-            <td>{{question.valueType}}</td>
+            <td>{{question.trait | traitname}}</td>
+            <td>{{question.type | questiontypename}}</td>
+            <td>{{question.valueType | valuetypename}}</td>
         </tr>
     </table>
 

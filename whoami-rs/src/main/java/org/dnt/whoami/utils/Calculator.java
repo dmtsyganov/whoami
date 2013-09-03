@@ -52,7 +52,7 @@ public final class Calculator {
             }
         }
 
-        //TODO: divide scores by max # trait questions / max score (eg 14 / 7 = 2 - divide by 2 etc.)
+        // divide scores by max # trait questions / max score (eg 14 / 7 = 2 - divide by 2 etc.)
         int divisor = 1;
         if(indirectScores.values().size() > 0) {
             divisor = indirectQuestions / indirectScores.values().size() / 7; //NOTE: assumes 7 is max

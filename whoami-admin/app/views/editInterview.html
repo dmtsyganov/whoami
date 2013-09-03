@@ -26,6 +26,14 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="order">Очередность:</label>
+            <div class="controls">
+                <input type="number" min="0" ng-model="template.order"
+                          class="input-large"
+                          id="order"/>
+            </div>
+        </div>
+        <div class="control-group">
             <label class="control-label" for="questions">Вопросы:</label>
             <div class="controls">
                 <ul id="questions" class="unstyled" ng-controller="EditQuestionCtrl">

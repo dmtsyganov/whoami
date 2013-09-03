@@ -3,23 +3,16 @@
 
     <table class='table table-hover table-striped'>
         <tr>
-            <th>Название</th><th>Описание</th><th>Статус</th>
+            <th>Название</th><th>Описание</th><th>Очередность</th><th>Статус</th>
         </tr>
         <tr ng-repeat="template in templates">
             <td><a href="/whoami-admin/#/viewInterview/{{template.id}}">{{template.name}}</a></td>
             <td>{{ template.description }}</td>
-            <td>{{ template.active }}</td>
+            <td>{{ template.order }}</td>
+            <td>{{ template.active | activename}}</td>
         </tr>
     </table>
 
-<!--
-    <ul>
-        <li ng-repeat="template in templates">
-            <div>
-            <span></span></div>
-        </li>
-    </ul>
--->
     <form ng-submit="new()" class="form-horizontal">
         <div class="form-actions">
             <button class="btn btn-primary">Добавить</button>
