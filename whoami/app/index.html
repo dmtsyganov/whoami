@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Who Am I?</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -27,7 +27,28 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <div class="container">
+        <div class="navbar" ng-controller="NavigationCtrl">
+            <div class="navbar-inner">
+                <a class="brand" href="#/">Кабинет психолога</a>
+                <ul class="nav">
+                    <!--
+                                        <li ng-class="{active: routeIs('/')}"><a href="#/">Начало</a></li>
+                    -->
+                    <li ng-class="{active: routeIs('/user')}"><a href="#/user">Пользователь</a></li>
+                    <li ng-class="{active: routeIs('/interview')}"><a href="#/interview">Интервью</a></li>
+                    <li ng-class="{active: routeIs('/result')}"><a href="#/result">Результаты</a></li>
+                </ul>
+
+<!--
+                <ul class="nav pull-right">
+                    <li ng-class="{active: routeIs('/help')}"><a href="#/help">Помощь</a></li>
+                </ul>
+-->
+            </div>
+        </div>
+        <ng-view></ng-view>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -68,6 +89,14 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/user.js"></script>
+        <script src="scripts/controllers/profile.js"></script>
+        <script src="scripts/controllers/interview.js"></script>
+        <script src="scripts/controllers/result.js"></script>
+        <script src="scripts/controllers/navigation.js"></script>
+        <script src="scripts/services/user.js"></script>
+        <script src="scripts/services/interview.js"></script>
+        <script src="scripts/directives/focus.js"></script>
         <!-- endbuild -->
 </body>
 </html>

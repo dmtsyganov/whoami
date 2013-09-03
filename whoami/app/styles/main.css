@@ -5,8 +5,8 @@ body {
 }
 
 .hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
+    margin: 20px auto 0 auto;
+    /*width: 300px;*/
     font-size: 18px;
     font-weight: 200;
     line-height: 30px;
@@ -19,4 +19,38 @@ body {
     font-size: 60px;
     line-height: 1;
     letter-spacing: -1px;
+}
+
+/****************************************
+ * general purpose css-only components  *
+ ****************************************/
+
+.interview-panel {
+    background-color: #fff;
+
+    border: 1px solid rgba(154, 154, 154, 0.98);
+
+    -webkit-border-top-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    border-top-left-radius: 3px;
+
+    -webkit-border-top-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    border-top-right-radius: 3px;
+
+    margin-bottom: 20px;
+    padding: 10px 10px 20px 10px;
+
+    overflow: hidden;
+}
+
+.interview-panel > h4 {
+    background-color: #E5E5E5;
+    margin: -10px -10px 10px -10px;
+    padding: 10px 10px 10px 10px;
+}
+
+
+.interview-right {
+    text-align: right;
 }

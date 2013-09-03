@@ -7,5 +7,6 @@
 
       $scope.new = function() {
           $location.path('/editInterview/0');
-      }
+      };
+
   }]);
