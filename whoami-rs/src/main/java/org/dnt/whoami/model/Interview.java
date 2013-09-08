@@ -73,12 +73,20 @@ public class Interview {
         return userId;
     }
 
+    public String getUserIdString() {
+        return userId.toString();
+    }
+
     public void setUserId(ObjectId userId) {
         this.userId = userId;
     }
 
     public ObjectId getTemplateId() {
         return templateId;
+    }
+
+    public String getTemplateIdString() {
+        return templateId.toString();
     }
 
     public void setTemplateId(ObjectId templateId) {
