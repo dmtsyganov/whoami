@@ -15,6 +15,7 @@ import javax.ws.rs.core.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,8 +38,19 @@ public class InterviewTemplateResource {
     InterviewTemplateDao interviewTemplateDao;
 
     @GET
-    public Response getTemplates() {
+    public Response getTemplates(@DefaultValue("false") @QueryParam("active") boolean active) {
         List<InterviewTemplate> templates = interviewTemplateDao.find(null);
+
+        if(active == true) {
+            // remove inactive
+            Iterator<InterviewTemplate> it = templates.listIterator();
+            while(it.hasNext()) {
+                if(!it.next().isActive()) {
+                    it.remove();
+                }
+            }
+        }
+
         GenericEntity<List<InterviewTemplate>> entity = new GenericEntity<List<InterviewTemplate>>(templates) {
         };
 

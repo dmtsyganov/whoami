@@ -72,6 +72,7 @@ public class UserRecord {
         this.login = login;
     }
 
+    // @XmlTransient
     public String getPassword() {
         return password;
     }

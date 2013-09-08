@@ -74,6 +74,31 @@ public class UserResource {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    @GET
+    @Path("/{login}/{password}")
+    public Response loginUser(@PathParam("login") String login,
+                              @PathParam("password") String password) {
+
+        UserRecord template = new UserRecord();
+        template.setLogin(login);
+
+        List<UserRecord> records = userDao.find(template);
+
+        if (records.size() > 0) {
+            if (records.size() > 1)
+                logger.error("Multiple records match user login {}", login);
+
+            if(records.get(0).getPassword().equals(password)) {
+                return Response.ok(records.get(0)).build();
+            } else {
+                logger.error("Invalid password {} for user {}", password ,login);
+                return Response.status(Response.Status.FORBIDDEN).build();
+            }
+        }
+
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
     @POST
     public Response setUser(UserRecord user) {
         if(user.getObjectId() == null) {
