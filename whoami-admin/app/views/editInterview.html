@@ -38,6 +38,7 @@
             <div class="controls">
                 <ul id="questions" class="unstyled" ng-controller="EditQuestionCtrl">
                     <li ng-repeat="question in template.questions">
+                        <span>{{ $index+1 }}</span>
                         <textarea ng-model="question.text" class="input-large" placeholder="Вопрос" required=""></textarea>
 
                         <select ng-model="question.trait" class="input-medium"
