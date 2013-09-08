@@ -1,13 +1,14 @@
 'use strict';
 
 myApp
-    .controller('UserCtrl', ['$scope', 'CurrentUser', 'User', 'templates',
-        function ($scope, CurrentUser, User, templates) {
+    .controller('UserCtrl', ['$scope', 'CurrentUser', 'User', 'templates', 'interviews', 'Interview',
+        function ($scope, CurrentUser, User, templates, interviews, Interview ) {
 
         // TODO: use user from resolve
         $scope.user = CurrentUser;
         $scope.password_confirmation = CurrentUser.password;
         $scope.templates = templates;
+        $scope.interviews = interviews;
 
         // update user profile
         $scope.update = function() {
@@ -34,5 +35,61 @@ myApp
                 });
             });
         };
+
+        // work with the interviews
+        $scope.isNew = function(index) {
+            var templateId = $scope.templates[index].id;
+            console.log("is new " + templateId.toString());
+
+            for(var i = 0; i < $scope.interviews.length; i++) {
+                if($scope.interviews[i].templateIdString === templateId) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        // Create new interview and start it
+        $scope.startInterview = function(index) {
+            var templateId = $scope.templates[index].id;
+            var userId = $scope.user.id;
+            console.log("start new for user " + userId + " and template " + templateId.toString());
+
+            var newInterview = new Interview({
+                userId: userId,
+                templateId: templateId,
+                startDate: new Date(),
+                endDate: new Date()
+            });
+
+            newInterview.$save({userId: userId, templateId: templateId}, function(interview) {
+                console.log("New interview created");
+
+            }, function(response) {
+                console.log("Error creating new interview ", response.toString());
+
+                /*
+                 $scope.alerts.push({
+                 type: 'error',
+                 msg: "Update failed!"
+                 });
+                 */
+            });
+
+        };
+
+        $scope.continueInterview = function(index) {
+            var id = $scope.templates[index].id;
+            console.log("continue " + id.toString());
+
+        };
+
+        $scope.viewResults = function(index) {
+            var id = $scope.templates[index].id;
+            console.log("view " + id.toString());
+
+        }
+
   }]);
 

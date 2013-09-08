@@ -66,14 +66,23 @@
 
     <table class='table table-hover table-striped'>
         <tr>
-            <th>Название</th><th>Описание</th><!--<th>Очередность</th><th>Статус</th>-->
+            <th>Название</th><th>Описание</th><th>Статус</th>
         </tr>
         <tr ng-repeat="template in templates">
-<!--
-            <td><a href="/whoami-admin/#/viewInterview/{{template.id}}">{{template.name}}</a></td>
--->
             <td>{{ template.name }}</td>
             <td>{{ template.description }}</td>
+            <td>
+                <span ng-show="isNew($index)"><button type="button"
+                        class="btn btn-mini"
+                        ng-click="startInterview($index)">Начать</button></span>
+                <span ng-hide="isNew($index)"><button type="button"
+                        class="btn btn-mini"
+                        ng-click="continueInterview($index)">Продолжить</button>
+                <button type="button"
+                        class="btn btn-mini"
+                        ng-click="viewResults($index)">Посмотреть</button></span>
+
+            </td>
         </tr>
     </table>
 

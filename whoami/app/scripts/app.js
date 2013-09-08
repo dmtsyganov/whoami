@@ -16,6 +16,9 @@ var myApp = angular.module('whoamiApp', ['ui.bootstrap', 'whoamiApp.userServices
             },
             templates: function(LoadTemplates) {
                 return LoadTemplates();
+            },
+            interviews: function(LoadInterviews) {
+                return LoadInterviews();
             }
         },
         controller: 'UserCtrl'
