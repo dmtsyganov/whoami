@@ -8,7 +8,6 @@
             <h3>Регистрация</h3>
         </div>
 
-
         <div class="modal-body">
             <div class="well">
                 <tabset>
@@ -18,7 +17,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="username">логин</label>
                                     <div class="controls">
-                                        <input type="text" id="username" name="username"  ng-model='username' placeholder="login"
+                                        <input type="text" id="username" name="username" focus ng-model='username' placeholder="login"
                                                class="input-xlarge" required>
                                     </div>
                                 </div>
@@ -64,6 +63,7 @@
                                     </div>
                                 </div>
 
+<!--
                                 <div class="control-group">
                                     <label class="control-label" for="password_conf">подтвердите пароль</label>
                                     <div class="controls">
@@ -74,18 +74,19 @@
                                                 </span>
                                     </div>
                                 </div>
+-->
 
                                 <div class="control-group">
                                     <label class="control-label"  for="name">полное имя</label>
                                     <div class="controls">
-                                        <input type="text" id="name" name="name" placeholder="Илья Муромец" class="input-xlarge">
+                                        <input type="text" id="name" ng-model="fullName" placeholder="Илья Муромец" class="input-xlarge">
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label class="control-label"  for="email">почта</label>
                                     <div class="controls">
-                                        <input type="text" id="email" name="email" placeholder="imuromets@home.com" class="input-xlarge">
+                                        <input type="text" id="email" ng-model="email" placeholder="imuromets@home.com" class="input-xlarge">
                                     </div>
                                 </div>
 
@@ -96,119 +97,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </tab>
                 </tabset>
             </div>
         </div>
-
-
-<!--
-        <div class="modal-body">
-            <div class="well">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#login" data-toggle="tab">Войти</a></li>
-                    <li><a href="#create" data-toggle="tab">Создать Запись</a></li>
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane active in" id="login">
-                        <div ng-form="loginForm" class="form-horizontal">
-                            <fieldset>
-                                <div class="control-group">
-                                    &lt;!&ndash; Username &ndash;&gt;
-                                    <label class="control-label"  for="username">логин</label>
-                                    <div class="controls">
-                                        <input type="text" id="username" name="username" placeholder="login"
-                                               class="input-xlarge" required>
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
-                                    &lt;!&ndash; Password&ndash;&gt;
-                                    <label class="control-label" for="password">пароль</label>
-                                    <div class="controls">
-                                        <input type="password" id="password" name="password" placeholder="secret"
-                                               class="input-xlarge" required>
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
-                                    &lt;!&ndash; Button &ndash;&gt;
-                                    <div class="controls">
-                                        <button class="btn btn-success" ng-click="login()"
-                                                ng-disabled="loginForm.$invalid">Войти</button>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="create">
-                        <div ng-form="createForm" class="form-horizontal">
-                            <div class="control-group">
-                                &lt;!&ndash; New username &ndash;&gt;
-                                <label class="control-label"  for="newusername">логин</label>
-                                <div class="controls">
-                                    <input type="text" id="newusername" name="newusername" placeholder="login"
-                                           class="input-xlarge" required>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                &lt;!&ndash; Password&ndash;&gt;
-                                <label class="control-label" for="new_password">пароль</label>
-                                <div class="controls">
-                                    <input type="password" id="new_password" name="new_password" placeholder="newsecret"
-                                           class="input-xlarge" required>
-                                    <span class='help-inline' ng-show='createForm.new_password.$valid'>
-                                      <i class='icon-ok'></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                &lt;!&ndash; Password&ndash;&gt;
-                                <label class="control-label" for="password_conf">подтвердите пароль</label>
-                                <div class="controls">
-                                    <input type="password" id="password_conf" name="password_conf" placeholder="newsecret"
-                                           class="input-xlarge" required same-as='createForm.new_password'>
-                                    	        <span class='help-inline' ng-show='createForm.password_conf.$valid'>
-                                                  <i class='icon-ok'></i>
-                                                </span>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                &lt;!&ndash; Name &ndash;&gt;
-                                <label class="control-label"  for="name">полное имя</label>
-                                <div class="controls">
-                                    <input type="text" id="name" name="name" placeholder="Илья Муромец" class="input-xlarge">
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                &lt;!&ndash; Email &ndash;&gt;
-                                <label class="control-label"  for="email">почта</label>
-                                <div class="controls">
-                                    <input type="text" id="email" name="email" placeholder="imuromets@home.com" class="input-xlarge">
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                &lt;!&ndash; Button &ndash;&gt;
-                                <div class="controls">
-                                    <button class="btn btn-primary" ng-click="create()"
-                                            ng-disabled="createForm.$invalid">Создать Запись</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
--->
 
         <div class="modal-footer">
             <div>

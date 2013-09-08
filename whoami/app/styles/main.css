@@ -21,6 +21,12 @@ body {
     letter-spacing: -1px;
 }
 
+.user-login-to {
+    display: block;
+    width: 910px;
+    height: 24px;
+}
+
 /****************************************
  * general purpose css-only components  *
  ****************************************/

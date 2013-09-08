@@ -1,3 +1,88 @@
+<office-desk></office-desk>
 <div class="interview-panel">
     <h4>Пользователь</h4>
+
+    <form name="userForm" novalidate class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="name">имя(логин)</label>
+            <div class="controls">
+                <input ng-model="user.login" class="input-xxlarge" id="name" readonly>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="password">пароль</label>
+            <div class="controls">
+                <input type='password' ng-model="user.password" class="input-xxlarge" id="password" required>
+	        <span class='help-inline' ng-show='userForm.password.$valid'>
+	          <i class='icon-ok'></i>
+	        </span>
+            </div>
+        </div>
+
+<!--
+        <div class='control-group'>
+            <label class="control-label" for='password_confirmation'>подтвердите</label>
+            <div class='controls'>
+                <input type='password' id='password_confirmation' required class="input-xxlarge"
+                       name='password_confirmation' same-as='userForm.password' ng-model='password_confirmation'>
+	        <span class='help-inline' ng-show='userForm.password_confirmation.$valid'>
+	          <i class='icon-ok'></i>
+	        </span>
+            </div>
+        </div>
+-->
+
+        <div class="control-group">
+            <label class="control-label" for="fullName">полное имя</label>
+            <div class="controls">
+                <input ng-model="user.profile.fullName" class="input-xxlarge" id="fullName" focus>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="email">почта</label>
+            <div class="controls">
+                <input type='email' ng-model="user.profile.email" class="input-xxlarge" id="email">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="age">возраст</label>
+            <div class="controls">
+                <input type='number' min='0' ng-model="user.profile.age" class="input-xxlarge" id="age">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary"
+                    ng-disabled="userForm.$invalid"
+                    ng-click="update()">Обновить</button>
+        </div>
+    </form>
+
+</div>
+
+<div class="interview-panel">
+    <h4>Вам доступны следующие интервью</h4>
+
+    <table class='table table-hover table-striped'>
+        <tr>
+            <th>Название</th><th>Описание</th><!--<th>Очередность</th><th>Статус</th>-->
+        </tr>
+        <tr ng-repeat="template in templates">
+<!--
+            <td><a href="/whoami-admin/#/viewInterview/{{template.id}}">{{template.name}}</a></td>
+-->
+            <td>{{ template.name }}</td>
+            <td>{{ template.description }}</td>
+        </tr>
+    </table>
+
+<!--
+    <form ng-submit="toResults()" class="form-horizontal">
+        <div class="form-actions">
+            <button class="btn btn-primary">Посмотретъ ресзультаты</button>
+        </div>
+    </form>
+-->
+
 </div>

@@ -2,10 +2,10 @@
 
 var services = angular.module('whoamiAdminApp.services', ['ngResource']);
 
-    // base Template request object
-    services.factory('Template', ['$resource', function($resource) {
-            return $resource('/whoami-rs/rest/templates/:id/', {id:'@id'});
-        }]);
+// base Template request object
+services.factory('Template', ['$resource', function($resource) {
+        return $resource('/whoami-rs/rest/templates/:id/', {id:'@id'});
+    }]);
 
 // personality traits request object
 services.factory('Traits', ['$resource', function($resource) {

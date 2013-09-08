@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('whoamiApp', ['ui.bootstrap'/*'whoamiApp.services', 'whoamiApp.userServices'*/]);
+var myApp = angular.module('whoamiApp', ['ui.bootstrap', 'whoamiApp.userServices', 'whoamiApp.interviewServices']);
 
   myApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -8,8 +8,16 @@ var myApp = angular.module('whoamiApp', ['ui.bootstrap'/*'whoamiApp.services', '
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/user', {
+      .when('/user/:userId', {
         templateUrl: 'views/user.html',
+        resolve: {
+            user: function(LoadUser) {
+                return LoadUser();
+            },
+            templates: function(LoadTemplates) {
+                return LoadTemplates();
+            }
+        },
         controller: 'UserCtrl'
       })
       .when('/profile', {

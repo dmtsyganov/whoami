@@ -35,7 +35,7 @@
                     <!--
                                         <li ng-class="{active: routeIs('/')}"><a href="#/">Начало</a></li>
                     -->
-                    <li ng-class="{active: routeIs('/user')}"><a href="#/user">Пользователь</a></li>
+                    <li ng-class="{active: routeIs('/user')}"><a href="#/user/0">Пользователь</a></li>
                     <li ng-class="{active: routeIs('/interview')}"><a href="#/interview">Интервью</a></li>
                     <li ng-class="{active: routeIs('/result')}"><a href="#/result">Результаты</a></li>
                 </ul>
@@ -99,6 +99,9 @@
         <script src="scripts/services/interview.js"></script>
         <script src="scripts/directives/focus.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/directives/officeDesk.js"></script>
+        <script src="scripts/services/localStorage.js"></script>
+        <script src="scripts/services/CurrentUser.js"></script>
         <!-- endbuild -->
 </body>
 </html>
