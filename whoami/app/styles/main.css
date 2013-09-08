@@ -54,3 +54,110 @@ body {
 .interview-right {
     text-align: right;
 }
+
+/****************************************
+ * route specific css                   *
+ ****************************************/
+
+
+/* office */
+
+.front-office-bkg {
+    background-image: url(../img/image-office-psychology.jpg);
+    opacity: 0.5;
+    height: 665px;
+}
+
+
+/* interview list */
+
+.interview-about {
+    min-height: 124px !important;
+}
+
+.interview-list {
+    min-height: 646px !important;
+}
+
+/*.vig-interview-list table {
+  margin: -10px -20px -20px -10px;
+  width: 700px;
+}
+*/
+
+.interview-list table {
+    margin: -10px -20px -20px -10px;
+    width: 940px;
+}
+
+
+.interview-list th:first-child {
+    width: 300px;
+}
+
+.interview-list th {
+    width: 100px;
+}
+
+.interview-list img {
+    margin-right: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+
+/* menu */
+
+.vig-interview  {
+    margin-bottom: 20px;
+}
+
+.vig-interview h3 {
+    margin-top: 0;
+}
+
+.vig-interview img {
+    width: 150px;
+    height: 150px;
+}
+
+.vig-interview .vig-rating {
+    display: block;
+}
+
+.vig-menu-list li {
+    list-style-type: none;
+}
+
+.vig-menu-list li span {
+    padding-right: 20px;
+}
+
+.vig-menu-list a {
+    color: inherit;
+}
+
+.vig-menu-list a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.vig-menu-list .icon-plus-sign {
+    visibility: hidden;
+}
+
+.vig-menu-list li:hover .icon-plus-sign {
+    visibility: visible;
+}
+
+.vig-menu-list li:hover {
+    color: black;
+}
+
+.vig-menu-list ul li {
+    text-align: center;
+}
+
+input.ng-invalid {
+    border: 1px solid red;
+}

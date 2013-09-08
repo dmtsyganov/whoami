@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('whoamiApp', [/*'whoamiApp.services', 'whoamiApp.userServices'*/]);
+var myApp = angular.module('whoamiApp', ['ui.bootstrap'/*'whoamiApp.services', 'whoamiApp.userServices'*/]);
 
   myApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -23,6 +23,10 @@ var myApp = angular.module('whoamiApp', [/*'whoamiApp.services', 'whoamiApp.user
       .when('/result', {
         templateUrl: 'views/result.html',
         controller: 'ResultCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'

@@ -1,5 +1,8 @@
 'use strict';
 
 angular.module('whoamiApp')
-  .controller('MainCtrl', ['$scope', function ($scope) {
+  .controller('MainCtrl', ['$scope', '$location', function ($scope, $location) {
+        $scope.login = function() {
+            $location.path('/login/');
+        };
   }]);
