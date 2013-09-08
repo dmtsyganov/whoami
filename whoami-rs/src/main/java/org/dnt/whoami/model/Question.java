@@ -29,15 +29,21 @@ public class Question {
     private PersonalityTrait trait;
     private Type type;
     private ValueType valueType;
+    private int valueEffect; // positive/negative
 
     public Question() {
     }
 
-    public Question(String text, PersonalityTrait trait, Type type, ValueType valueType) {
+    public Question(String text,
+                    PersonalityTrait trait,
+                    Type type,
+                    ValueType valueType,
+                    int valueEffect) {
         this.text = text;
         this.trait = trait;
         this.type = type;
         this.valueType = valueType;
+        this.valueEffect = valueEffect;
     }
 
     public String getText() {
@@ -72,13 +78,22 @@ public class Question {
         this.valueType = valueType;
     }
 
+    public int getValueEffect() {
+        return valueEffect;
+    }
+
+    public void setValueEffect(int valueEffect) {
+        this.valueEffect = valueEffect;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
-                ", text='" + text + '\'' +
+                "text='" + text + '\'' +
                 ", trait=" + trait +
                 ", type=" + type +
                 ", valueType=" + valueType +
+                ", valueEffect=" + valueEffect +
                 '}';
     }
 }

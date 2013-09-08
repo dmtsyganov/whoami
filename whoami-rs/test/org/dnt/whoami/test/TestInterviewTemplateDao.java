@@ -43,11 +43,11 @@ public class TestInterviewTemplateDao extends TestBase  {
 
         List<Question> questions = new ArrayList<Question>();
         questions.add(new Question("Question One", PersonalityTrait.CONNOTATIVE,
-                Question.Type.DIRECT, Question.ValueType.SCORE));
+                Question.Type.DIRECT, Question.ValueType.SCORE, 1));
         questions.add(new Question("Question Two", PersonalityTrait.DOMINANT,
-                Question.Type.DIRECT, Question.ValueType.YES_NO));
+                Question.Type.DIRECT, Question.ValueType.YES_NO, 1));
         questions.add(new Question("Question Three", PersonalityTrait.INTELLECTUAL,
-                Question.Type.INDIRECT, Question.ValueType.SCORE));
+                Question.Type.INDIRECT, Question.ValueType.SCORE, 1));
 
         template.setQuestions(questions);
         Assert.assertTrue("Updated with questions", templateDao.update(template));

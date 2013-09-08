@@ -66,15 +66,15 @@ public class TestInterviewDao extends TestBase {
 
         List<Question> questions = new ArrayList<Question>();
         questions.add(new Question("Question One", PersonalityTrait.CONNOTATIVE,
-                Question.Type.DIRECT, Question.ValueType.SCORE));
+                Question.Type.DIRECT, Question.ValueType.SCORE, 1));
         questions.add(new Question("Question Two", PersonalityTrait.ENERGETIC,
-                Question.Type.INDIRECT, Question.ValueType.YES_NO));
+                Question.Type.INDIRECT, Question.ValueType.YES_NO, 1));
         questions.add(new Question("Question Three", PersonalityTrait.SELF_ACTUALIZATION,
-                Question.Type.INDIRECT, Question.ValueType.YES_NO));
+                Question.Type.INDIRECT, Question.ValueType.YES_NO, 1));
         questions.add(new Question("Question Three", PersonalityTrait.INTELLECTUAL,
-                Question.Type.INDIRECT, Question.ValueType.YES_NO));
+                Question.Type.INDIRECT, Question.ValueType.YES_NO, 1));
         questions.add(new Question("Question Three", PersonalityTrait.INTELLECTUAL,
-                Question.Type.INDIRECT, Question.ValueType.YES_NO));
+                Question.Type.INDIRECT, Question.ValueType.YES_NO, 1));
 
         template.setQuestions(questions);
         Assert.assertTrue("Updated with questions", templateDao.update(template));
@@ -100,11 +100,18 @@ public class TestInterviewDao extends TestBase {
         interview.setTemplateId(interview1.getObjectId());
 
         List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
+        String value;
         for(Question q: interviewQuestions) {
             if (q.getType() == Question.Type.DIRECT) {
-                answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), "7"));
+                value = "7";
+                answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), value));
             } else if(q.getType() == Question.Type.INDIRECT) {
-                answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), "1"));
+                if(q.getValueEffect() > 0) {
+                    value = "1";
+                } else {
+                    value = "0";
+                }
+                answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), value));
             }
         }
         interview.setAnswers(answers);

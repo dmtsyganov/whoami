@@ -18,7 +18,7 @@
     <context-param>
         <description>datastore name</description>
         <param-name>datastoreName</param-name>
-        <param-value>testdb</param-value>
+        <param-value>whoami</param-value>
     </context-param>
 
     <servlet>
