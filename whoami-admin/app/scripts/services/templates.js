@@ -31,8 +31,8 @@ services.factory('LoadTemplate', ['Template', '$route', '$q',
             var deferred = $q.defer();
             if($route.current.params.interviewId === '0') {
                 deferred.resolve( new Template({
-                    name: 'Новое Интервью',
-                    description: 'Описание',
+                    name: undefined,
+                    description: undefined,
                     active: false,
                     order: 0,
                     questions: [{}]

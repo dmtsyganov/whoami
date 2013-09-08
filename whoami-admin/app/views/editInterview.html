@@ -2,11 +2,11 @@
 
     <h4>Интервью</h4>
 
-    <form name="templateForm" ng-submit="save()" class="form-horizontal">
+    <form name="templateForm" class="form-horizontal">
         <div class="control-group">
             <label class="control-label" for="name">Название:</label>
             <div class="controls">
-                <input ng-model="template.name" class="input-xxlarge" id="name" focus required>
+                <input ng-model="template.name" class="input-xxlarge" id="name" placeholder="Название" focus required>
             </div>
         </div>
         <div class="control-group">
@@ -14,7 +14,7 @@
             <div class="controls">
                 <textarea ng-model="template.description"
                           class="input-xxlarge"
-                          id="description"></textarea>
+                          placeholder="Описание" id="description"></textarea>
             </div>
         </div>
         <div class="control-group">
@@ -38,14 +38,14 @@
             <div class="controls">
                 <ul id="questions" class="unstyled" ng-controller="EditQuestionCtrl">
                     <li ng-repeat="question in template.questions">
-                        <textarea ng-model="question.text" class="input-large"></textarea>
+                        <textarea ng-model="question.text" class="input-large" placeholder="Вопрос" required=""></textarea>
 
                         <select ng-model="question.trait" class="input-medium"
                                 ng-options="t.name as t.description for t in traits"></select>
                         <select ng-model="question.type" class="input-medium"
-                                ng-options="q.type as q.name for q in questionTypes"></select>
-                        <select ng-model="question.valueType" class="input-small"
-                                ng-options="v.type as v.name for v in valueTypes"></select>
+                                ng-options="q.type as q.name for q in questionTypes" ng-change="typeChanged($index)"></select>
+                        <select ng-model="question.valueEffect" class="input-mini"
+                                ng-options="e.type as e.name for e in valueEffects" ng-show="showEffect($index)"></select>
 
                         <button type="button"
                                 class="btn btn-mini"

@@ -5,7 +5,7 @@
 
       $scope.templates = templates;
 
-      $scope.new = function() {
+      $scope.newTemplate = function() {
           $location.path('/editInterview/0');
       };
 

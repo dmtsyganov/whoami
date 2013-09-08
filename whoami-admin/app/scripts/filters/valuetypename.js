@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('whoamiAdminApp')
+myApp
   .filter('valuetypename', ['valuetype', function (valuetype) {
     return function (input) {
         if(!input) {
@@ -18,3 +18,21 @@ angular.module('whoamiAdminApp')
         return name;
     };
   }]);
+
+myApp
+    .filter('valueeffectname', [function () {
+        return function (input) {
+
+            if(typeof input === 'undefined') {
+                return '';
+            }
+
+            var name = '-';
+
+            if(input > 0) {
+               name = '+';
+            }
+
+            return name;
+        };
+    }]);

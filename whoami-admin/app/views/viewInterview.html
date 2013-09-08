@@ -6,12 +6,13 @@
     <div ng-show="template.active">Активное!</div>
     <table class='table table-hover table-striped'>
         <tr>
-            <th>Вопрос</th><th>Характеристика</th><th>Тип</th><th>Значение</th>
+            <th>Вопрос</th><th>Характеристика</th><th>Тип</th><th>Эффект</th><th>Значение</th>
         </tr>
         <tr ng-repeat="question in template.questions">
             <td>{{question.text}}</td>
             <td>{{question.trait | traitname}}</td>
             <td>{{question.type | questiontypename}}</td>
+            <td>{{question.valueEffect | valueeffectname}}</td>
             <td>{{question.valueType | valuetypename}}</td>
         </tr>
     </table>
