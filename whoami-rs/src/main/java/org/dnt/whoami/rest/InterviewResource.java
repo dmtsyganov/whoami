@@ -157,11 +157,17 @@ public class InterviewResource {
             // create new interview
             interview.setUserId(user.getObjectId());
             interview.setTemplateId(template.getObjectId());
+            interview.setName(template.getName());
+            interview.setDescription(template.getDescription());
 
             List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
             for (Question q : interviewQuestions) {
-                answers.add(new
-                        Answer(q.getTrait(), q.getType(), q.getValueType())); // add answer object w/o answer value
+                answers.add(new Answer(
+                        q.getText(),
+                        q.getTrait(),
+                        q.getType(),
+                        q.getValueType(),
+                        q.getValueEffect())); // add answer object w/o answer value
             }
 
             interview.setAnswers(answers);

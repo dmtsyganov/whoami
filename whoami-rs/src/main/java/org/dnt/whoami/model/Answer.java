@@ -15,26 +15,39 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Embedded
 public class Answer {
 
+    private String question;
     private PersonalityTrait trait;
     private Question.Type type;
     private Question.ValueType valueType;
+    private int valueEffect; // positive/negative
     private String value;
 
     public Answer() {
     }
 
-    public Answer(PersonalityTrait trait,
-                  Question.Type type ,Question.ValueType valueType) {
+    public Answer(String question,
+                  PersonalityTrait trait,
+                  Question.Type type,
+                  Question.ValueType valueType,
+                  int valueEffect) {
+        this.question = question;
         this.trait = trait;
         this.type = type;
         this.valueType = valueType;
+        this.valueEffect = valueEffect;
     }
 
-    public Answer(PersonalityTrait trait,
-                  Question.Type type, Question.ValueType valueType, String value) {
+    public Answer(String question,
+                  PersonalityTrait trait,
+                  Question.Type type,
+                  Question.ValueType valueType,
+                  int valueEffect,
+                  String value) {
+        this.question = question;
         this.trait = trait;
         this.type = type;
         this.valueType = valueType;
+        this.valueEffect = valueEffect;
         this.value = value;
     }
 
@@ -70,12 +83,30 @@ public class Answer {
         this.valueType = valueType;
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public int getValueEffect() {
+        return valueEffect;
+    }
+
+    public void setValueEffect(int valueEffect) {
+        this.valueEffect = valueEffect;
+    }
+
     @Override
     public String toString() {
         return "Answer{" +
+                "question='" + question + '\'' +
                 ", trait=" + trait +
                 ", type=" + type +
                 ", valueType=" + valueType +
+                ", valueEffect=" + valueEffect +
                 ", value='" + value + '\'' +
                 '}';
     }

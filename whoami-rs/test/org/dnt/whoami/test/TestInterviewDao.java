@@ -98,20 +98,24 @@ public class TestInterviewDao extends TestBase {
         // set interview parameters
         interview.setUserId(userRecord.getObjectId());
         interview.setTemplateId(interview1.getObjectId());
+        interview.setName(interview1.getName());
+        interview.setDescription(interview1.getDescription());
 
         List<Answer> answers = new ArrayList<Answer>(interviewQuestions.size());
         String value;
         for(Question q: interviewQuestions) {
             if (q.getType() == Question.Type.DIRECT) {
                 value = "7";
-                answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), value));
+                answers.add(new Answer(q.getText(),
+                        q.getTrait(), q.getType(), q.getValueType(), q.getValueEffect(), value));
             } else if(q.getType() == Question.Type.INDIRECT) {
                 if(q.getValueEffect() > 0) {
                     value = "1";
                 } else {
                     value = "0";
                 }
-                answers.add(new Answer(q.getTrait(), q.getType(), q.getValueType(), value));
+                answers.add(new Answer(q.getText(), q.getTrait(),
+                        q.getType(), q.getValueType(), q.getValueEffect(), value));
             }
         }
         interview.setAnswers(answers);

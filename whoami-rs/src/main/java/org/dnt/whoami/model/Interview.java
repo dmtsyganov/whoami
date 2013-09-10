@@ -26,6 +26,9 @@ public class Interview {
     private ObjectId userId; // reference to the user
     private ObjectId templateId; // reference to the template
 
+    private String name;
+    private String description;
+
     @Embedded
     private List<Answer> answers;
 
@@ -45,10 +48,14 @@ public class Interview {
 
     public Interview(ObjectId userId,
                      ObjectId templateId,
+                     String name,
+                     String description,
                      List<Answer> answers,
                      Date startDate, Date endDate) {
         this.userId = userId;
         this.templateId = templateId;
+        this.name = name;
+        this.description = description;
         this.answers = answers;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -93,6 +100,22 @@ public class Interview {
         this.templateId = templateId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<Answer> getAnswers() {
         return answers;
     }
@@ -123,6 +146,8 @@ public class Interview {
                 "id=" + id +
                 ", userId=" + userId +
                 ", templateId=" + templateId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", answers=" + answers +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
