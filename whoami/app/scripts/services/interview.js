@@ -43,7 +43,7 @@ services.factory('LoadInterviews', ['Interview', '$q', '$route', 'CurrentUser',
             }
 
             if( userId !== '0') {
-                Interview.query({id: $route.current.params.userId, userId: null, templateId: null}, function(interviews) {
+                Interview.query({id: userId, userId: null, templateId: null}, function(interviews) {
                     deferred.resolve(interviews);
                 },function(err) {
                     deferred.reject(err);

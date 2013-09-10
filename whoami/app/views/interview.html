@@ -2,4 +2,27 @@
 
 <div class="interview-panel">
     <h4>Интервью</h4>
+
+    <h5>{{interview.name}}</h5>
+    <textarea class="input-xxlarge" readonly>{{interview.description}}</textarea>
+    <table class='table table-hover table-striped' ng-controller="QuestionCtrl">
+        <tr>
+            <th>#</th><th>Вопрос</th><th>Ответ</th>
+        </tr>
+        <tr ng-repeat="answer in interview.answers">
+            <td>{{$index+1}}</td>
+            <td>{{answer.question}}</td>
+            <td ng-show="isYesNo($index)">
+                <div class="btn-group">
+                    <button type="button" class="btn" ng-model="radioModel" btn-radio="'Yes'">Да</button>
+                    <button type="button" class="btn" ng-model="radioModel" btn-radio="'No'">Нет</button>
+                </div>
+            </td>
+            <td ng-show="isScore($index)">
+                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                <span class="badge" ng-class="{'badge-warning': value<2, 'badge-info': value>=2 && value<5, 'badge-success': value>=5}" ng-show="overStar && !isReadonly">{{preview}}</span>
+            </td>
+        </tr>
+    </table>
+
 </div>

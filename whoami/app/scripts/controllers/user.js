@@ -1,8 +1,9 @@
 'use strict';
 
 myApp
-    .controller('UserCtrl', ['$scope', 'CurrentUser', 'User', 'templates', 'interviews', 'Interview',
-        function ($scope, CurrentUser, User, templates, interviews, Interview ) {
+    .controller('UserCtrl', ['$scope', 'CurrentUser', 'User', 'templates',
+        'interviews', 'Interview', 'CurrentInterview', '$location',
+        function ($scope, CurrentUser, User, templates, interviews, Interview, CurrentInterview, $location) {
 
         // TODO: use user from resolve
         $scope.user = CurrentUser;
@@ -39,7 +40,7 @@ myApp
         // work with the interviews
         $scope.isNew = function(index) {
             var templateId = $scope.templates[index].id;
-            console.log("is new " + templateId.toString());
+            //console.log("is new " + templateId.toString());
 
             for(var i = 0; i < $scope.interviews.length; i++) {
                 if($scope.interviews[i].templateIdString === templateId) {
@@ -65,6 +66,8 @@ myApp
 
             newInterview.$save({userId: userId, templateId: templateId}, function(interview) {
                 console.log("New interview created");
+                CurrentInterview.setCurrentInterview(userId, templateId, interview);
+                $location.path("/interview");
 
             }, function(response) {
                 console.log("Error creating new interview ", response.toString());
@@ -76,19 +79,31 @@ myApp
                  });
                  */
             });
-
         };
 
+        // helper, finds interview for the template Id
+        var findInterview = function(templateId) {
+            for(var i = 0; i < $scope.interviews.length; i++) {
+                if($scope.interviews[i].templateIdString === templateId) {
+                    return $scope.interviews[i];
+                }
+            }
+        };
+
+        // continue with this interview
         $scope.continueInterview = function(index) {
-            var id = $scope.templates[index].id;
-            console.log("continue " + id.toString());
-
+            var templateId = $scope.templates[index].id;
+            var userId = $scope.user.id;
+            var interview = findInterview(templateId);
+            console.log("Continue with user/template/interview " + userId + "/" + templateId + "/" + interview.id);
+            CurrentInterview.setCurrentInterview(userId, templateId, interview);
+            $location.path("/interview");
         };
 
+        // go to the interview results
         $scope.viewResults = function(index) {
             var id = $scope.templates[index].id;
             console.log("view " + id.toString());
-
         }
 
   }]);
