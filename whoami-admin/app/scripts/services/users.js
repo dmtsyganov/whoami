@@ -4,7 +4,7 @@ var services = angular.module('whoamiAdminApp.userServices', ['ngResource']);
 
 // base Template request object
 services.factory('User', ['$resource', function($resource) {
-    return $resource('/whoami-rs/rest/users/:id/', {id:'@id'});
+    return $resource('/whoami-rs/rest/users/:id/:query', {id:'@id', query:''});
 }]);
 
 services.factory('LoadUser', ['User', '$route', '$q',
