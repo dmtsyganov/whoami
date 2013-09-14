@@ -49,12 +49,12 @@ public class InterviewDao extends AbstractDaoCrud<Interview> {
     }
 
     // interview lookup
-    public List<Interview> findInterview(ObjectId userId) {
+    public List<Interview> findInterview(String userId) {
         Query<Interview> q = ds.createQuery(Interview.class).field("userId").equal(userId);
         return q.asList();
     }
 
-    public Interview findInterview(ObjectId userId, ObjectId templateId) {
+    public Interview findInterview(String userId, String templateId) {
         Query<Interview> q = ds.createQuery(Interview.class);
         q.and(q.criteria("userId").equal(userId),q.criteria("templateId").equal(templateId));
         return q.get();

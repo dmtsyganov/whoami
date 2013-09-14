@@ -5,24 +5,34 @@
 
     <h5>{{interview.name}}</h5>
     <textarea class="input-xxlarge" readonly>{{interview.description}}</textarea>
-    <table class='table table-hover table-striped' ng-controller="QuestionCtrl">
-        <tr>
-            <th>#</th><th>Вопрос</th><th>Ответ</th>
-        </tr>
-        <tr ng-repeat="answer in interview.answers">
-            <td>{{$index+1}}</td>
-            <td>{{answer.question}}</td>
-            <td ng-show="isYesNo($index)">
-                <div class="btn-group">
-                    <button type="button" class="btn" ng-model="radioModel" btn-radio="'Yes'">Да</button>
-                    <button type="button" class="btn" ng-model="radioModel" btn-radio="'No'">Нет</button>
-                </div>
-            </td>
-            <td ng-show="isScore($index)">
-                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-                <span class="badge" ng-class="{'badge-warning': value<2, 'badge-info': value>=2 && value<5, 'badge-success': value>=5}" ng-show="overStar && !isReadonly">{{preview}}</span>
-            </td>
-        </tr>
-    </table>
+    <form name="templateForm" class="form-horizontal" ng-controller="QuestionCtrl">
+        <table class='table table-hover table-striped'>
+            <tr>
+                <th>#</th><th>Вопрос</th><th>Ответ</th><th></th>
+            </tr>
+            <tr ng-repeat="answer in interview.answers">
+                <td>{{$index+1}}</td>
+                <td>{{answer.question}}</td>
+                <td ng-show="isYesNo($index)">
+<!--
+                    <input type="radio" ng-model="answer.value" value='1'> Yes <br/>
+                    <input type="radio" ng-model="answer.value" value='0'> No  <br/>
+-->
+                    <div class="btn-group" ng-click="onClick($index)">
+                        <button class='btn btn-info' ng-model='answer.value' btn-radio='1'> Да </button>
+                        <button class='btn btn-info' ng-model='answer.value' btn-radio='0'> Нет</button>
+                    </div>
+                </td>
+                <td ng-show="isScore($index)">
+                    <rating value="answer.value" max="max" readonly="false"></rating>
+                </td>
+                <td> {{ answer.value }}</td>
+            </tr>
+        </table>
+        <div class="form-actions">
+            <button class="btn" ng-click="cancel()">Отменить</button>
+            <button class="btn btn-primary" ng-click="save()">Сохранить</button>
+        </div>
+    </form>
 
 </div>

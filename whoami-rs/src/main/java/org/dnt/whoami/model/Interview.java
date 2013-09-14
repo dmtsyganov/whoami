@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The Interview class. Holds answers for interview questions
@@ -23,8 +22,8 @@ public class Interview {
     @Id
     private ObjectId id;
 
-    private ObjectId userId; // reference to the user
-    private ObjectId templateId; // reference to the template
+    private String userId; // reference to the user
+    private String templateId; // reference to the template
 
     private String name;
     private String description;
@@ -46,8 +45,8 @@ public class Interview {
         this.id = id;
     }
 
-    public Interview(ObjectId userId,
-                     ObjectId templateId,
+    public Interview(String userId,
+                     String templateId,
                      String name,
                      String description,
                      List<Answer> answers,
@@ -76,27 +75,19 @@ public class Interview {
         }
     }
 
-    public ObjectId getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public String getUserIdString() {
-        return userId.toString();
-    }
-
-    public void setUserId(ObjectId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public ObjectId getTemplateId() {
+    public String getTemplateId() {
         return templateId;
     }
 
-    public String getTemplateIdString() {
-        return templateId.toString();
-    }
-
-    public void setTemplateId(ObjectId templateId) {
+    public void setTemplateId(String templateId) {
         this.templateId = templateId;
     }
 
@@ -144,8 +135,8 @@ public class Interview {
     public String toString() {
         return "Interview{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", templateId=" + templateId +
+                ", userId='" + userId + '\'' +
+                ", templateId='" + templateId + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", answers=" + answers +

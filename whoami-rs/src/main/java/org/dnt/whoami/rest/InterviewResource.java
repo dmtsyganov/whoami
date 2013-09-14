@@ -77,9 +77,7 @@ public class InterviewResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-
-        ObjectId id = new ObjectId(userId);
-        List<Interview> interviews = interviewDao.findInterview(id);
+        List<Interview> interviews = interviewDao.findInterview(userId);
         GenericEntity<List<Interview>> entity = new GenericEntity<List<Interview>>(interviews) {
         };
 
@@ -106,10 +104,7 @@ public class InterviewResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        ObjectId uId = new ObjectId(userId);
-        ObjectId tId = new ObjectId(templateId);
-
-        Interview interview = interviewDao.findInterview(uId, tId);
+        Interview interview = interviewDao.findInterview(userId, templateId);
         if (interview != null)
             return Response.ok(interview).build();
 
@@ -155,8 +150,8 @@ public class InterviewResource {
 
         if (interview.getObjectId() == null) {
             // create new interview
-            interview.setUserId(user.getObjectId());
-            interview.setTemplateId(template.getObjectId());
+            interview.setUserId(user.getId());
+            interview.setTemplateId(template.getId());
             interview.setName(template.getName());
             interview.setDescription(template.getDescription());
 
@@ -191,13 +186,13 @@ public class InterviewResource {
 
         } else {
             // update interview
-            if (!userId.equals(interview.getUserId().toString())) {
-                logger.error("User ids do not match: {} vs {}", userId, interview.getUserId().toString());
+            if (!userId.equals(interview.getUserId())) {
+                logger.error("User ids do not match: {} vs {}", userId, interview.getUserId());
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
 
-            if (!templateId.equals(interview.getTemplateId().toString())) {
-                logger.error("Template ids do not match: {} vs {}", templateId, interview.getTemplateId().toString());
+            if (!templateId.equals(interview.getTemplateId())) {
+                logger.error("Template ids do not match: {} vs {}", templateId, interview.getTemplateId());
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
 
@@ -210,6 +205,26 @@ public class InterviewResource {
 
             return Response.noContent().build();
         }
+    }
+
+    /**
+     * Update the interview
+     *
+     * @param interview interview object
+     * @return  {@link Response}
+     */
+    @POST
+    @Path("/{Id}")
+    public Response updateInterview(Interview interview) {
+
+        if (!interviewDao.update(interview)) {
+            logger.error("Unable to update interview {}", interview);
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        logger.debug("Interview updated id {}", interview.getObjectId().toString());
+
+        return Response.noContent().build();
     }
 
     @GET
@@ -229,8 +244,7 @@ public class InterviewResource {
         }
 
 
-        ObjectId id = new ObjectId(userId);
-        List<Interview> interviews = interviewDao.findInterview(id);
+        List<Interview> interviews = interviewDao.findInterview(userId);
 
         List<InterviewResult> results = new ArrayList<InterviewResult>(interviews.size());
 
@@ -257,10 +271,7 @@ public class InterviewResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        ObjectId uId = new ObjectId(userId);
-        ObjectId tId = new ObjectId(templateId);
-
-        Interview interview = interviewDao.findInterview(uId, tId);
+        Interview interview = interviewDao.findInterview(userId, templateId);
         if (interview == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

@@ -2,7 +2,10 @@ package org.dnt.whoami.test;
 
 import junit.framework.Assert;
 import org.bson.types.ObjectId;
-import org.dnt.whoami.dao.*;
+import org.dnt.whoami.dao.DaoClient;
+import org.dnt.whoami.dao.InterviewDao;
+import org.dnt.whoami.dao.InterviewTemplateDao;
+import org.dnt.whoami.dao.UserDao;
 import org.dnt.whoami.model.*;
 import org.dnt.whoami.utils.Calculator;
 import org.junit.BeforeClass;
@@ -96,8 +99,8 @@ public class TestInterviewDao extends TestBase {
         Interview interview = new Interview();
 
         // set interview parameters
-        interview.setUserId(userRecord.getObjectId());
-        interview.setTemplateId(interview1.getObjectId());
+        interview.setUserId(userRecord.getId());
+        interview.setTemplateId(interview1.getId());
         interview.setName(interview1.getName());
         interview.setDescription(interview1.getDescription());
 

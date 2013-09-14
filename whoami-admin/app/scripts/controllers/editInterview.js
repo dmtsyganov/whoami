@@ -10,7 +10,7 @@
             $scope.template.$save(function(template) {
                 $location.path('/viewInterview/' + template.id);
             }, function(response) {
-                var error = 'blah';
+                console.log("Error response :" + response.toString());
             });
         };
 

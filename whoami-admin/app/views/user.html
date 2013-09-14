@@ -2,8 +2,32 @@
     <h4>Пользователи системы</h4>
     <form class="form-horizontal">
         <div class="form-actions">
-            <button class="btn" ng-click="find()">Найти</button>
+            <button class="btn" ng-click="showFind()">Найти</button>
             <button class="btn btn-primary" ng-click="newUser()">Добавить</button>
         </div>
     </form>
+
+  <!-- Find User Form -->
+  <div collapse="!isFindUser">
+      <form name="findUserForm" class="form-horizontal" novalidate>
+        <div >
+          <h4>Найти</h4>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="name">Имя(логин):</label>
+          <div class="controls">
+            <input ng-model="user.login" class="input-xxlarge" id="name" focus required>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn" ng-click="cancelFind()">Отменить</button>
+          <button class="btn btn-primary" ng-disabled="findUserForm.$invalid" ng-click="find(user.login)">Найти</button>
+        </div>
+        <div>
+          <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+      </form>
+    </div>
 </div>

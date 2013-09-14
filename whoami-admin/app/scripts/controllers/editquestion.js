@@ -60,6 +60,7 @@
           var questions = $scope.template.questions;
           questions[questions.length] = {
               type: 'INDIRECT',
+              trait: $scope.traits[0].name, // just pick the first one
               valueType: 'YES_NO',
               valueEffect: 1
           };

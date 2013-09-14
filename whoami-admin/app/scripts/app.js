@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('whoamiAdminApp', ['whoamiAdminApp.services', 'whoamiAdminApp.userServices']);
+var myApp = angular.module('whoamiAdminApp', ['ui.bootstrap', 'whoamiAdminApp.services', 'whoamiAdminApp.userServices']);
 
 
   myApp.config(['$routeProvider', function ($routeProvider) {

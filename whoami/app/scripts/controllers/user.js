@@ -43,7 +43,7 @@ myApp
             //console.log("is new " + templateId.toString());
 
             for(var i = 0; i < $scope.interviews.length; i++) {
-                if($scope.interviews[i].templateIdString === templateId) {
+                if($scope.interviews[i].templateId === templateId) {
                     return false;
                 }
             }
@@ -84,7 +84,7 @@ myApp
         // helper, finds interview for the template Id
         var findInterview = function(templateId) {
             for(var i = 0; i < $scope.interviews.length; i++) {
-                if($scope.interviews[i].templateIdString === templateId) {
+                if($scope.interviews[i].templateId === templateId) {
                     return $scope.interviews[i];
                 }
             }

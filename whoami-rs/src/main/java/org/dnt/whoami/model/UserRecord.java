@@ -10,7 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * TODO: add class description
+ * The User Record model class
+ *
  * @author dima
  * @since  5/25/13 2:04 AM
  */

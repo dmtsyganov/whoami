@@ -35,7 +35,12 @@ services.factory('LoadTemplate', ['Template', '$route', '$q',
                     description: undefined,
                     active: false,
                     order: 0,
-                    questions: [{}]
+                    questions: [{
+                        type: 'INDIRECT',
+                        trait: 'ENERGETIC', // just pick the first one
+                        valueType: 'YES_NO',
+                        valueEffect: 1
+                    }]
                 }));
             } else {
                 Template.get({id: $route.current.params.interviewId}, function(template) {
