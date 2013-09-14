@@ -88,10 +88,17 @@ public class UserResource {
             if (records.size() > 1)
                 logger.error("Multiple records match user login {}", login);
 
-            if(records.get(0).getPassword().equals(password)) {
+            String pass = records.get(0).getPassword();
+
+            if(pass == null) {
+                logger.error("Password for user {} is not set.", password ,login);
+                return Response.status(Response.Status.FORBIDDEN).build();
+            }
+
+            if(pass.equals(password)) {
                 return Response.ok(records.get(0)).build();
             } else {
-                logger.error("Invalid password {} for user {}", password ,login);
+                logger.error("Invalid password for user {}", login);
                 return Response.status(Response.Status.FORBIDDEN).build();
             }
         }
@@ -139,7 +146,7 @@ public class UserResource {
 
     @POST
     @Path("/{id}")
-    public Response updateUser(@PathParam("id") String id, UserRecord userRecord) {
+    public Response updateUser(UserRecord userRecord) {
         if(userRecord.getObjectId() == null) {
             logger.error("Unable to update user {}", userRecord);
             return Response.status(Response.Status.BAD_REQUEST).build();
