@@ -33,33 +33,33 @@
                           id="order"/>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="questions">Вопросы:</label>
-            <div class="controls">
-                <ul id="questions" class="unstyled" ng-controller="EditQuestionCtrl">
-                    <li ng-repeat="question in template.questions">
-                        <span>{{ $index+1 }}</span>
-                        <textarea ng-model="question.text" class="input-large" placeholder="Вопрос" required></textarea>
 
-                        <select ng-model="question.trait" class="input-medium"
-                                ng-options="t.name as t.description for t in traits"></select>
-                        <select ng-model="question.type" class="input-medium"
-                                ng-options="q.type as q.name for q in questionTypes" ng-change="typeChanged($index)"></select>
-                        <select ng-model="question.valueEffect" class="input-mini"
-                                ng-options="e.type as e.name for e in valueEffects" ng-show="showEffect($index)"></select>
+        <div ng-controller="EditQuestionCtrl">
+          <table class='table table-hover table-striped'>
+            <tr>
+              <th>#</th><th>Вопрос</th><th>Характеристика</th><th>Тип</th><th>Эффект</th><th></th>
+            </tr>
+            <tr ng-repeat="question in template.questions">
+              <td>{{$index+1}}</td>
+              <td><textarea ng-model="question.text" class="input-large" placeholder="Вопрос" required></textarea></td>
+              <td><select ng-model="question.trait" class="input-medium"
+                          ng-options="t.name as t.description for t in traits"></select></td>
+              <td><select ng-model="question.type" class="input-medium"
+                          ng-options="q.type as q.name for q in questionTypes" ng-change="typeChanged($index)"></select></td>
+              <td><select ng-model="question.valueEffect" class="input-small"
+                          ng-options="e.type as e.name for e in valueEffects" ng-show="showEffect($index)"></select></td>
+              <td><button type="button"
+                          class="btn btn-small"
+                          ng-click="removeQuestion($index)">
+                <i class="icon-minus-sign"></i> Удалить </button>
+              </td>
+            </tr>
+          </table>
 
-                        <button type="button"
-                                class="btn btn-mini"
-                                ng-click="removeQuestion($index)">
-                            <i class="icon-minus-sign"></i> Удалить </button>
-                    </li>
-                    <button type="button"
-                            class="btn btn-mini"
-                            ng-click="addQuestion()">
-                        <i class="icon-plus-sign"></i> Добавить </button>
-                </ul>
-            </div>
+          <button type="button" class="btn btn-small" ng-click="addQuestion()">
+              <i class="icon-plus-sign"></i> Добавить </button>
         </div>
+
         <div class="form-actions">
             <button class="btn" ng-click="cancel()">Отменить</button>
             <button class="btn btn-primary" ng-disabled="templateForm.$invalid" ng-click="save()">Сохранить</button>

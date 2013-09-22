@@ -1,31 +1,26 @@
 'use strict';
 
 myApp
-  .controller('LoginCtrl', ['$scope', '$location', 'User', function ($scope, $location, User) {
+    .controller('LoginCtrl', ['$scope', '$location', 'User', function ($scope, $location, User) {
 
         // alerts
         $scope.alerts = [];
 
-        $scope.closeAlert = function(index) {
+        $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
 
-        $scope.login = function(username, password) {
-            console.log("User: " + username + " password " + password);
-
-            //var user = LoginUser(username, password);
-
-            User.get({id: null, login: username, password: password}, function(user) {
-                console.log("Logged user " + user.toString());
+        $scope.login = function (username, password) {
+            User.get({id: null, login: username, password: password}, function (user) {
                 $location.path('/user/' + user.id);
-            }, function(response) {
-                if(response.status === 403) {
+            }, function (response) {
+                if (response.status === 403) {
                     // forbidden
                     $scope.alerts.push({
                         type: 'error',
                         msg: "Вы ввели неправильное имя или пароль!"
                     });
-                } else if(response.status === 404) {
+                } else if (response.status === 404) {
                     // not found
                     $scope.alerts.push({
                         type: 'error',
@@ -41,8 +36,8 @@ myApp
             });
         };
 
-        $scope.create = function() {
-            var newUser = new User ({
+        $scope.create = function () {
+            var newUser = new User({
                 login: $scope.newusername,
                 password: $scope.new_password,
                 role: 'USER',
@@ -55,10 +50,10 @@ myApp
                 }
             });
 
-            newUser.$save({id: null, login: null, password: null}, function(user) {
+            newUser.$save({id: null, login: null, password: null}, function (user) {
                 $location.path('/user/' + user.id);
-            }, function(response) {
-                if(response.status === 409) {
+            }, function (response) {
+                if (response.status === 409) {
                     // forbidden
                     $scope.alerts.push({
                         type: 'error',
@@ -72,11 +67,9 @@ myApp
                     });
                 }
             });
-            console.log("New User");
         };
 
-        $scope.cancel = function() {
-            console.log("Cancel");
+        $scope.cancel = function () {
             $location.path("/");
         };
-  }]);
+    }]);
