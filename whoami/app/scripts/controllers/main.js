@@ -1,12 +1,12 @@
 'use strict';
 
 myApp
-    .controller('MainCtrl', ['$scope', '$location', function ($scope, $location) {
+    .controller('MainCtrl', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
         $scope.login = function () {
             $location.path('/login/');
         };
 
-        $scope.$on('event:loginRequired', function () {
+        $rootScope.$on('event:loginRequired', function () {
             $location.path('/login');
         });
     }]);

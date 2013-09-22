@@ -10,6 +10,11 @@ myApp
             $scope.password_confirmation = CurrentUser.password;
             $scope.templates = templates;
             $scope.interviews = interviews;
+            $scope.isHideUser = false;
+
+            $scope.hideUser = function() {
+                $scope.isHideUser = !$scope.isHideUser;
+            }
 
             // update user profile
             $scope.update = function () {
@@ -49,6 +54,15 @@ myApp
                 return true;
             };
 
+            // helper, finds interview for the template Id
+            var findInterview = function (templateId) {
+                for (var i = 0; i < $scope.interviews.length; i++) {
+                    if ($scope.interviews[i].templateId === templateId) {
+                        return $scope.interviews[i];
+                    }
+                }
+            };
+
             // Create new interview and start it
             $scope.startInterview = function (index) {
                 var templateId = $scope.templates[index].id;
@@ -79,15 +93,6 @@ myApp
                 });
             };
 
-            // helper, finds interview for the template Id
-            var findInterview = function (templateId) {
-                for (var i = 0; i < $scope.interviews.length; i++) {
-                    if ($scope.interviews[i].templateId === templateId) {
-                        return $scope.interviews[i];
-                    }
-                }
-            };
-
             // continue with this interview
             $scope.continueInterview = function (index) {
                 var templateId = $scope.templates[index].id;
@@ -99,10 +104,8 @@ myApp
             };
 
             // go to the interview results
-            $scope.viewResults = function (index) {
-                var id = $scope.templates[index].id;
-                //console.log("view " + id.toString());
+            $scope.showResults = function () {
+                $location.path("/result/" + $scope.user.id);
             }
-
         }]);
 

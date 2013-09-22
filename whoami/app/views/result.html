@@ -1,5 +1,34 @@
 <office-desk></office-desk>
 
 <div class="interview-panel">
-    <h4>Результаты</h4>
+  <h4>Результаты</h4>
+
+  <form name="interviewResultForm" class="form-horizontal" ng-controller="QuestionCtrl">
+    <h5>Ваши интервью</h5>
+    <table class='table table-hover table-striped'>
+      <tr ng-repeat="result in results.interviewResults">
+        <td>{{result.interviewName}}</td>
+        <td>
+          <span ng-show="result.complete" class="text-success">Пройдено</span>
+          <span ng-hide="result.complete" class="text-warning">Не закончено</span>
+        </td>
+      </tr>
+    </table>
+    <div class="form-actions">
+      <button class="btn btn-primary" ng-click="goBack()">Венуться к интервью</button>
+    </div>
+  </form>
+
+  <div>
+    <h4 class="text-center">Коэффициент конкордантности: <span class="text-success">{{ results.coefficientOfConcordance }}</span></h4>
+  </div>
+  <div ng-controller="ResultChartCtrl">
+    <div google-chart chart="chart" style="{{chart.cssStyle}}" on-ready="chartReady()" />
+  </div>
+
+  <!--
+        Debug View:
+        <pre>Results = {{results}}</pre>
+  -->
+
 </div>

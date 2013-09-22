@@ -10,7 +10,7 @@
             <tr>
                 <th>#</th><th>Вопрос</th><th>Ответ</th><th></th>
             </tr>
-            <tr ng-repeat="answer in interview.answers">
+            <tr ng-repeat="answer in answers">
                 <td>{{$index+1}}</td>
                 <td>{{answer.question}}</td>
                 <td ng-show="isYesNo($index)">
@@ -18,7 +18,7 @@
                     <input type="radio" ng-model="answer.value" value='1'> Yes <br/>
                     <input type="radio" ng-model="answer.value" value='0'> No  <br/>
 -->
-                    <div class="btn-group" ng-click="onClick($index)">
+                    <div class="btn-group">
                         <button class='btn btn-info' ng-model='answer.value' btn-radio='1'> Да </button>
                         <button class='btn btn-info' ng-model='answer.value' btn-radio='0'> Нет</button>
                     </div>
@@ -26,7 +26,9 @@
                 <td ng-show="isScore($index)">
                     <rating value="answer.value" max="max" readonly="false"></rating>
                 </td>
-                <td> {{ answer.value }}</td>
+                <td><span ng-show="!isNullOrUndefined(answer.value)" class="icon-ok"></span>
+                  <span ng-show="isScore($index)">({{ answer.value }})</span>
+                </td>
             </tr>
         </table>
         <div class="form-actions">

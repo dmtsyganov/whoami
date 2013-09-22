@@ -1,97 +1,104 @@
 <office-desk></office-desk>
 <div class="interview-panel">
-    <h4>Пользователь</h4>
+  <h4>Пользователь</h4>
 
-    <form name="userForm" novalidate class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="name">имя(логин)</label>
-            <div class="controls">
-                <input ng-model="user.login" class="input-xxlarge" id="name" readonly>
-            </div>
-        </div>
+<!--
+  <span class="pull-right"><button type="button" class="btn btn-small" ng-click="hideUser()">
+    <i class="icon-plus-sign" ng-show="isHideUser"></i><i class="icon-minus" ng-hide="isHideUser"></i></button></span>
+-->
 
-        <div class="control-group">
-            <label class="control-label" for="password">пароль</label>
-            <div class="controls">
-                <input type='password' ng-model="user.password" class="input-xxlarge" id="password" required>
+  <form name="userForm" novalidate class="form-horizontal" ng-hide="isHideUser">
+    <div class="control-group">
+      <label class="control-label" for="name">имя(логин)</label>
+
+      <div class="controls">
+        <input ng-model="user.login" class="input-xxlarge" id="name" readonly>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="password">пароль</label>
+
+      <div class="controls">
+        <input type='password' ng-model="user.password" class="input-xxlarge" id="password" required>
 	        <span class='help-inline' ng-show='userForm.password.$valid'>
 	          <i class='icon-ok'></i>
 	        </span>
-            </div>
-        </div>
+      </div>
+    </div>
 
-<!--
-        <div class='control-group'>
-            <label class="control-label" for='password_confirmation'>подтвердите</label>
-            <div class='controls'>
-                <input type='password' id='password_confirmation' required class="input-xxlarge"
-                       name='password_confirmation' same-as='userForm.password' ng-model='password_confirmation'>
-	        <span class='help-inline' ng-show='userForm.password_confirmation.$valid'>
-	          <i class='icon-ok'></i>
-	        </span>
+    <!--
+            <div class='control-group'>
+                <label class="control-label" for='password_confirmation'>подтвердите</label>
+                <div class='controls'>
+                    <input type='password' id='password_confirmation' required class="input-xxlarge"
+                           name='password_confirmation' same-as='userForm.password' ng-model='password_confirmation'>
+              <span class='help-inline' ng-show='userForm.password_confirmation.$valid'>
+                <i class='icon-ok'></i>
+              </span>
+                </div>
             </div>
-        </div>
--->
+    -->
 
-        <div class="control-group">
-            <label class="control-label" for="fullName">полное имя</label>
-            <div class="controls">
-                <input ng-model="user.profile.fullName" class="input-xxlarge" id="fullName" focus>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="email">почта</label>
-            <div class="controls">
-                <input type='email' ng-model="user.profile.email" class="input-xxlarge" id="email">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="age">возраст</label>
-            <div class="controls">
-                <input type='number' min='0' ng-model="user.profile.age" class="input-xxlarge" id="age">
-            </div>
-        </div>
+    <div class="control-group">
+      <label class="control-label" for="fullName">полное имя</label>
 
-        <div class="form-actions">
-            <button class="btn btn-primary"
-                    ng-disabled="userForm.$invalid"
-                    ng-click="update()">Обновить</button>
-        </div>
-    </form>
+      <div class="controls">
+        <input ng-model="user.profile.fullName" class="input-xxlarge" id="fullName" focus>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="email">почта</label>
+
+      <div class="controls">
+        <input type='email' ng-model="user.profile.email" class="input-xxlarge" id="email">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="age">возраст</label>
+
+      <div class="controls">
+        <input type='number' min='0' ng-model="user.profile.age" class="input-xxlarge" id="age">
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary"
+              ng-disabled="userForm.$invalid"
+              ng-click="update()">Обновить
+      </button>
+    </div>
+  </form>
 
 </div>
 
 <div class="interview-panel">
-    <h4>Вам доступны следующие интервью</h4>
+  <h4>Вам доступны следующие интервью</h4>
 
+  <form naem="interviewForm" novalidate class="form-horizontal">
     <table class='table table-hover table-striped'>
-        <tr>
-            <th>Название</th><th>Описание</th><th>Статус</th>
-        </tr>
-        <tr ng-repeat="template in templates">
-            <td>{{ template.name }}</td>
-            <td>{{ template.description }}</td>
-            <td>
-                <span ng-show="isNew($index)"><button type="button"
-                        class="btn btn-mini"
-                        ng-click="startInterview($index)">Начать</button></span>
-                <span ng-hide="isNew($index)"><button type="button"
-                        class="btn btn-mini"
-                        ng-click="continueInterview($index)">Продолжить</button>
-                <button type="button"
-                        class="btn btn-mini"
-                        ng-click="viewResults($index)">Посмотреть</button></span>
-
-            </td>
-        </tr>
+      <tr>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Действие</th>
+      </tr>
+      <tr ng-repeat="template in templates">
+        <td>{{ template.name }}</td>
+        <td>{{ template.description }}</td>
+        <td>
+          <span ng-show="isNew($index)"><button type="button"
+                                                class="btn btn-mini"
+                                                ng-click="startInterview($index)">Начать
+          </button></span>
+          <span ng-hide="isNew($index)"><button type="button"
+                                                class="btn btn-mini"
+                                                ng-click="continueInterview($index)">Продолжить
+          </button></span>
+        </td>
+      </tr>
     </table>
-
-<!--
-    <form ng-submit="toResults()" class="form-horizontal">
-        <div class="form-actions">
-            <button class="btn btn-primary">Посмотретъ ресзультаты</button>
-        </div>
-    </form>
--->
-
+    <div class="form-actions">
+      <button class="btn btn-primary" ng-click="showResults()">Посмотретъ ресзультаты</button>
+    </div>
+  </form>
 </div>

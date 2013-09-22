@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('whoamiApp', ['ui.bootstrap', 'whoamiApp.userServices', 'whoamiApp.interviewServices']);
+var myApp = angular.module('whoamiApp', ['ui.bootstrap', 'googlechart', 'whoamiApp.userServices', 'whoamiApp.interviewServices']);
 
 myApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -31,8 +31,13 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'views/interview.html',
             controller: 'InterviewCtrl'
         })
-        .when('/result', {
+        .when('/result/:userId', {
             templateUrl: 'views/result.html',
+            resolve: {
+                results: function(LoadResults) {
+                    return LoadResults();
+                }
+            },
             controller: 'ResultCtrl'
         })
         .when('/login', {

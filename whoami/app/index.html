@@ -30,14 +30,14 @@
     <div class="container">
         <div class="navbar" ng-controller="NavigationCtrl">
             <div class="navbar-inner">
-                <a class="brand" href="#/">Кабинет психолога</a>
+                <a class="brand" href="#/">Кабинет психографии</a>
                 <ul class="nav">
                     <!--
                                         <li ng-class="{active: routeIs('/')}"><a href="#/">Начало</a></li>
                     -->
                     <li ng-class="{active: routeIs('/user')}"><a href="#/user/0">Пользователь</a></li>
                     <li ng-class="{active: routeIs('/interview')}"><a href="#/interview">Интервью</a></li>
-                    <li ng-class="{active: routeIs('/result')}"><a href="#/result">Результаты</a></li>
+                    <li ng-class="{active: routeIs('/result')}"><a href="#/result/0">Результаты</a></li>
                 </ul>
 
 <!--
@@ -56,6 +56,7 @@
 
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
@@ -80,6 +81,8 @@
         <script src="scripts/services/localStorage.js"></script>
         <script src="scripts/services/CurrentInterview.js"></script>
         <script src="scripts/controllers/question.js"></script>
+        <script src="scripts/controllers/resultchart.js"></script>
+        <script src="scripts/services/alltraits.js"></script>
         <!-- endbuild -->
 </body>
 </html>

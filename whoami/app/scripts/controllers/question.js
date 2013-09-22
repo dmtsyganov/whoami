@@ -4,31 +4,16 @@ myApp
     .controller('QuestionCtrl', ['$scope', function ($scope) {
 
         $scope.isYesNo = function (index) {
-            return $scope.interview.answers[index].valueType === 'YES_NO';
+            return $scope.answers[index].valueType === 'YES_NO';
         };
 
         $scope.isScore = function (index) {
-            return $scope.interview.answers[index].valueType === 'SCORE';
+            return $scope.answers[index].valueType === 'SCORE';
         };
 
-        /*
-         <td>{{answer.trait}}</td>
-         <td>{{answer.type}}</td>
-         <td>{{answer.valueEffect}}</td>
-         */
-
-        $scope.onYes = function (index) {
-            $scope.interview.answers[index].value = 1;
-        };
-
-        $scope.onNo = function (index) {
-            $scope.interview.answers[index].value = 0;
-        };
-
-//        $scope.radioValue = 1;
-        $scope.onClick = function (index) {
-//            $scope.interview.answers[index].value = $scope.radioValue;
-        };
+        $scope.isNullOrUndefined = function (value) {
+            return (angular.isUndefined(value) || value === null);
+        }
 
         $scope.rate = 0;
         $scope.max = 7;
