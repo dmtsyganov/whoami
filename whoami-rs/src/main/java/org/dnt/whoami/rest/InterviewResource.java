@@ -252,10 +252,14 @@ public class InterviewResource {
             results.add(Calculator.calcInterviewResult(interview));
         }
 
+        // Now calculate the total
+        Result theResult = Calculator.calculateResult(results);
+/*
         GenericEntity<List<InterviewResult>> entity = new GenericEntity<List<InterviewResult>>(results) {
         };
+*/
 
-        return Response.ok(entity).build();
+        return Response.ok(theResult).build();
     }
 
     @GET

@@ -4,10 +4,7 @@ import org.dnt.whoami.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The Calculator class. Calculates interview scores.
@@ -18,6 +15,11 @@ import java.util.Map;
 public final class Calculator {
     private final static Logger logger = LoggerFactory.getLogger(Calculator.class);
 
+    /**
+     * Calculate results for an interview
+     * @param interview {@link Interview}
+     * @return {@link InterviewResult}
+     */
     public static InterviewResult calcInterviewResult(Interview interview) {
 
         Map<PersonalityTrait, TraitScore> indirectScores = new HashMap<PersonalityTrait, TraitScore>();
@@ -71,9 +73,66 @@ public final class Calculator {
         return new InterviewResult(interview.getUserId().toString(),
                 interview.getTemplateId().toString(),
                 interview.getId(),
+                interview.getName(),
                 totalIndirectScores,
                 directScores,
                 isComplete);
+    }
+
+    /**
+     * Calculates overall result and coefficient of concordance
+     *
+     * @param interviewResults {@link InterviewResult} list
+     * @return {@link Result}
+     */
+    public static Result calculateResult(List<InterviewResult> interviewResults) {
+
+        // get user id from the firs one
+        String userId = "";
+        if(interviewResults.size() > 0 ) {
+            userId = interviewResults.get(0).getUserId();
+        }
+
+        EnumSet<PersonalityTrait> allTraits = EnumSet.allOf(PersonalityTrait.class);
+        EnumMap<PersonalityTrait, TraitScore> indirect = new EnumMap<PersonalityTrait, TraitScore>(PersonalityTrait.class);
+        EnumMap<PersonalityTrait, TraitScore> direct = new EnumMap<PersonalityTrait, TraitScore>(PersonalityTrait.class);
+
+        for(InterviewResult result: interviewResults) {
+
+            for(TraitScore indirectScore : result.getIndirectScores()) {
+                indirect.put(indirectScore.getTrait(), indirectScore);
+            }
+
+            for(TraitScore directScore : result.getDirectScores()) {
+                direct.put(directScore.getTrait(), directScore);
+            }
+        }
+
+        // calculate coefficient of concordance
+        double coefficient = 0.0;
+        for(PersonalityTrait trait: allTraits) {
+            TraitScore d = direct.get(trait);
+            if(d == null) {
+                // put 0 score
+                d =  new TraitScore(trait, 0);
+                direct.put(trait, d);
+            }
+
+            TraitScore ind = indirect.get(trait);
+            if(ind == null) {
+                // put 0 score
+                ind = new TraitScore(trait, 0);
+                indirect.put(trait, ind);
+            }
+
+            coefficient += Math.abs(d.getScore() - ind.getScore());
+        }
+
+        List<TraitScore> indirectScores = new ArrayList<TraitScore>(indirect.values());
+        List<TraitScore> directScores = new ArrayList<TraitScore>(direct.values());
+
+        return new Result(userId, interviewResults, directScores, indirectScores, coefficient);
+
     }
 
     private static Integer getScore(Answer answer) {

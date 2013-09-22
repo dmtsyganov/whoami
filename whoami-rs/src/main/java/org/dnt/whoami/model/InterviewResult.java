@@ -15,6 +15,7 @@ public class InterviewResult {
     private String userId;
     private String interviewTemplateId;
     private String interviewId;
+    private String interviewName;
     private List<TraitScore> indirectScores;
     private List<TraitScore> directScores;
     private boolean complete;
@@ -25,12 +26,14 @@ public class InterviewResult {
     public InterviewResult(String userId,
                            String interviewTemplateId,
                            String interviewId,
+                           String interviewName,
                            List<TraitScore> indirectScores,
                            List<TraitScore> directScores,
                            boolean complete) {
         this.userId = userId;
         this.interviewTemplateId = interviewTemplateId;
         this.interviewId = interviewId;
+        this.interviewName = interviewName;
         this.indirectScores = indirectScores;
         this.directScores = directScores;
         this.complete = complete;
@@ -58,6 +61,14 @@ public class InterviewResult {
 
     public void setInterviewId(String interviewId) {
         this.interviewId = interviewId;
+    }
+
+    public String getInterviewName() {
+        return interviewName;
+    }
+
+    public void setInterviewName(String interviewName) {
+        this.interviewName = interviewName;
     }
 
     public List<TraitScore> getIndirectScores() {
@@ -90,6 +101,7 @@ public class InterviewResult {
                 "userId='" + userId + '\'' +
                 ", interviewTemplateId='" + interviewTemplateId + '\'' +
                 ", interviewId='" + interviewId + '\'' +
+                ", interviewName='" + interviewName + '\'' +
                 ", indirectScores=" + indirectScores +
                 ", directScores=" + directScores +
                 ", complete=" + complete +

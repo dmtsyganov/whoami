@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -150,5 +151,11 @@ public class TestInterviewDao extends TestBase {
                 Assert.fail("Unexpected trait!");
             }
         }
+
+        Result results = Calculator.calculateResult(Collections.singletonList(result));
+        Assert.assertEquals("Same user id", result.getUserId(), results.getUserId());
+        Assert.assertEquals("Must have 18 indirect traits scores", 18, results.getIndirectScores().size());
+        Assert.assertEquals("Must have 18 direct traits scores", 18, results.getDirectScores().size());
+        Assert.assertTrue("Must have positive coefficient", results.getCoefficientOfConcordance() > 0);
     }
 }
