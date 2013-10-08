@@ -32,6 +32,17 @@
 
 <!--
     <servlet>
+        <servlet-name>Default</servlet-name>
+        <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>relativeResourceBase</param-name>
+            <param-value>/app</param-value>
+        </init-param>
+    </servlet>
+-->
+
+<!--
+    <servlet>
         <display-name>Who Am I Application</display-name>
         <servlet-name>org.dnt.whoami.WhoamiApplication</servlet-name>
         <load-on-startup>1</load-on-startup>
@@ -46,6 +57,15 @@
         <servlet-name>Who Am I Application</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+
+<!--
+    <servlet-mapping>
+        <servlet-name>Default</servlet-name>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+-->
 
 
     <listener>
