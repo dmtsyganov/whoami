@@ -1,9 +1,7 @@
 <office-desk></office-desk>
 
 <div class="interview-panel">
-    <h4>Интервью</h4>
-
-    <h5>{{interview.name}}</h5>
+    <h4>{{interview.name}}</h4>
     <textarea class="input-xxlarge" readonly>{{interview.description}}</textarea>
     <form name="templateForm" class="form-horizontal" ng-controller="QuestionCtrl">
         <table class='table table-hover table-striped'>
@@ -25,6 +23,7 @@
                     <rating value="answer.value" max="max" readonly="false"></rating>
                 </td>
                 <td><span ng-show="!isNullOrUndefined(answer.value)" class="icon-ok"></span>
+                    <span ng-show="isNullOrUndefined(answer.value)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <span ng-show="isScore($index)">({{ answer.value }})</span>
                 </td>
             </tr>

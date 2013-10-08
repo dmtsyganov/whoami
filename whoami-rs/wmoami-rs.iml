@@ -32,8 +32,14 @@
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.11" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.9.11" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-xc:1.9.11" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.11.1" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.0.5.v20130815" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.0.5.v20130815" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.0.5.v20130815" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:9.0.5.v20130815" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:9.0.5.v20130815" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.0.5.v20130815" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.11.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.morphia:morphia:0.102" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.morphia:morphia-logging-slf4j:0.102" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />

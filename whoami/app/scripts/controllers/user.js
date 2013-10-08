@@ -42,8 +42,8 @@ myApp
             };
 
             // work with the interviews
-            $scope.isNew = function (index) {
-                var templateId = $scope.templates[index].id;
+            $scope.isNew = function (id) {
+                var templateId = id;
 
                 for (var i = 0; i < $scope.interviews.length; i++) {
                     if ($scope.interviews[i].templateId === templateId) {
@@ -64,8 +64,8 @@ myApp
             };
 
             // Create new interview and start it
-            $scope.startInterview = function (index) {
-                var templateId = $scope.templates[index].id;
+            $scope.startInterview = function (id) {
+                var templateId = id;
                 var userId = $scope.user.id;
                 //console.log("start new for user " + userId + " and template " + templateId.toString());
 
@@ -94,8 +94,8 @@ myApp
             };
 
             // continue with this interview
-            $scope.continueInterview = function (index) {
-                var templateId = $scope.templates[index].id;
+            $scope.continueInterview = function (id) {
+                var templateId = id;
                 var userId = $scope.user.id;
                 var interview = findInterview(templateId);
                 //console.log("Continue with user/template/interview " + userId + "/" + templateId + "/" + interview.id);
