@@ -9,7 +9,7 @@ import com.google.code.morphia.Key;
  * @author dima
  * @since 8/19/13 12:20 AM
  */
-public abstract class AbstractDaoCrud<T> implements DaoCrud<T>{
+public abstract class AbstractDaoCrud<T> implements DaoCrud<T> {
 
     protected final Datastore ds;
 

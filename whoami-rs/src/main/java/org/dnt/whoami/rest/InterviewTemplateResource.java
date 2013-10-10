@@ -2,7 +2,6 @@ package org.dnt.whoami.rest;
 
 import com.google.code.morphia.Key;
 import com.mongodb.MongoException;
-import org.bson.types.ObjectId;
 import org.dnt.whoami.dao.InterviewTemplateDao;
 import org.dnt.whoami.model.InterviewTemplate;
 import org.dnt.whoami.model.Question;
@@ -13,7 +12,6 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -41,11 +39,11 @@ public class InterviewTemplateResource {
     public Response getTemplates(@DefaultValue("false") @QueryParam("active") boolean active) {
         List<InterviewTemplate> templates = interviewTemplateDao.find(null);
 
-        if(active == true) {
+        if (active == true) {
             // remove inactive
             Iterator<InterviewTemplate> it = templates.listIterator();
-            while(it.hasNext()) {
-                if(!it.next().isActive()) {
+            while (it.hasNext()) {
+                if (!it.next().isActive()) {
                     it.remove();
                 }
             }
@@ -73,7 +71,7 @@ public class InterviewTemplateResource {
 
     @POST
     public Response setTemplate(InterviewTemplate template) {
-        if(template.getObjectId() == null) {
+        if (template.getObjectId() == null) {
             Key<InterviewTemplate> key;
             try {
                 key = interviewTemplateDao.create(template);
@@ -102,7 +100,7 @@ public class InterviewTemplateResource {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
 
-            logger.debug("Interview template updated {}", template);
+            logger.debug("Interview template updated with id {}", template.getId());
             return Response.noContent().build();
         }
     }
@@ -110,7 +108,7 @@ public class InterviewTemplateResource {
     @POST
     @Path("/{id}")
     public Response updateTemplate(@PathParam("id") String id, InterviewTemplate template) {
-        if(template.getObjectId() == null) {
+        if (template.getObjectId() == null) {
             logger.error("Unable to update interview template {}", template);
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
@@ -119,7 +117,7 @@ public class InterviewTemplateResource {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
 
-            logger.debug("Interview template updated {}", template);
+            logger.debug("Interview template updated with id {}", template.getId());
             return Response.noContent().build();
         }
     }
@@ -148,12 +146,13 @@ public class InterviewTemplateResource {
 
         if (interviewTemplate != null) {
             List<Question> questions = interviewTemplate.getQuestions();
-            if(questions != null) {
+            if (questions != null) {
                 GenericEntity<List<Question>> entity = new GenericEntity<List<Question>>(questions) {
                 };
                 return Response.ok(entity).build();
             } else {
-                return Response.ok(new GenericEntity<List<Question>>(Collections.<Question>emptyList()){}).build();
+                return Response.ok(new GenericEntity<List<Question>>(Collections.<Question>emptyList()) {
+                }).build();
             }
         }
 

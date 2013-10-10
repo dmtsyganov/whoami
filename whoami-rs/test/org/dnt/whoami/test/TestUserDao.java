@@ -4,6 +4,7 @@ import junit.framework.Assert;
 import org.bson.types.ObjectId;
 import org.dnt.whoami.dao.DaoClient;
 import org.dnt.whoami.dao.UserDao;
+import org.dnt.whoami.model.Gender;
 import org.dnt.whoami.model.UserProfile;
 import org.dnt.whoami.model.UserRecord;
 import org.dnt.whoami.model.UserRole;
@@ -95,7 +96,7 @@ public class TestUserDao extends TestBase {
 
         Assert.assertNull("Must NOT contain the profile", records.getProfile());
 
-        UserProfile profile = new UserProfile("Profile User", "profile@sample.com", 33, Calendar.getInstance().getTime(), null);
+        UserProfile profile = new UserProfile("Profile User", "profile@sample.com", 33, Gender.M, Calendar.getInstance().getTime(), null);
         records.setProfile(profile);
         dao.update(records);
 

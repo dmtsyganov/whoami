@@ -4,14 +4,13 @@ import com.google.code.morphia.Datastore;
 import com.google.code.morphia.mapping.Mapper;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.UpdateResults;
-import org.bson.types.ObjectId;
 import org.dnt.whoami.model.InterviewTemplate;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * TODO: add class description here
+ * The Interview Template dao interface class
  *
  * @author dima
  * @since 8/11/13 4:40 AM

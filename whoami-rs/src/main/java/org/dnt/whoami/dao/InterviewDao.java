@@ -4,14 +4,13 @@ import com.google.code.morphia.Datastore;
 import com.google.code.morphia.mapping.Mapper;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.UpdateResults;
-import org.bson.types.ObjectId;
 import org.dnt.whoami.model.Interview;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * TODO: add class description here
+ * The Interview dao interface class
  *
  * @author dima
  * @since 8/18/13 7:26 AM
@@ -27,7 +26,7 @@ public class InterviewDao extends AbstractDaoCrud<Interview> {
         if (interviewTemplate == null) {
             // return all records
             Query<Interview> q = ds.find(Interview.class);
-            if(q != null) {
+            if (q != null) {
                 return q.asList();
             }
         }
@@ -56,7 +55,7 @@ public class InterviewDao extends AbstractDaoCrud<Interview> {
 
     public Interview findInterview(String userId, String templateId) {
         Query<Interview> q = ds.createQuery(Interview.class);
-        q.and(q.criteria("userId").equal(userId),q.criteria("templateId").equal(templateId));
+        q.and(q.criteria("userId").equal(userId), q.criteria("templateId").equal(templateId));
         return q.get();
     }
 

@@ -7,13 +7,15 @@ import java.util.List;
 /**
  * This is basic CRUD interface to access and manipulate data in the data store.
  * It provides Create, Read, Update, Delete methods and Find to perform queries.
+ *
  * @author dima
- * @since  5/25/13 3:56 PM
+ * @since 5/25/13 3:56 PM
  */
 public interface DaoCrud<T> {
 
     /**
      * Creates new record, assigns object id
+     *
      * @param object new object to save
      * @return saved object Key
      */
@@ -21,6 +23,7 @@ public interface DaoCrud<T> {
 
     /**
      * Reads one record from the database tha matches the template. Template must have ObjectId.
+     *
      * @param objectTemplate
      * @return object from the database with all fields filled
      */
@@ -28,6 +31,7 @@ public interface DaoCrud<T> {
 
     /**
      * Finds records in the database that matches template. If template is null, all objects from the database returned.
+     *
      * @param objectTemplate
      * @return List of matched objects
      */
@@ -35,6 +39,7 @@ public interface DaoCrud<T> {
 
     /**
      * Updates existing record in the database with values from passed object
+     *
      * @param object
      * @return
      */
@@ -42,6 +47,7 @@ public interface DaoCrud<T> {
 
     /**
      * Deletes object from the database that matches template parameters
+     *
      * @param objectTemplate
      * @return deleted object
      */

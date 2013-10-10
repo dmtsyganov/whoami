@@ -222,7 +222,7 @@ public class InterviewResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        logger.debug("Interview updated id {}", interview.getObjectId().toString());
+       logger.debug("Interview updated id {}", interview.getObjectId().toString());
 
         return Response.noContent().build();
     }
@@ -254,10 +254,6 @@ public class InterviewResource {
 
         // Now calculate the total
         Result theResult = Calculator.calculateResult(results);
-/*
-        GenericEntity<List<InterviewResult>> entity = new GenericEntity<List<InterviewResult>>(results) {
-        };
-*/
 
         return Response.ok(theResult).build();
     }

@@ -17,7 +17,7 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <jersey.version>2.2</jersey.version>
         <jetty.version>9.0.5.v20130815</jetty.version>
-        <project.final.name>whoami</project.final.name>
+        <project.final.name>whoami-rs</project.final.name>
     </properties>
 
 

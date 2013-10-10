@@ -18,16 +18,18 @@ public class UserProfile {
     private String fullName;
     private String email;
     private int age;
+    private Gender gender;
     private Date dateCreated;
     private Date dateUpdated;
 
     public UserProfile() {
     }
 
-    public UserProfile(String fullName, String email, int age, Date dateCreated, Date dateUpdated) {
+    public UserProfile(String fullName, String email, int age, Gender gender, Date dateCreated, Date dateUpdated) {
         this.fullName = fullName;
         this.email = email;
         this.age = age;
+        this.gender = gender;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
     }
@@ -56,6 +58,14 @@ public class UserProfile {
         this.age = age;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     public Date getDateCreated() {
         return dateCreated;
     }
@@ -78,6 +88,7 @@ public class UserProfile {
                 "fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
+                ", gender=" + gender +
                 ", dateCreated=" + dateCreated +
                 ", dateUpdated=" + dateUpdated +
                 '}';

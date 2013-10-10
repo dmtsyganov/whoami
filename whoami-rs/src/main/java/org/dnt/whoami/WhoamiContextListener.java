@@ -12,7 +12,7 @@ import javax.servlet.ServletContextListener;
 import java.net.UnknownHostException;
 
 /**
- * TODO: add class description here
+ * The Context Listener class, initialises the service on start-up
  *
  * @author dima
  * @since 8/4/13 9:04 PM

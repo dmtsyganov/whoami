@@ -10,9 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * TODO: add class description
+ * The User dao interface class
+ *
  * @author dima
- * @since  5/25/13 3:56 PM
+ * @since 5/25/13 3:56 PM
  */
 public class UserDao extends AbstractDaoCrud<UserRecord> {
 
@@ -27,13 +28,13 @@ public class UserDao extends AbstractDaoCrud<UserRecord> {
             // return all records
             Query<UserRecord> q = ds.find(UserRecord.class);
 
-            if(q != null) {
+            if (q != null) {
                 return q.asList();
             }
         } else if (objectTemplate.getLogin() != null) {
             // return record by unique login name
             Query<UserRecord> q = ds.find(UserRecord.class).field("login").equal(objectTemplate.getLogin());
-            if(q != null) {
+            if (q != null) {
                 return q.asList();
             }
         }

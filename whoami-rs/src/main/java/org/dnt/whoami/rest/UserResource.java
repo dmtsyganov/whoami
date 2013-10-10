@@ -139,7 +139,7 @@ public class UserResource {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
 
-            logger.debug("User updated {}", user);
+            logger.debug("User updated with id {}", user.getId());
             return Response.noContent().build();
         }
     }
@@ -156,7 +156,7 @@ public class UserResource {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
 
-            logger.debug("User updated {}", userRecord);
+            logger.debug("User updated with id {}", userRecord.getId());
             return Response.noContent().build();
         }
     }
@@ -221,7 +221,7 @@ public class UserResource {
             URI uri = UriBuilder.fromUri(uriString.toString()).build();
             return Response.created(uri).entity(id).build();
         } else {
-            logger.debug("Profile updated {}", profile);
+            logger.debug("Profile updated for user with id {}", id);
             return Response.noContent().build();
         }
     }

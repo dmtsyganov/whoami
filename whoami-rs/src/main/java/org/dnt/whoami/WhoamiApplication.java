@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 
 /**
- * TODO: add class description here
+ * The main service application class
  *
  * @author dima
  * @since 8/4/13 1:42 PM
@@ -44,6 +44,11 @@ public class WhoamiApplication extends ResourceConfig {
         Injections.addBinding(
                 Injections.newBinder(DaoClient.Instance.getUserDao())
                         .to(UserDao.class),
+                dc);
+
+        Injections.addBinding(
+                Injections.newBinder(DaoClient.Instance.getDictionaryDao())
+                        .to(DictionaryDao.class),
                 dc);
 
         // commits changes
