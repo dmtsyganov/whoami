@@ -23,10 +23,6 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             },
             controller: 'UserCtrl'
         })
-        .when('/profile', {
-            templateUrl: 'views/profile.html',
-            controller: 'ProfileCtrl'
-        })
         .when('/interview', {
             templateUrl: 'views/interview.html',
             controller: 'InterviewCtrl'

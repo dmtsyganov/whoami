@@ -12,6 +12,20 @@ myApp
             $scope.interviews = interviews;
             $scope.isHideUser = false;
 
+            // user gender
+            var Gender = [
+                {
+                    name: 'мужской',
+                    value: 'M'
+                },
+                {
+                    name: 'женский',
+                    value: 'F'
+                }
+            ];
+
+            $scope.uGender = Gender;
+
             $scope.hideUser = function() {
                 $scope.isHideUser = !$scope.isHideUser;
             }
@@ -26,6 +40,7 @@ myApp
                     user.profile.fullName = $scope.user.profile.fullName;
                     user.profile.email = $scope.user.profile.email;
                     user.profile.age = $scope.user.profile.age;
+                    user.profile.gender = $scope.user.profile.gender;
                     user.profile.dateUpdated = new Date();
 
                     user.$save({id: $scope.user.id, login: null, password: null}, function (user) {

@@ -61,6 +61,13 @@
         <input type='number' min='0' ng-model="user.profile.age" class="input-xxlarge" id="age">
       </div>
     </div>
+      <div class="control-group">
+          <label class="control-label" for="gender">пол</label>
+          <div class="controls">
+              <select ng-model="user.profile.gender" class="input-xxlarge"
+                      ng-options="g.value as g.name for g in uGender" id="gender"></select>
+          </div>
+      </div>
 
     <div class="form-actions">
       <button class="btn btn-primary"
@@ -80,17 +87,11 @@
       <tr>
         <th>#</th>
         <th>Название</th>
-<!--
-        <th>Описание</th>
--->
         <th>Действие</th>
       </tr>
       <tr ng-repeat="template in templates | orderBy:'order'">
         <td>{{ $index+1 }}</td>
         <td>{{ template.name }}</td>
-<!--
-        <td>{{ template.description }}</td>
--->
         <td>
           <span ng-show="isNew(template.id)"><button type="button"
                                                 class="btn btn-mini"

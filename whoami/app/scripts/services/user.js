@@ -17,7 +17,8 @@ services.factory('CurrentUser', ['$rootScope', function ($rootScope) {
         profile: {
             fullName: null,
             email: null,
-            age: null
+            age: null,
+            gender: null
         }
     };
 
@@ -56,6 +57,7 @@ services.factory('LoadUser', ['User', 'CurrentUser', '$route', '$q', '$rootScope
                         CurrentUser.profile.fullName = user.profile.fullName;
                         CurrentUser.profile.email = user.profile.email;
                         CurrentUser.profile.age = user.profile.age;
+                        CurrentUser.profile.gender = user.profile.gender;
                     }
 
                     deferred.resolve(user);
