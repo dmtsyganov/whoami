@@ -3,7 +3,7 @@ package org.dnt.whoami.dao;
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
 import com.mongodb.MongoClient;
-import org.dnt.whoami.model.DictionaryRecord;
+import org.dnt.whoami.model.GlossaryRecord;
 import org.dnt.whoami.model.Interview;
 import org.dnt.whoami.model.InterviewTemplate;
 import org.dnt.whoami.model.UserRecord;
@@ -24,7 +24,7 @@ public enum DaoClient {
     private Datastore ds;
 
     private UserDao userDao;
-    private DictionaryDao dictionaryDao;
+    private GlossaryDao glossaryDao;
     private InterviewTemplateDao interviewTemplateDao;
     private InterviewDao interviewDao;
 
@@ -35,7 +35,7 @@ public enum DaoClient {
         morphia.map(UserRecord.class);
         morphia.map(InterviewTemplate.class);
         morphia.map(Interview.class);
-        morphia.map(DictionaryRecord.class);
+        morphia.map(GlossaryRecord.class);
 
         ds = morphia.createDatastore(client, datastoreName);
         ds.ensureIndexes(); //creates all defined with @Indexed
@@ -49,11 +49,11 @@ public enum DaoClient {
         return userDao;
     }
 
-    synchronized public DictionaryDao getDictionaryDao() {
-        if (dictionaryDao == null) {
-            dictionaryDao = new DictionaryDao(ds);
+    synchronized public GlossaryDao getGlossaryDao() {
+        if (glossaryDao == null) {
+            glossaryDao = new GlossaryDao(ds);
         }
-        return dictionaryDao;
+        return glossaryDao;
     }
 
     synchronized public InterviewTemplateDao getInterviewTemplateDao() {

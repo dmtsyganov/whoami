@@ -47,8 +47,8 @@ public class WhoamiApplication extends ResourceConfig {
                 dc);
 
         Injections.addBinding(
-                Injections.newBinder(DaoClient.Instance.getDictionaryDao())
-                        .to(DictionaryDao.class),
+                Injections.newBinder(DaoClient.Instance.getGlossaryDao())
+                        .to(GlossaryDao.class),
                 dc);
 
         // commits changes

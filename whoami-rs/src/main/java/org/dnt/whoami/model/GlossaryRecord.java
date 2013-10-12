@@ -9,28 +9,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * The Dictionary Record, represents entry in a dictionary
+ * The Glossary Record, represents a term and a definition in a glossary
  *
  * @author dima
  * @since 10/9/13 11:36 PM
  */
 @XmlRootElement
 @Entity(noClassnameStored = true)
-public class DictionaryRecord {
+public class GlossaryRecord {
 
     @Id
     private ObjectId id;
 
     @Indexed(unique = true)
-    private String entry;
+    private String term;
 
     private String definition;
 
-    public DictionaryRecord() {
+    public GlossaryRecord() {
     }
 
-    public DictionaryRecord(String entry, String definition) {
-        this.entry = entry;
+    public GlossaryRecord(String term, String definition) {
+        this.term = term;
         this.definition = definition;
     }
 
@@ -49,12 +49,12 @@ public class DictionaryRecord {
         }
     }
 
-    public String getEntry() {
-        return entry;
+    public String getTerm() {
+        return term;
     }
 
-    public void setEntry(String entry) {
-        this.entry = entry;
+    public void setTerm(String term) {
+        this.term = term;
     }
 
     public String getDefinition() {
@@ -67,9 +67,9 @@ public class DictionaryRecord {
 
     @Override
     public String toString() {
-        return "DictionaryRecord{" +
+        return "GlossaryRecord{" +
                 "id=" + id +
-                ", entry='" + entry + '\'' +
+                ", term='" + term + '\'' +
                 ", definition='" + definition + '\'' +
                 '}';
     }
