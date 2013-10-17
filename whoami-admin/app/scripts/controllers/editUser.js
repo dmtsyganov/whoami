@@ -27,7 +27,7 @@
               $scope.user.$save(function(user) {
                   $location.path('/viewUser/' + user.id);
               }, function(response) {
-                  var error = 'blah';
+                  console.log("Error: " + response)
               });
           };
 

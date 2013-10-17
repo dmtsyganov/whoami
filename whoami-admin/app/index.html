@@ -33,11 +33,9 @@
             <div class="navbar-inner">
                 <a class="brand" href="#/">Администратор</a>
                 <ul class="nav">
-<!--
-                    <li ng-class="{active: routeIs('/')}"><a href="#/">Начало</a></li>
--->
                     <li ng-class="{active: routeIs('/user')}"><a href="#/user">Пользователь</a></li>
                     <li ng-class="{active: routeIs('/interview')}"><a href="#/interview">Интервью</a></li>
+                    <li ng-class="{active: routeIs('/glossary')}"><a href="#/glossary">Глоссарий</a></li>
                 </ul>
 
                 <ul class="nav pull-right">
@@ -83,6 +81,8 @@
         <script src="scripts/filters/questiontypename.js"></script>
         <script src="scripts/filters/valuetypename.js"></script>
         <script src="scripts/filters/activename.js"></script>
+        <script src="scripts/controllers/glossary.js"></script>
+        <script src="scripts/services/glossary.js"></script>
         <!-- endbuild -->
 </body>
 </html>

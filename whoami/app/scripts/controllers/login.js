@@ -54,7 +54,7 @@ myApp
                 $location.path('/user/' + user.id);
             }, function (response) {
                 if (response.status === 409) {
-                    // forbidden
+                    // duplicate name
                     $scope.alerts.push({
                         type: 'error',
                         msg: "Пользователь с данным именем уже зарегистрирован!"

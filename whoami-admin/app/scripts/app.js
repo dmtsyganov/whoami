@@ -1,6 +1,7 @@
 'use strict';
 
-var myApp = angular.module('whoamiAdminApp', ['ui.bootstrap', 'whoamiAdminApp.services', 'whoamiAdminApp.userServices']);
+var myApp = angular.module('whoamiAdminApp',
+    ['ui.bootstrap', 'whoamiAdminApp.services', 'whoamiAdminApp.userServices', 'whoamiAdminApp.glossaryServices']);
 
 
   myApp.config(['$routeProvider', function ($routeProvider) {
@@ -67,6 +68,15 @@ var myApp = angular.module('whoamiAdminApp', ['ui.bootstrap', 'whoamiAdminApp.se
             }
         },
         controller: 'EditUserCtrl'
+      })
+      .when('/glossary', {
+        templateUrl: 'views/glossary.html',
+        resolve: {
+            glossary: function(LoadGlossary) {
+                return LoadGlossary();
+            }
+        },
+        controller: 'GlossaryCtrl'
       })
       .otherwise({
         redirectTo: '/'

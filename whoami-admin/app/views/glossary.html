@@ -1,0 +1,49 @@
+<div class="interview-panel">
+    <h4>Глоссарий</h4>
+    <div class="control-group">
+        <div class="controls">
+            <i class="icon-search"></i>
+            <input ng-model="searchTerm" id="termSearch"/>
+        </div>
+    </div>
+
+    <table class='table table-hover'>
+        <tr ng-repeat="term in glossary | filter:searchTerm | orderBy:'term'">
+            <td>{{ term.term }}</td>
+            <td>{{ term.definition }}</td>
+        </tr>
+    </table>
+
+
+    <form class="form-horizontal">
+        <div class="form-actions">
+            <button class="btn btn-primary" ng-click="showAdd()">Добавить Термин</button>
+        </div>
+    </form>
+
+    <!-- Add glossary term -->
+    <div collapse="!isAddTerm">
+        <form name="addForm" class="form-horizontal" novalidate>
+            <div class="control-group">
+                <label class="control-label" for="term">Термин</label>
+                <div class="controls">
+                    <input ng-model="newTerm.term" class="input-xxlarge" id="term" focus required/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="definition">Описание</label>
+                <div class="controls">
+                    <textarea ng-model="newTerm.definition" class="input-xxlarge" id="definition" focus required/>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn" ng-click="cancel()">Отменить</button>
+                <button class="btn btn-primary" ng-disabled="addForm.$invalid" ng-click="add()">Добавить</button>
+            </div>
+            <div>
+                <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+            </div>
+        </form>
+    </div>
+</div>
